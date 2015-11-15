@@ -64,7 +64,7 @@ public class LinearK9TeleOp extends LinearOpMode {
     neck = hardwareMap.servo.get("servo_1");
     jaw = hardwareMap.servo.get("servo_6");
 
-    motorLeft.setDirection(DcMotor.Direction.REVERSE);
+//    motorLeft.setDirection(DcMotor.Direction.REVERSE);
 
     // set the starting position of the wrist and neck
     neckPosition = 0.5;
@@ -80,31 +80,12 @@ public class LinearK9TeleOp extends LinearOpMode {
       float left  = throttle + direction;
 
       // clip the right/left values so that the values never exceed +/- 1
-      right = Range.clip(right, -1, 1);
-      left  = Range.clip(left,  -1, 1);
+  //    right = Range.clip(right, -1, 1);
+    //  left  = Range.clip(left,  -1, 1);
 
       // write the values to the motors
       motorRight.setPower(right);
       motorLeft.setPower(left);
-
-      // update the position of the neck
-      if (gamepad1.y) {
-        neckPosition -= neckDelta;
-      }
-
-      if (gamepad1.a) {
-        neckPosition += neckDelta;
-      }
-
-      // clip the position values so that they never exceed 0..1
-      neckPosition = Range.clip(neckPosition, 0, 1);
-
-      // set jaw position
-      jawPosition = 1 - Range.scale(gamepad1.right_trigger, 0.0, 1.0, 0.3, 1.0);
-
-      // write position values to the wrist and neck servo
-      neck.setPosition(neckPosition);
-      jaw.setPosition(jawPosition);
 
       telemetry.addData("Text", "K9TeleOp");
       telemetry.addData(" left motor", motorLeft.getPower());
