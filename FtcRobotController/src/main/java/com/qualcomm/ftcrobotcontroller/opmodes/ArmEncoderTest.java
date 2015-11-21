@@ -32,7 +32,7 @@ public class ArmEncoderTest extends OpMode {
     @Override
     public void loop() {
 
-        motor5.setTargetPosition((int) COUNTS);
+
 
         float extension = gamepad2.left_stick_y;
         float swing = gamepad2.right_stick_y;
