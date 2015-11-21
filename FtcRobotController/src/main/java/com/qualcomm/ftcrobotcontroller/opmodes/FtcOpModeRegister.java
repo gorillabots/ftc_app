@@ -70,6 +70,8 @@ manager.register("CompTele", CompTele.class);
       manager.register("teletest2half", teletest2half.class);
       manager.register("mountTest", mountTest.class);
       manager.register("JoyStickMountTest", JoyStickMountTest.class);
+      manager.register("CorkscrewTest", CorkscrewTest.class);
+      manager.register("PresserTester", PresserTester.class);
 
 
     /*
