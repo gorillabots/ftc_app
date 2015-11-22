@@ -88,9 +88,12 @@ above is the code that is used to drive the robot using the left and right stick
 /*
 Above is the the shifter for the drive train that allows the drive train to run at 4 different speeds with the default speed being .5
  */
+
+        motor5.setPower(gamepad2.left_stick_y);
+        motor6.setPower(gamepad2.right_stick_y);
+       /*
         boolean forward = gamepad2.right_bumper;
         float downward = gamepad2.right_trigger;
-
         boolean rotateOne = gamepad2.left_bumper;
         float rotateTwo = gamepad2.left_trigger;
         if (forward == true) {
@@ -116,7 +119,7 @@ Above is the the shifter for the drive train that allows the drive train to run 
         else{
             motor6.setPower(0.0);
         }
-
+*/
         /*
         above is the code for the arm. The arm can extend retract at maximum speed but the arm can only rotate at a maximum speed
         of 50%

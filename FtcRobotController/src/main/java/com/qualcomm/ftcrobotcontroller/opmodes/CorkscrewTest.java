@@ -68,20 +68,17 @@ public class CorkscrewTest extends OpMode {
             frontGo.setPosition(touchReturn);
         }
 
-        float blocker = 1;
-        if(frontGo.getPosition()== 1) {
+        double blocker = 1;
+        if(frontGo.getPosition()== 0.0) {
             blocker =1;
         }
         else{
-            blocker=0;
+            blocker=.0;
         }
 
         if(blocker == 1) {
-            pivot.setPosition(pivotMin);
-        }
-
-
-
+            pivot.setDirection(Servo.Direction.FORWARD);
+    }
 
 
 
