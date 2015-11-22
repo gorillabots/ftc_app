@@ -29,18 +29,28 @@ public class CorkscrewTest extends OpMode {
 
         boolean corkGo = gamepad2.left_bumper;
 
+
+        float pivotMin = -1;
+        float pivotMax = 1;
+        float corkRun = 1;
+
+
+
+
         if(pivotP == true) {
-            pivot.setPosition(1);
+            pivot.setPosition(pivotMax);
         }
 
         if(pivotB>= .75) {
-            pivot.setPosition(-1);
+            pivot.setPosition(pivotMin);
         }
 
         if(corkGo == true) {
-            screw.setPosition(1);
+            screw.setPosition(corkRun);
         }
 
+
     }
+
 
 }
