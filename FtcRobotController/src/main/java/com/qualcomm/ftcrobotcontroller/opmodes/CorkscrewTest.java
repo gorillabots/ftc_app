@@ -12,13 +12,16 @@ public class CorkscrewTest extends OpMode {
     Servo pivot;
     Servo screw;
     DcMotor motor1;
+    Servo backGo;
+    Servo frontGo;
     @Override
 
     public void init () {
 
         pivot =hardwareMap.servo.get("pivot");
         screw = hardwareMap.servo.get("screw");
-
+        backGo = hardwareMap.servo.get("backGo");
+        frontGo = hardwareMap.servo.get("frontGo");
 
     }
     @Override
@@ -48,6 +51,38 @@ public class CorkscrewTest extends OpMode {
         if(corkGo == true) {
             screw.setPosition(corkRun);
         }
+
+
+        boolean toucherEngage = gamepad1.a;
+        boolean toucherDisengage = gamepad1.b;
+
+
+        float touchGo = 1;
+        float touchReturn = -1;
+
+
+        if(toucherEngage == true) {
+            backGo.setPosition(touchGo);
+        }
+        if(toucherDisengage == true) {
+            frontGo.setPosition(touchReturn);
+        }
+
+        float blocker = 1;
+        if(frontGo.getPosition()== 1) {
+            blocker =1;
+        }
+        else{
+            blocker=0;
+        }
+
+        if(blocker == 1) {
+            pivot.setPosition(pivotMin);
+        }
+
+
+
+
 
 
     }
