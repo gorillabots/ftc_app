@@ -23,11 +23,15 @@ public class PresserTester extends OpMode {
         boolean toucherDisengage = gamepad1.b;
 
 
+        float touchGo = 1;
+        float touchReturn = -1;
+
+
         if(toucherEngage == true) {
-            backGo.setPosition(1);
+            backGo.setPosition(touchGo);
         }
         if(toucherDisengage == true) {
-            frontGo.setPosition(-1);
+            frontGo.setPosition(touchReturn);
         }
 
 
