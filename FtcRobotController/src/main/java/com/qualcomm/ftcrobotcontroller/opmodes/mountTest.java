@@ -57,10 +57,10 @@ public class mountTest extends OpMode {
         //boolean  speedThree = gamepad1.left_bumper;
         //float speedFour = gamepad1.left_trigger;
 
-        motor1.setPower((throttleLeft *drive* -1));
-        motor2.setPower((throttleLeft *drive* -1));
-        motor3.setPower((throttleRight*drive));
-        motor4.setPower((throttleRight*drive));
+        motor1.setPower((throttleLeft *drive));
+        motor2.setPower((throttleLeft *drive));
+        motor3.setPower((throttleRight*drive*-1));
+        motor4.setPower((throttleRight*drive*-1));
 
 
 

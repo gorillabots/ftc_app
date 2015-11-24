@@ -60,10 +60,10 @@ Above, in the init phase, we map all of the hardware.
         //boolean  speedThree = gamepad1.left_bumper;
         //float speedFour = gamepad1.left_trigger;
 
-        motor1.setPower((throttleLeft *drive* -1));
-        motor2.setPower((throttleLeft *drive* -1));
-        motor3.setPower((throttleRight*drive));
-        motor4.setPower((throttleRight*drive));
+        motor1.setPower((throttleLeft *drive));
+        motor2.setPower((throttleLeft *drive));
+        motor3.setPower((throttleRight*drive*-1));
+        motor4.setPower((throttleRight*drive*-1));
 
 
 /*
@@ -88,7 +88,7 @@ above is the code that is used to drive the robot using the left and right stick
 /*
 Above is the the shifter for the drive train that allows the drive train to run at 4 different speeds with the default speed being .5
  */
-        float armExtend = gamepad2.right_stick_y;
+float armExtend = gamepad2.right_stick_y;
         float armRotate = gamepad2.left_stick_y;
 
         motor5.setPower(armExtend);
