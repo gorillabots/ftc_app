@@ -88,11 +88,11 @@ above is the code that is used to drive the robot using the left and right stick
 /*
 Above is the the shifter for the drive train that allows the drive train to run at 4 different speeds with the default speed being .5
  */
-float armExtend = gamepad2.right_stick_y;
+        float armExtend = gamepad2.right_stick_y;
         float armRotate = gamepad2.left_stick_y;
 
         motor5.setPower(armExtend);
-        motor6.setPower(gamepad2.right_stick_y);
+        motor6.setPower(armExtend);
        /*
         boolean forward = gamepad2.right_bumper;
         float downward = gamepad2.right_trigger;
