@@ -35,6 +35,9 @@ public class PresserTester extends OpMode {
         }
 
 
+        telemetry.addData( "01", "pusher1: "+ frontGo.getPosition());
+        telemetry.addData( "02", "pusher2: "+ backGo.getPosition());
+
     }
 
 

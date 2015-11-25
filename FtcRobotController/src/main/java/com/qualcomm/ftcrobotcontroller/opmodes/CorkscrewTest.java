@@ -33,8 +33,8 @@ public class CorkscrewTest extends OpMode {
         boolean corkGo = gamepad2.left_bumper;
 
 
-        float pivotMin = -1;
-        float pivotMax = 1;
+        double pivotMin = 0.0;
+        double pivotMax = 255.0;
         float corkRun = 1;
 
 
@@ -48,8 +48,8 @@ public class CorkscrewTest extends OpMode {
             pivot.setPosition(pivotMin);
         }
 
-        if(corkGo == true) {
-            screw.setPosition(corkRun);
+        if(corkRun == 1) {
+            pivot.setDirection(Servo.Direction.FORWARD);
         }
 
 
@@ -67,7 +67,7 @@ public class CorkscrewTest extends OpMode {
         if(toucherDisengage == true) {
             frontGo.setPosition(touchReturn);
         }
-
+/*
         double blocker = 1;
         if(frontGo.getPosition()== 0.0) {
             blocker =1;
@@ -75,10 +75,10 @@ public class CorkscrewTest extends OpMode {
         else{
             blocker=.0;
         }
+*/
 
-        if(blocker == 1) {
-            pivot.setDirection(Servo.Direction.FORWARD);
-    }
+
+
 
 
 
