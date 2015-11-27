@@ -60,10 +60,10 @@ Above, in the init phase, we map all of the hardware.
         //boolean  speedThree = gamepad1.left_bumper;
         //float speedFour = gamepad1.left_trigger;
 
-        motor1.setPower((throttleLeft *drive));
-        motor2.setPower((throttleLeft *drive));
-        motor3.setPower((throttleRight*drive*-1));
-        motor4.setPower((throttleRight*drive*-1));
+        motor4.setPower((throttleLeft *drive));
+        motor3.setPower((throttleLeft *drive));
+        motor2.setPower((throttleRight*drive*-1));
+        motor1.setPower((throttleRight*drive*-1));
 
 
 /*

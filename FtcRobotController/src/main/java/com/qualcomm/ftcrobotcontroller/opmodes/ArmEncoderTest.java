@@ -2,6 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 
 /**
  * Created by Jarred on 11/21/2015.
@@ -27,7 +28,8 @@ public class ArmEncoderTest extends OpMode {
         motor5 = hardwareMap.dcMotor.get("motor5");
         motor6 = hardwareMap.dcMotor.get("motor6");
 
-
+        motor5.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motor6.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
     @Override
     public void loop() {
@@ -40,8 +42,15 @@ public class ArmEncoderTest extends OpMode {
         motor5.setPower(extension);
         motor6.setPower(swing);
 
+        float extensionValue = 14408*80;
+        if(motor5.getCurrentPosition( ) >= extensionValue) {
+            motor5.setPower(0.0);
+        }
+         else{
+                motor5.setPower(1);
+            }
 
-
+        }
 
     }
 
@@ -49,4 +58,4 @@ public class ArmEncoderTest extends OpMode {
 
 
 
-}
+

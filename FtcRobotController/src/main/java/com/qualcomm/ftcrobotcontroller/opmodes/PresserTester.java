@@ -23,8 +23,8 @@ public class PresserTester extends OpMode {
         boolean toucherDisengage = gamepad1.b;
 
 
-        float touchGo = 1;
-        float touchReturn = -1;
+        double touchGo =-.5;
+        double touchReturn = 0.0;
 
 
         if(toucherEngage == true) {
@@ -35,8 +35,9 @@ public class PresserTester extends OpMode {
         }
 
 
-        telemetry.addData( "01", "pusher1: "+ frontGo.getPosition());
-        telemetry.addData( "02", "pusher2: "+ backGo.getPosition());
+
+        telemetry.addData( "pusher1: ", frontGo.getPosition());
+        telemetry.addData( "pusher2: ", backGo.getPosition());
 
     }
 
