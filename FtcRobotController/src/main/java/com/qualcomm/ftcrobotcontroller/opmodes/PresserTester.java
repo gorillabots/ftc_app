@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class PresserTester extends OpMode {
     Servo backGo;
     Servo frontGo;
+    final double minPos = .9;
+    final double maxPos = .4;
 
 @Override
     public void init(){
@@ -23,16 +25,13 @@ public class PresserTester extends OpMode {
         boolean toucherDisengage = gamepad1.b;
 
 
-        double touchGo =-.5;
-        double touchReturn = 0.0;
-
-
-        if(toucherEngage == true) {
-            backGo.setPosition(touchGo);
-        }
         if(toucherDisengage == true) {
-            frontGo.setPosition(touchReturn);
+            frontGo.setPosition(maxPos);
         }
+        else if(toucherEngage == true) {
+            backGo.setPosition(minPos);
+        }
+
 
 
 
