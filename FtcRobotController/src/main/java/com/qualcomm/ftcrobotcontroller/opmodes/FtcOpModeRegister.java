@@ -73,7 +73,7 @@ manager.register("CompTele", CompTele.class);
       manager.register("CorkscrewTest", CorkscrewTest.class);
       manager.register("PresserTester", PresserTester.class);
       manager.register("JarredServoTest",JarredServoTest.class);
-
+      manager.register("pivortest",pivorTest.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */

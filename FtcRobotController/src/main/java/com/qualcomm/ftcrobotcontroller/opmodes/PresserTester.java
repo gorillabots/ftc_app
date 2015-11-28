@@ -9,8 +9,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class PresserTester extends OpMode {
     Servo backGo;
     Servo frontGo;
-    final double minPos = .9;
-    final double maxPos = .4;
+    final double leftMinPos = .9;
+    final double leftMaxPos = .4;
+    final double rightMinPos = .1;
+    final double rightMaxPos = .6;
 
 @Override
     public void init(){
@@ -26,13 +28,13 @@ public class PresserTester extends OpMode {
 
 
         if(toucherDisengage == true) {
-            frontGo.setPosition(maxPos);
+            frontGo.setPosition(leftMinPos);
+            backGo.setPosition(rightMinPos);
         }
-        else if(toucherEngage == true) {
-            backGo.setPosition(minPos);
+        else {
+            frontGo.setPosition(leftMaxPos);
+            backGo.setPosition(rightMaxPos);
         }
-
-
 
 
         telemetry.addData( "pusher1: ", frontGo.getPosition());
