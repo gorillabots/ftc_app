@@ -74,9 +74,11 @@ above is the code that is used to drive the robot using the left and right stick
 
         if (gamepad1.right_bumper = true) {
             drive += .25;
+            telemetry.addData("shifted","up");
         }
         if (gamepad1.right_trigger >= .75) {
             drive -= .25;
+            telemetry.addData("shifted","down");
         }
         if (drive > 1) {
             drive = 1;
