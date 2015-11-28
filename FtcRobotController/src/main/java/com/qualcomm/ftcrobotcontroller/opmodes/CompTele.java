@@ -92,7 +92,7 @@ Above is the the shifter for the drive train that allows the drive train to run 
         float armRotate = gamepad2.left_stick_y;
 
         motor5.setPower(armExtend);
-        motor6.setPower(armExtend);
+        motor6.setPower(armRotate);
        /*
         boolean forward = gamepad2.right_bumper;
         float downward = gamepad2.right_trigger;
