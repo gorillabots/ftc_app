@@ -95,5 +95,17 @@ Above is the the shifter for the drive train that allows the drive train to run 
 
         motor5.setPower(armExtend);
         motor6.setPower(armRotate);
+
+        if(armExtend >= .45) {
+            telemetry.addData("arm", "extending");
+        }
+        if(armExtend <= -.45) {
+            telemetry.addData("arm","retracting");
+        }
+
+
+
+
     }
+
 }
