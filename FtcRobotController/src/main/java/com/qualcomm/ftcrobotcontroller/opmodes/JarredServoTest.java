@@ -47,24 +47,24 @@ public class JarredServoTest extends OpMode{
         telemetry.addData("pivot position", pivot.getPosition());
 
 
-        if (gamepad1.right_bumper == true) {
+        if (gamepad2.right_bumper == true) {
             telemetry.addData("pivot", " max position ");
 
             pivot.setPosition(Servo.MAX_POSITION);
             //telemetry.addData("pivotP", " just moved back ");
         }
 
-        else if (gamepad1.right_trigger >= .75) {
+        else if (gamepad2.right_trigger >= .75) {
             telemetry.addData("pivot", " min position ");
             pivot.setPosition(Servo.MIN_POSITION);
         //    telemetry.addData("pivotB", " just moved back ");
         }
 
-        if (gamepad1.left_bumper == true) {
+        if (gamepad2.left_bumper == true) {
             telemetry.addData("screw", " turn on the corkscrew ");
             screw.setDirection(Servo.Direction.FORWARD);
         }
-        else if(gamepad1.left_trigger >= .75) {
+        else if(gamepad2.left_trigger >= .75) {
             telemetry.addData("screw", " turn off the corkscrew ");
             screw.close();
             }

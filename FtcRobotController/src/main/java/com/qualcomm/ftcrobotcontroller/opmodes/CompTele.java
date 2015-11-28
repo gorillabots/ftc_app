@@ -44,13 +44,14 @@ public class CompTele extends OpMode {
         motor5 = hardwareMap.dcMotor.get("motor5");
         motor6 = hardwareMap.dcMotor.get("motor6");
 
-        double  drive = .5;
+        double drive = .5;
 
 
     }
-/*
-Above, in the init phase, we map all of the hardware.
- */
+
+    /*
+    Above, in the init phase, we map all of the hardware.
+     */
     @Override
     public void loop() {
         float throttleLeft = gamepad1.left_stick_y;
@@ -60,10 +61,10 @@ Above, in the init phase, we map all of the hardware.
         //boolean  speedThree = gamepad1.left_bumper;
         //float speedFour = gamepad1.left_trigger;
 
-        motor4.setPower((throttleLeft *drive));
-        motor3.setPower((throttleLeft *drive));
-        motor2.setPower((throttleRight*drive*-1));
-        motor1.setPower((throttleRight*drive*-1));
+        motor4.setPower((throttleLeft * drive * -1));
+        motor3.setPower((throttleLeft * drive * -1));
+        motor2.setPower((throttleRight * drive));
+        motor1.setPower((throttleRight * drive));
 
 
 /*
@@ -71,17 +72,16 @@ above is the code that is used to drive the robot using the left and right stick
  */
 
 
-
-        if(gamepad1.right_bumper = true) {
+        if (gamepad1.right_bumper = true) {
             drive += .25;
         }
-        if(gamepad1.right_trigger >= .75) {
+        if (gamepad1.right_trigger >= .75) {
             drive -= .25;
         }
-        if(drive>1){
+        if (drive > 1) {
             drive = 1;
         }
-        if(drive<.25) {
+        if (drive < .25) {
             drive = .25;
         }
 
@@ -93,40 +93,5 @@ Above is the the shifter for the drive train that allows the drive train to run 
 
         motor5.setPower(armExtend);
         motor6.setPower(armRotate);
-       /*
-        boolean forward = gamepad2.right_bumper;
-        float downward = gamepad2.right_trigger;
-        boolean rotateOne = gamepad2.left_bumper;
-        float rotateTwo = gamepad2.left_trigger;
-        if (forward == true) {
-            motor5.setPower(1);
-
-        }
-
-        else if(downward == 1.0) {
-
-            motor5.setPower((-1));
-        }
-        else{
-            motor5.setPower(0.0);
-        }
-        if(rotateOne == true) {
-            motor6.setPower(.5);
-
-        }
-
-        else if(rotateTwo == 1.0) {
-            motor6.setPower(-.5);
-        }
-        else{
-            motor6.setPower(0.0);
-        }
-*/
-        /*
-        above is the code for the arm. The arm can extend retract at maximum speed but the arm can only rotate at a maximum speed
-        of 50%
-         */
-
-
     }
 }
