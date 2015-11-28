@@ -66,6 +66,21 @@ public class CompTele extends OpMode {
         motor2.setPower((throttleRight * drive));
         motor1.setPower((throttleRight * drive));
 
+        if(throttleLeft >= .0625) {
+            telemetry.addData("left side","forward");
+        }
+        if(throttleLeft <= -.0625) {
+            telemetry.addData("left side","backward");
+        }
+        if(throttleRight >= .0625){
+            telemetry.addData("right side","forward");
+        }
+        if(throttleRight <= -.0625) {
+            telemetry.addData("right side","backward");
+        }
+
+
+
 
 /*
 above is the code that is used to drive the robot using the left and right sticks on the first controller.
