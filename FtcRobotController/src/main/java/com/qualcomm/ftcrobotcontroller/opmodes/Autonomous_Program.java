@@ -18,15 +18,65 @@ public class Autonomous_Program extends LinearOpMode{
     DcMotor motor2;
     DcMotor motor3;
     DcMotor motor4;
+
     void turn_left(double power, long time)throws InterruptedException{
+        double m1old = motor1.getPower();
+        double m2old = motor2.getPower();
+        double m3old = motor3.getPower();
+        double m4old = motor4.getPower();
         motor1.setPower(-power);
         motor2.setPower(-power);
         motor3.setPower(-power);
         motor4.setPower(-power);
-        Thread.sleep(time);
-        telemetry.addData("red", color2.red());
+        sleep(time);
+        motor1.setPower(m1old);
+        motor2.setPower(m2old);
+        motor3.setPower(m3old);
+        motor4.setPower(m4old);
     }
-
+    void turn_right(double power, long time)throws InterruptedException{
+        double m1old = motor1.getPower();
+        double m2old = motor2.getPower();
+        double m3old = motor3.getPower();
+        double m4old = motor4.getPower();
+        motor1.setPower(power);
+        motor2.setPower(power);
+        motor3.setPower(power);
+        motor4.setPower(power);
+        sleep(time);
+        motor1.setPower(m1old);
+        motor2.setPower(m2old);
+        motor3.setPower(m3old);
+        motor4.setPower(m4old);
+    }
+    void forward(double power){
+        motor1.setPower(-power);
+        motor2.setPower(-power);
+        motor3.setPower(power);
+        motor4.setPower(power);
+    }
+    void backward(double power, long time)throws InterruptedException{
+        double m1old = motor1.getPower();
+        double m2old = motor2.getPower();
+        double m3old = motor3.getPower();
+        double m4old = motor4.getPower();
+        motor1.setPower(power);
+        motor2.setPower(power);
+        motor3.setPower(-power);
+        motor4.setPower(-power);
+        sleep(time);
+        motor1.setPower(m1old);
+        motor2.setPower(m2old);
+        motor3.setPower(m3old);
+        motor4.setPower(m4old);
+    }
+    void stop_robot(){
+        //this will stop the robot
+        motor1.setPower(0);
+        motor2.setPower(0);
+        motor3.setPower(0);
+        motor4.setPower(0);
+    }
     public void _init() {
         motor1 = hardwareMap.dcMotor.get("motor1");//motor1 on AL00VTH7
         motor2 = hardwareMap.dcMotor.get("motor2");//motor2 on AL00VTH7
@@ -51,17 +101,22 @@ public class Autonomous_Program extends LinearOpMode{
         while(opModeIsActive()) {
             telemetry.addData("red", color2.red());
             telemetry.addData("blue", color2.blue());
-            motor1.setPower(-0.01);
-            motor2.setPower(-0.01);
-            motor3.setPower(0.01);
-            motor4.setPower(0.01);
+            //gives lego color sensor value
+            stop_robot();
+            sleep(500);
+            //stops the robot for 0.5 seconds
+            forward(0.01);
+            //moves forward at 0.01 power
             if (color2.blue() > 40 || color2.red() > 40) {
-                motor1.setPower(0.0);
-                motor2.setPower(0.0);
-                motor3.setPower(0.0);
-                motor4.setPower(0.0);
+                stop_robot();
+                sleep(500);
+                //if the lego color sensor detects any red or blue value greater than 40, it should stop
                 if (color2.blue() > color2.red() && color2.blue() > 50) {
                     turn_left(0.01, 2000);
+                    //if blue is greater than red and greater than 50, the robot turns left for 2 seconds
+                }
+                else if(color2.red() > color2.blue() && color2.red() > 50){
+                    turn_right(0.01, 2000);
                 }
             }
         }
