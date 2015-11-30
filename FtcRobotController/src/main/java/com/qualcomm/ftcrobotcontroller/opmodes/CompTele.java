@@ -2,6 +2,8 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+
 /**
  * Created by Jarred on 10/18/2015.
  */
@@ -14,7 +16,8 @@ public class CompTele extends OpMode {
     DcMotor motor5;
     DcMotor motor6;
     double drive;
-
+    Servo screw;
+    Servo pivot;
 /* in lines 10 through ______ we declare the use of differenr motors.
 */
 
@@ -43,7 +46,8 @@ public class CompTele extends OpMode {
         motor4 = hardwareMap.dcMotor.get("motor4");
         motor5 = hardwareMap.dcMotor.get("motor5");
         motor6 = hardwareMap.dcMotor.get("motor6");
-
+        pivot =hardwareMap.servo.get("pivot");
+        screw = hardwareMap.servo.get("screw");
         double drive = .5;
 
 
@@ -117,6 +121,27 @@ Above is the the shifter for the drive train that allows the drive train to run 
         if(armExtend <= -.45) {
             telemetry.addData("arm","retracting");
         }
+
+
+        if(gamepad2.right_bumper == true) {
+            pivot.setPosition(Servo.MAX_POSITION);
+        }
+
+        if(gamepad2.right_trigger>= .75) {
+            pivot.setPosition(Servo.MIN_POSITION);
+        }
+
+        if(gamepad2.left_bumper == true) {
+            telemetry.addData("screw",screw.getDirection());
+            screw.setDirection(Servo.Direction.FORWARD);
+        }
+        else if(gamepad2.left_trigger >= .75) {
+            telemetry.addData("screw","off");
+            screw.close();
+        }
+
+
+
 
 
 
