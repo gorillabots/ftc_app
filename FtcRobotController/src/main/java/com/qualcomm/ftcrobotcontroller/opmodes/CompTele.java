@@ -2,6 +2,8 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+
 /**
  * Created by Jarred on 10/18/2015.
  */
@@ -14,7 +16,8 @@ public class CompTele extends OpMode {
     DcMotor motor5;
     DcMotor motor6;
     double drive;
-
+    Servo screw;
+    Servo pivot;
 /* in lines 10 through ______ we declare the use of differenr motors.
 */
 
@@ -43,14 +46,16 @@ public class CompTele extends OpMode {
         motor4 = hardwareMap.dcMotor.get("motor4");
         motor5 = hardwareMap.dcMotor.get("motor5");
         motor6 = hardwareMap.dcMotor.get("motor6");
-
-        double  drive = .5;
+        pivot =hardwareMap.servo.get("pivot");
+        screw = hardwareMap.servo.get("screw");
+        double drive = .5;
 
 
     }
-/*
-Above, in the init phase, we map all of the hardware.
- */
+
+    /*
+    Above, in the init phase, we map all of the hardware.
+     */
     @Override
     public void loop() {
         float throttleLeft = gamepad1.left_stick_y;
@@ -60,10 +65,25 @@ Above, in the init phase, we map all of the hardware.
         //boolean  speedThree = gamepad1.left_bumper;
         //float speedFour = gamepad1.left_trigger;
 
-        motor1.setPower((throttleLeft *drive));
-        motor2.setPower((throttleLeft *drive));
-        motor3.setPower((throttleRight*drive*-1));
-        motor4.setPower((throttleRight*drive*-1));
+        motor4.setPower((throttleLeft * drive * -1));
+        motor3.setPower((throttleLeft * drive * -1));
+        motor2.setPower((throttleRight * drive));
+        motor1.setPower((throttleRight * drive));
+
+        if(throttleLeft >= .0625) {
+            telemetry.addData("left side","forward");
+        }
+        if(throttleLeft <= -.0625) {
+            telemetry.addData("left side","backward");
+        }
+        if(throttleRight >= .0625){
+            telemetry.addData("right side","forward");
+        }
+        if(throttleRight <= -.0625) {
+            telemetry.addData("right side","backward");
+        }
+
+
 
 
 /*
@@ -71,17 +91,18 @@ above is the code that is used to drive the robot using the left and right stick
  */
 
 
-
-        if(gamepad1.right_bumper = true) {
+        if (gamepad1.right_bumper = true) {
             drive += .25;
+            telemetry.addData("shifted","up");
         }
-        if(gamepad1.right_trigger >= .75) {
+        if (gamepad1.right_trigger >= .75) {
             drive -= .25;
+            telemetry.addData("shifted","down");
         }
-        if(drive>1){
+        if (drive > 1) {
             drive = 1;
         }
-        if(drive<.25) {
+        if (drive < .25) {
             drive = .25;
         }
 
@@ -92,41 +113,39 @@ Above is the the shifter for the drive train that allows the drive train to run 
         float armRotate = gamepad2.left_stick_y;
 
         motor5.setPower(armExtend);
-        motor6.setPower(armExtend);
-       /*
-        boolean forward = gamepad2.right_bumper;
-        float downward = gamepad2.right_trigger;
-        boolean rotateOne = gamepad2.left_bumper;
-        float rotateTwo = gamepad2.left_trigger;
-        if (forward == true) {
-            motor5.setPower(1);
+        motor6.setPower(armRotate);
 
+        if(armExtend >= .45) {
+            telemetry.addData("arm", "extending");
+        }
+        if(armExtend <= -.45) {
+            telemetry.addData("arm","retracting");
         }
 
-        else if(downward == 1.0) {
 
-            motor5.setPower((-1));
-        }
-        else{
-            motor5.setPower(0.0);
-        }
-        if(rotateOne == true) {
-            motor6.setPower(.5);
-
+        if(gamepad2.right_bumper == true) {
+            pivot.setPosition(Servo.MAX_POSITION);
         }
 
-        else if(rotateTwo == 1.0) {
-            motor6.setPower(-.5);
+        if(gamepad2.right_trigger>= .75) {
+            pivot.setPosition(Servo.MIN_POSITION);
         }
-        else{
-            motor6.setPower(0.0);
+
+        if(gamepad2.left_bumper == true) {
+            telemetry.addData("screw",screw.getDirection());
+            screw.setDirection(Servo.Direction.FORWARD);
         }
-*/
-        /*
-        above is the code for the arm. The arm can extend retract at maximum speed but the arm can only rotate at a maximum speed
-        of 50%
-         */
+        else if(gamepad2.left_trigger >= .75) {
+            telemetry.addData("screw","off");
+            screw.close();
+        }
+
+
+
+
+
 
 
     }
+
 }
