@@ -6,22 +6,22 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by Jarred on 11/21/2015.
  */
-public class PresserTester extends OpMode {
+public class servotestPos extends OpMode {
     Servo backGo;
     Servo frontGo;
 
-    final double rightMaxPos = .333;
-    final double leftMaxPos = .666;
+    final double rightMaxPos = .3;
+    final double leftMaxPos = .3;
 
-    final double rightMinPos = 1.0;
-    final double leftMinPos = .0;
+    final double rightMinPos = .5;
+    final double leftMinPos = .5;
 
-@Override
+    @Override
     public void init(){
-    backGo = hardwareMap.servo.get("backGo");
-    frontGo = hardwareMap.servo.get("frontGo");
+        backGo = hardwareMap.servo.get("backGo");
+        frontGo = hardwareMap.servo.get("frontGo");
 
-}
+    }
     @Override
     public void loop(){
 
