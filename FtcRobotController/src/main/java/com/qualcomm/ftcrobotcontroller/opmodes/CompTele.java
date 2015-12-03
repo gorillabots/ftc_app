@@ -154,16 +154,21 @@ Above is the the shifter for the drive train that allows the drive train to run 
         }
 
 
+
+
+
+
+
         if (gamepad1.left_trigger >= .5) {
 
-            leftGo.setPosition(.6);
+            leftGo.setPosition(gamepad1.left_trigger*.6);
         } else {
             leftGo.setPosition(.0);
 
 
             if (gamepad1.right_trigger >= .5) {
-                rightGo.setPosition(.2);
-
+                rightGo.setPosition((gamepad1.right_trigger * -.7) +.8);
+        //if
             } else {
                 rightGo.setPosition(0.8);
             }
