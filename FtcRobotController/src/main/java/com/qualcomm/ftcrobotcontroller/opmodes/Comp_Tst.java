@@ -68,7 +68,7 @@ public class Comp_Tst extends LinearOpMode{
         motor2.setPower(.45);
         motor3.setPower(-.15);
         motor4.setPower(-.15);
-        sleep();
+        sleep(1000);
 
 
 
