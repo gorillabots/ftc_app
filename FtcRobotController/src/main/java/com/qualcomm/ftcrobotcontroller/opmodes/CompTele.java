@@ -53,7 +53,7 @@ public class CompTele extends OpMode {
         leftGo = hardwareMap.servo.get("backGo");
         rightGo = hardwareMap.servo.get("frontGo");
 
-        double drive = .5;
+        double drive = 1;
 
         screw.setPosition(.5);
 
@@ -159,20 +159,30 @@ Above is the the shifter for the drive train that allows the drive train to run 
 
 
 
-        if (gamepad1.left_trigger >= .5) {
+            if (gamepad1.left_trigger >= .5) {
 
             leftGo.setPosition(gamepad1.left_trigger*.6);
-        } else {
+             }
+            else {
             leftGo.setPosition(.0);
 
 
             if (gamepad1.right_trigger >= .5) {
                 rightGo.setPosition((gamepad1.right_trigger * -.7) +.8);
-        //if
-            } else {
+
+            }
+            else {
                 rightGo.setPosition(0.8);
             }
 
+
+            if(gamepad1.x == true) {
+                leftGo.setPosition(.6);
+            }
+
+            if(gamepad1.a == true) {
+                rightGo.setPosition(.2);
+            }
 
         }
 
