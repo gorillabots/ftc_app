@@ -52,6 +52,7 @@ public class Comp_Tst extends LinearOpMode{
         motor3.setPower(-.45);
         motor4.setPower(-.45);
         sleep(1500);
+
         motor1.setPower(0);
         motor2.setPower(0);
         motor3.setPower(0);
@@ -64,11 +65,23 @@ public class Comp_Tst extends LinearOpMode{
         motor5.setPower(.5);
         sleep(2500);
 
-        motor1.setPower(.45);
-        motor2.setPower(.45);
+        motor1.setPower(.25);
+        motor2.setPower(.25);
         motor3.setPower(-.15);
         motor4.setPower(-.15);
-        sleep();
+        sleep(1000);
+        // sleep(1000) is just a guess for now.
+
+        motor5.setPower(.5);
+        sleep(2500);
+        motor6.setPower(.25);
+        sleep(10000);
+
+        motor1.setPower(-.25);
+        motor2.setPower(-.25);
+        motor3.setPower(.15);
+        motor4.setPower(.15);
+        sleep(1000);
 
 
 
