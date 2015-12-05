@@ -67,8 +67,11 @@ public class CompTele extends OpMode {
      */
     @Override
     public void loop() {
-        telemetry.addData("drive is ", drive);
-
+            telemetry.addData("drive is ", drive);
+            telemetry.addData("screw", screw.getDirection());
+            telemetry.addData("pivot is at", pivot.getPosition());
+            telemetry.addData("left toucher is at ", leftGo.getPosition() );
+            telemetry.addData("right toucher is at", rightGo.getPosition());
 
 
         float throttleLeft = gamepad1.left_stick_y;
@@ -84,10 +87,10 @@ public class CompTele extends OpMode {
         motor1.setPower((throttleRight * drive));
 
         if (throttleLeft >= .0625) {
-            telemetry.addData("left side", "forward");
+            telemetry.addData("left side", "backward");
         }
         if (throttleLeft <= -.0625) {
-            telemetry.addData("left side", "backward");
+            telemetry.addData("left side", "forward");
         }
         if (throttleRight >= .0625) {
             telemetry.addData("right side", "forward");
@@ -128,10 +131,10 @@ Above is the the shifter for the drive train that allows the drive train to run 
         motor5.setPower(armExtend);
         motor6.setPower(armRotate);
 
-        if (armExtend >= .45) {
+        if (armExtend >= .25) {
             telemetry.addData("arm", "extending");
         }
-        if (armExtend <= -.45) {
+        if (armExtend <= -.25) {
             telemetry.addData("arm", "retracting");
         }
 
@@ -146,7 +149,6 @@ Above is the the shifter for the drive train that allows the drive train to run 
         }
 
         if (gamepad2.left_bumper == true) {
-            telemetry.addData("screw", screw.getDirection());
             screw.setPosition(0.0);
         } else if (gamepad2.left_trigger >= .75) {
             telemetry.addData("screw", "off");
@@ -154,7 +156,10 @@ Above is the the shifter for the drive train that allows the drive train to run 
         }
 
 
-
+        /*
+        The above lines of code control the corkscrew and the arm it is mounted on.
+        The arm moves from maximum to minimum positions and also toggles the corkscrew
+         */
 
 
 
@@ -162,11 +167,10 @@ Above is the the shifter for the drive train that allows the drive train to run 
             if (gamepad1.left_trigger >= .5) {
 
             leftGo.setPosition(gamepad1.left_trigger*.6);
-             }
-            else {
-            leftGo.setPosition(.0);
+             } else {
+                leftGo.setPosition(.0);
 
-
+            }
             if (gamepad1.right_trigger >= .5) {
                 rightGo.setPosition((gamepad1.right_trigger * -.7) +.8);
 
@@ -183,8 +187,12 @@ Above is the the shifter for the drive train that allows the drive train to run 
             if(gamepad1.a == true) {
                 rightGo.setPosition(.2);
             }
+        /*
+        The above 4 if statements control the pokers. The pokers flip the levers controlling the zip line.
+         They can be controlled with the x and a buttons or for more precise control
+
+         */
 
         }
 
     }
-}
