@@ -76,7 +76,12 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("pivortest",pivorTest.class);
       manager.register("JoshAutonomous",Autonomous_Program.class);
       manager.register("ArmStopFinder",ArmStopFinder.class);
-    /*
+    manager.register("TESTTTTTTTT",servotestPos.class);
+    manager.register("TESTclose",closeTest.class);
+    manager.register("15sec.test",fifteensecs.class);
+    manager.register("Robot self-test",Comp_Tst.class);
+
+     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
 
