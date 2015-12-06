@@ -21,6 +21,7 @@ public class Autonomous_Program extends LinearOpMode {
     DcMotor motor4;
     Servo servo1;
     Servo servo2;
+    Servo servo3;
     void turn_left(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
         motor2.setPower(-power);
@@ -78,6 +79,7 @@ public class Autonomous_Program extends LinearOpMode {
         distance = hardwareMap.ultrasonicSensor.get("distance");
         servo1 = hardwareMap.servo.get("frontGo");
         servo2 = hardwareMap.servo.get("backGo");
+        servo3 = hardwareMap.servo.get("screw");
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor2.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor3.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -97,6 +99,7 @@ public class Autonomous_Program extends LinearOpMode {
             telemetry.addData("red", color2.red());
             servo1.setPosition(0.84);
             servo2.setPosition(0.0);
+            servo3.setPosition(0.5);
             forward(0.15);
             if (color2.blue() > 40 || color2.red() > 40) {
                 stop_robot(500);
@@ -124,7 +127,7 @@ public class Autonomous_Program extends LinearOpMode {
                     while(true) {
                         telemetry.addData("beacon-blue", color.blue());
                         telemetry.addData("beacon-red", color.red());
-                        stop_robot(100);
+                                  stop_robot(100);
                     }
                 }
             }

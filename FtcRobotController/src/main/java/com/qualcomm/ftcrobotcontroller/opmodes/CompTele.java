@@ -2,6 +2,8 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+
 /**
  * Created by Jarred on 10/18/2015.
  */
@@ -14,7 +16,10 @@ public class CompTele extends OpMode {
     DcMotor motor5;
     DcMotor motor6;
     double drive;
-
+    Servo screw;
+    Servo pivot;
+    Servo rightGo;
+    Servo leftGo;
 /* in lines 10 through ______ we declare the use of differenr motors.
 */
 
@@ -43,9 +48,17 @@ public class CompTele extends OpMode {
         motor4 = hardwareMap.dcMotor.get("motor4");
         motor5 = hardwareMap.dcMotor.get("motor5");
         motor6 = hardwareMap.dcMotor.get("motor6");
+        pivot = hardwareMap.servo.get("pivot");
+        screw = hardwareMap.servo.get("screw");
+        leftGo = hardwareMap.servo.get("backGo");
+        rightGo = hardwareMap.servo.get("frontGo");
 
-        double drive = .5;
+        double drive = 1;
 
+        screw.setPosition(.5);
+
+        leftGo.setPosition(0);
+        rightGo.setPosition(.8);
 
     }
 
@@ -54,6 +67,13 @@ public class CompTele extends OpMode {
      */
     @Override
     public void loop() {
+        telemetry.addData("drive is ", drive);
+        telemetry.addData("screw", screw.getDirection());
+        telemetry.addData("pivot is at", pivot.getPosition());
+        telemetry.addData("left toucher is at ", leftGo.getPosition() );
+        telemetry.addData("right toucher is at", rightGo.getPosition());
+
+
         float throttleLeft = gamepad1.left_stick_y;
         float throttleRight = gamepad1.right_stick_y;
         //boolean speedOne = gamepad1.right_bumper;
@@ -61,22 +81,22 @@ public class CompTele extends OpMode {
         //boolean  speedThree = gamepad1.left_bumper;
         //float speedFour = gamepad1.left_trigger;
 
-        motor4.setPower((throttleLeft * drive * -1));
-        motor3.setPower((throttleLeft * drive * -1));
+        motor4.setPower((throttleLeft * drive  * -1));
+        motor3.setPower((throttleLeft * drive  * -1));
         motor2.setPower((throttleRight * drive));
         motor1.setPower((throttleRight * drive));
 
-        if(throttleLeft >= .0625) {
-            telemetry.addData("left side","forward");
+        if (throttleLeft >= .0625) {
+            telemetry.addData("left side", "backward");
         }
-        if(throttleLeft <= -.0625) {
-            telemetry.addData("left side","backward");
+        if (throttleLeft <= -.0625) {
+            telemetry.addData("left side", "forward");
         }
-        if(throttleRight >= .0625){
-            telemetry.addData("right side","forward");
+        if (throttleRight >= .0625) {
+            telemetry.addData("right side", "forward");
         }
-        if(throttleRight <= -.0625) {
-            telemetry.addData("right side","backward");
+        if (throttleRight <= -.0625) {
+            telemetry.addData("right side", "backward");
         }
 
 
@@ -87,13 +107,13 @@ above is the code that is used to drive the robot using the left and right stick
  */
 
 
-        if (gamepad1.right_bumper = true) {
+        if (gamepad1.right_bumper == true) {
             drive += .25;
-            telemetry.addData("shifted","up");
+            telemetry.addData("shifted", "up");
         }
-        if (gamepad1.right_trigger >= .75) {
+        if (gamepad1.left_bumper == true) {
             drive -= .25;
-            telemetry.addData("shifted","down");
+            telemetry.addData("shifted", "down");
         }
         if (drive > 1) {
             drive = 1;
@@ -111,15 +131,67 @@ Above is the the shifter for the drive train that allows the drive train to run 
         motor5.setPower(armExtend);
         motor6.setPower(armRotate);
 
-        if(armExtend >= .45) {
+        if (armExtend >= .25) {
             telemetry.addData("arm", "extending");
         }
-        if(armExtend <= -.45) {
-            telemetry.addData("arm","retracting");
+        if (armExtend <= -.25) {
+            telemetry.addData("arm", "retracting");
         }
 
 
 
+        if (gamepad2.right_bumper == true) {
+            pivot.setPosition(Servo.MAX_POSITION);
+        }
+
+        if (gamepad2.right_trigger >= .75) {
+            pivot.setPosition(Servo.MIN_POSITION);
+        }
+
+        if (gamepad2.left_bumper == true) {
+            screw.setPosition(0.0);
+        } else if (gamepad2.left_trigger >= .75) {
+            telemetry.addData("screw", "off");
+            screw.setPosition(.5);
+        }
+
+
+        /*
+        The above lines of code control the corkscrew and the arm it is mounted on.
+        The arm moves from maximum to minimum positions and also toggles the corkscrew
+         */
+
+
+
+
+        if (gamepad1.left_trigger >= .5) {
+
+            leftGo.setPosition(gamepad1.left_trigger*.6);
+        } else {
+            leftGo.setPosition(.0);
+
+        }
+        if (gamepad1.right_trigger >= .5) {
+            rightGo.setPosition((gamepad1.right_trigger * -.7) +.8);
+
+        }
+        else {
+            rightGo.setPosition(0.8);
+        }
+
+
+        if(gamepad1.x == true) {
+            leftGo.setPosition(.6);
+        }
+
+        if(gamepad1.a == true) {
+            rightGo.setPosition(.2);
+        }
+        /*
+        The above 4 if statements control the pokers. The pokers flip the levers controlling the zip line.
+         They can be controlled with the x and a buttons or for more precise control
+
+         */
 
     }
 
