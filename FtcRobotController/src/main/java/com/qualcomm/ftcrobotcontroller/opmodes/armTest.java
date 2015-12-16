@@ -1,18 +1,21 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
- import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-   import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+ import com.qualcomm.robotcore.hardware.TouchSensor;
 /**
  * Created by Jarred on 10/25/2015.
  */
 public class armTest extends OpMode {
 
-DcMotor motor1;
-DcMotor motor2;
+DcMotor motor5;
+DcMotor motor6;
+TouchSensor limit;
     @Override
     public void init() {
-        motor1 = hardwareMap.dcMotor.get("motor1");
-        motor2 = hardwareMap.dcMotor.get("motor2");
+        motor5 = hardwareMap.dcMotor.get("motor5");
+        motor6 = hardwareMap.dcMotor.get("motor6");
 
+        limit = hardwareMap.touchSensor.get("limit");
     }
     @Override
     public void loop() {
@@ -20,12 +23,15 @@ DcMotor motor2;
         float upward = gamepad1.left_stick_y;
         float rotate = gamepad1.right_stick_y;
 
-        motor1.setPower(upward/2);
-        motor2.setPower(rotate/2);
+        if (limit.isPressed()) {
+            motor5.setPower(0.0);
+        } else {
+            motor5.setPower(upward);
+        }
 
-
-
+        motor6.setPower(rotate);
 
 
     }
+
 }
