@@ -80,7 +80,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("TESTclose",closeTest.class);
     manager.register("15sec.test",fifteensecs.class);
     manager.register("Robot self-test",Comp_Tst.class);
-
+    manager.register("Auto2",Auto2.class);
      /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
