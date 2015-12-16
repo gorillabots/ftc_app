@@ -21,6 +21,7 @@ public class Auto2 extends LinearOpMode {
     Servo servo1;
     Servo servo2;
     Servo servo3;
+    Servo servo4;
 
     void turn_left(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
@@ -88,6 +89,7 @@ public class Auto2 extends LinearOpMode {
         servo1 = hardwareMap.servo.get("frontGo");
         servo2 = hardwareMap.servo.get("backGo");
         servo3 = hardwareMap.servo.get("screw");
+        servo4 = hardwareMap.servo.get("pivot");
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor2.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor3.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -103,8 +105,14 @@ public class Auto2 extends LinearOpMode {
         _init();
         waitForStart();
         while (opModeIsActive()) {
-            backward(0.5,5750);
-            stop_robot(100000000);
+            while(distance.getUltrasonicLevel() > 32 && distance2.getUltrasonicLevel() > 53) {
+                telemetry.addData("left", distance2.getUltrasonicLevel());
+                telemetry.addData("right", distance.getUltrasonicLevel());
+            }
+            backward(0.4,5000);
+            turn_left(0.5, 1388);
+                //amount of time needed for 135 degree turn
+            stop_robot(1000000);
         }
     }
 }
