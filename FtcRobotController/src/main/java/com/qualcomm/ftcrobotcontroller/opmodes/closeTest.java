@@ -11,8 +11,7 @@ public class closeTest extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
             backGo =hardwareMap.servo.get("backGo");
-            frontGo = hardwareMap.servo.get("frontGo");
-                waitForStart();
+        frontGo = hardwareMap.servo.get("frontGo");
         while(opModeIsActive()) {
 
 
@@ -64,6 +63,7 @@ public class closeTest extends LinearOpMode{
             sleep(2000);
         }
 
+        waitForStart();
 
     }
 }
