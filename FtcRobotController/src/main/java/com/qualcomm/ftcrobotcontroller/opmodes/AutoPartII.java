@@ -35,8 +35,11 @@ public class AutoPartII extends LinearOpMode{
         waitForStart();
         while(opModeIsActive()){
 
-
-
+            motor1.setPower(-50);
+            motor2.setPower(-50);
+            motor3.setPower(50);
+            motor4.setPower(50);
+            sleep(1000);
 
 
 
