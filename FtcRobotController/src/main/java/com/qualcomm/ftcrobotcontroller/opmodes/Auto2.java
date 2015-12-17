@@ -21,7 +21,7 @@ public class Auto2 extends LinearOpMode {
     Servo servo1;
     Servo servo2;
     Servo servo3;
-    Servo servo4;
+    Servo pivot;
 
     void turn_left(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
@@ -53,7 +53,17 @@ public class Auto2 extends LinearOpMode {
         motor4.setPower(power);
         sleep(time);
     }
-
+    void forward_with_stops(double power, long time) throws InterruptedException{
+        for(int i = 0; i<= time; i = i+250){
+            forward_with_time(power,250);
+            if(color.red() > 2){
+                break;
+            }
+            if(color.blue() >2){
+                break;
+            }
+        }
+    }
     void backward(double power, long time) throws InterruptedException {
         motor1.setPower(power);
         motor2.setPower(power);
@@ -89,7 +99,7 @@ public class Auto2 extends LinearOpMode {
         servo1 = hardwareMap.servo.get("frontGo");
         servo2 = hardwareMap.servo.get("backGo");
         servo3 = hardwareMap.servo.get("screw");
-        servo4 = hardwareMap.servo.get("pivot");
+        pivot = hardwareMap.servo.get("pivot");
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor2.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor3.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -109,10 +119,17 @@ public class Auto2 extends LinearOpMode {
                 telemetry.addData("left", distance2.getUltrasonicLevel());
                 telemetry.addData("right", distance.getUltrasonicLevel());
             }
-            backward(0.4,5000);
-            turn_left(0.5, 1388);
+            backward(0.4,6750);
+            turn_right(0.5, 450);
+            backward(0.2, 1500);
+            pivot.setPosition(Servo.MAX_POSITION);
+            wait(1000);
+            servo3.setPosition(0.0);
                 //amount of time needed for 135 degree turn
-            stop_robot(1000000);
+            while(true){
+            telemetry.addData("blue", color.blue());
+            telemetry.addData("red", color.red());
+            stop_robot(10);}
         }
     }
 }
