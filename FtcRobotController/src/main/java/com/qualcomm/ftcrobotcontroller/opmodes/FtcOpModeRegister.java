@@ -78,6 +78,9 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("JoshAutonomous",Autonomous_Program.class);
       manager.register("AutoPartII",AutoPartII.class);
       manager.register("closeTest",closeTest.class);
+      manager.register("JarredAutoBCork",JarredAutoBCork.class);
+      manager.register("JarredAutoBNoCork",JarredAutoBNoCork.class);
+      manager.register("Auto2NoCork",Auto2NoCork.class);
       //manager.register("ArmStopFinder",ArmStopFinder.class);
     //manager.register("TESTTTTTTTT",servotestPos.class);
     //manager.register("TESTclose",closeTest.class);

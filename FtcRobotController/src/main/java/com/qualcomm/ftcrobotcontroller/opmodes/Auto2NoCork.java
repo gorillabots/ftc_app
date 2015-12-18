@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by emper on 12/11/2015.
  */
-public class Auto2 extends LinearOpMode {
+public class Auto2NoCork extends LinearOpMode {
     ColorSensor color;
     UltrasonicSensor distance;
     UltrasonicSensor distance2;
@@ -18,8 +18,8 @@ public class Auto2 extends LinearOpMode {
     DcMotor motor2;
     DcMotor motor3;
     DcMotor motor4;
-//    Servo servo1;
-  //  Servo servo2;
+    //    Servo servo1;
+    //  Servo servo2;
     Servo screw;
     Servo pivot;
 
@@ -117,9 +117,9 @@ public class Auto2 extends LinearOpMode {
         _init();
         waitForStart();
         while (opModeIsActive()) {
-          //  while(distance.getUltrasonicLevel() > 32 && distance2.getUltrasonicLevel() > 53) {
+            //  while(distance.getUltrasonicLevel() > 32 && distance2.getUltrasonicLevel() > 53) {
             //    telemetry.addData("left", distance2.getUltrasonicLevel());
-              //  telemetry.addData("right", distance.getUltrasonicLevel());
+            //  telemetry.addData("right", distance.getUltrasonicLevel());
             //}
             backward(0.4, 6750);
             turn_right(0.5, 450);
@@ -128,14 +128,14 @@ public class Auto2 extends LinearOpMode {
             motor2.setPower(0.0);
             motor3.setPower(0.0);
             motor4.setPower(0.0);
-            pivot.setPosition(Servo.MIN_POSITION);
-            sleep(2000);
-            screw.setPosition(0.0);
-            sleep(2000);
+            //pivot.setPosition(Servo.MIN_POSITION);
+            //sleep(2000);
+            //screw.setPosition(0.0);
+            //sleep(2000);
 
-            screw.setPosition(.5);
+            //screw.setPosition(.5);
             stop_robot(100000);
-                //amount of time needed for 135 degree turn
+            //amount of time needed for 135 degree turn
             //while(true){
             //telemetry.addData("blue", color.blue());
             //telemetry.addData("red", color.red());

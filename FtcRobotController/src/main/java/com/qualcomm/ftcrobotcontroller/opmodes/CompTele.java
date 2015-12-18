@@ -54,7 +54,7 @@ public class CompTele extends OpMode {
         rightGo = hardwareMap.servo.get("frontGo");
 
         double drive = 1;
-
+        pivot.setPosition(Servo.MAX_POSITION);
         screw.setPosition(.5);
 
         leftGo.setPosition(0);
