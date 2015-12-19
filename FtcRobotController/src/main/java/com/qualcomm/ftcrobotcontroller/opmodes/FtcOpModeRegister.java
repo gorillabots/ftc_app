@@ -74,12 +74,8 @@ public class FtcOpModeRegister implements OpModeRegister {
       //manager.register("PresserTester", PresserTester.class);
       //manager.register("JarredServoTest",JarredServoTest.class);
       //manager.register("pivortest",pivorTest.class);
-    manager.register("Auto2", Auto2.class);
-      manager.register("JoshAutonomous",Autonomous_Program.class);
-      manager.register("AutoPartII",AutoPartII.class);
       manager.register("closeTest",closeTest.class);
-      manager.register("JarredAutoBCork",JarredAutoBCork.class);
-      manager.register("JarredAutoBNoCork",JarredAutoBNoCork.class);
+      manager.register("FinalAutoBlue",JarredAutoBCork.class);
       manager.register("Auto2NoCork",Auto2NoCork.class);
       //manager.register("ArmStopFinder",ArmStopFinder.class);
     //manager.register("TESTTTTTTTT",servotestPos.class);
@@ -87,6 +83,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("15sec.test", fifteensecs.class);
     manager.register("Robot self-test",Comp_Tst.class);
     manager.register("GPS_Position_Finder",GPS_Position_Finder.class);
+    manager.register("FinalAutoRed", AdafruitRGBExample.class);
      /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
