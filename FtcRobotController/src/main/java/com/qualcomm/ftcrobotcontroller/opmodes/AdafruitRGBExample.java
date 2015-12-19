@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by emper on 12/11/2015.
  */
-public class JarredAutoBCork extends LinearOpMode {
+public class AdafruitRGBExample extends LinearOpMode {
   ColorSensor color;
   UltrasonicSensor distance;
   UltrasonicSensor distance2;
