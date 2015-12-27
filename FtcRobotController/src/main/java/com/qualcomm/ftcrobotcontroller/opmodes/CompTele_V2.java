@@ -3,6 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * Created by Jarred on 10/18/2015.
@@ -21,6 +22,7 @@ public class CompTele_V2 extends OpMode {
     Servo rightGo;
     Servo leftGo;
     int direction;
+    TouchSensor limit;
 /* in lines 10 through ______ we declare the use of differenr motors.
 */
 
@@ -53,6 +55,7 @@ public class CompTele_V2 extends OpMode {
         screw = hardwareMap.servo.get("screw");
         leftGo = hardwareMap.servo.get("backGo");
         rightGo = hardwareMap.servo.get("frontGo");
+        limit = hardwareMap.touchSensor.get("limit");
 
         double drive = 1;
         int direction = 1;
@@ -157,10 +160,15 @@ above is the code that is used to drive the robot using the left and right stick
 /*
 Above is the the shifter for the drive train that allows the drive train to run at 4 different speeds with the default speed being .5
  */
-        float armExtend = gamepad2.right_stick_y;
+        int armExtend = Math.round(gamepad2.right_stick_y);
         float armRotate = gamepad2.left_stick_y;
 
-        motor5.setPower(armExtend);
+        if(limit.isPressed()){
+            motor5.setPower(-1*(Math.abs(armExtend)));
+        }
+        else{
+            motor5.setPower(armExtend);
+        }
         motor6.setPower(armRotate);
 
         if (armExtend >= .25) {
