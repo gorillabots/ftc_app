@@ -68,7 +68,7 @@ public class FtcOpModeRegister implements OpModeRegister {
       //manager.register("teletest3", teletest3.class);
       //manager.register("teletest1half", teletest1half.class);
       //manager.register("teletest2half", teletest2half.class);
-      manager.register("armTest", armTest.class);
+      //manager.register("armTest", armTest.class);
       //manager.register("JoyStickMountTest", JoyStickMountTest.class);
       //manager.register("CorkscrewTest", CorkscrewTest.class);
       //manager.register("PresserTester", PresserTester.class);
@@ -84,6 +84,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("Robot self-test",Comp_Tst.class);
     manager.register("GPS_Position_Finder",GPS_Position_Finder.class);
     manager.register("FinalAutoRed", AdafruitRGBExample.class);
+    manager.register("BrakeTest", BrakeTest.class);
      /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
@@ -94,7 +95,6 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("IrSeekerOp", IrSeekerOp.class);
     //manager.register("CompassCalibration", CompassCalibration.class);
     //manager.register("I2cAddressChangeExample", LinearI2cAddressChange.class);
-
 
     //manager.register("NxtTeleOp", NxtTeleOp.class);
     
