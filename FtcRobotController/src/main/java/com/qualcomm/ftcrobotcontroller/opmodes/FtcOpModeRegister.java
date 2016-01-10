@@ -63,6 +63,8 @@ public class FtcOpModeRegister implements OpModeRegister {
       //manager.register ("PushBotManual", PushBotManual.class);
       //manager.register ("RemoteControl", RemoteControl.class);
       manager.register("CompTele", CompTele.class);
+      manager.register("CompTele2", CompTele_V2.class);
+      manager.register("TapeTest",TapeTest.class);
      //manager.register("teletest1", teletest1.class);
       //manager.register("teletest2", teletest2.class);
       //manager.register("teletest3", teletest3.class);

@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class TapeTest extends OpMode {
 
     Servo tape;
+    Servo rotate;
+    Servo tilt;
     DcMotor motor1;
     DcMotor motor2;
     DcMotor motor3;
@@ -17,7 +19,7 @@ public class TapeTest extends OpMode {
     DcMotor motor6;
 
     @Override
-    public void init(){
+    public void init() {
 
         motor1 = hardwareMap.dcMotor.get("motor1");
         motor2 = hardwareMap.dcMotor.get("motor2");
@@ -27,10 +29,57 @@ public class TapeTest extends OpMode {
         motor6 = hardwareMap.dcMotor.get("motor6");
 
         tape = hardwareMap.servo.get("tape");
-    }
-    @Override
-    public void loop(){
+        tilt = hardwareMap.servo.get("tilt");
+        rotate = hardwareMap.servo.get("rotate");
 
-        motor1.setPower(gamepad1.left_stick_y);
+        tape.setPosition(.5);
+        rotate.setPosition(.5);
+        tilt.setPosition(.5);
+    }
+
+    @Override
+    public void loop() {
+
+        if (gamepad1.a == true) {
+            tape.setPosition(0);
+
+        }
+        else if (gamepad1.y == true) {
+            tape.setPosition(1);
+        }
+        else {
+            tape.setPosition(.5);
+        }
+
+
+        if (gamepad2.b == true) {
+            tilt.setPosition(0);
+
+
+        }
+        else if (gamepad2.x == true) {
+
+            tilt.setPosition(1);
+
+        }
+        else {
+            tilt.setPosition(.5);
+        }
+
+
+        if (gamepad2.dpad_right == true) {
+
+            rotate.setPosition(0);
+
+        }
+        else if (gamepad2.dpad_left == true) {
+
+            rotate.setPosition(1);
+
+        }
+        else {
+            rotate.setPosition(.5);
+        }
+
     }
 }

@@ -26,20 +26,20 @@ public class CompTele_V2 extends OpMode {
 /* in lines 10 through ______ we declare the use of differenr motors.
 */
 
-
+/*
     public void driveSide(String side, float power) {
         if (side == "left") {
-            motor1.setPower((double) power);
+      //      motor1.setPower((double) power);
             motor2.setPower((double) power);
 
 
         } else {
-            motor3.setPower((double) power);
+        //    motor3.setPower((double) power);
             motor4.setPower((double) power);
 
         }
+*/
 
-    }
  /* the above custom metheod is meant to allow us to use the motors that are connected to the the wheels by side without having to
     declare the motor values individually */
 
@@ -58,7 +58,7 @@ public class CompTele_V2 extends OpMode {
         limit = hardwareMap.touchSensor.get("limit");
 
         double drive = 1;
-        int direction = 1;
+         direction = 1;
 
         pivot.setPosition(Servo.MAX_POSITION);
         screw.setPosition(.5);
@@ -88,19 +88,16 @@ public class CompTele_V2 extends OpMode {
         }
 
 
-
-
         float throttleLeft = gamepad1.left_stick_y;
         float throttleRight = gamepad1.right_stick_y;
         //boolean speedOne = gamepad1.right_bumper;
         //float speedTwo = gamepad1.right_trigger;
         //boolean  speedThree = gamepad1.left_bumper;
         //float speedFour = gamepad1.left_trigger;
-        motor4.setPower((throttleLeft * drive  * -1)*direction);
+        motor4.setPower((gamepad1.left_stick_y * drive  * -1)*direction );
         motor3.setPower((throttleLeft * drive  * -1)*direction);
-        motor2.setPower((throttleRight * drive)*direction);
+        motor2.setPower((gamepad1.right_stick_y * drive)*direction );
         motor1.setPower((throttleRight * drive)*direction);
-
 
 
 
@@ -150,7 +147,6 @@ above is the code that is used to drive the robot using the left and right stick
 
         if(gamepad1.dpad_up == true){
             direction = 1;
-
         }
 
         else if(gamepad1.dpad_down == true){
@@ -163,10 +159,13 @@ Above is the the shifter for the drive train that allows the drive train to run 
         int armExtend = Math.round(gamepad2.right_stick_y);
         float armRotate = gamepad2.left_stick_y;
 
-        if(limit.isPressed()){
-            motor5.setPower(-1*(Math.abs(armExtend)));
+        if(limit.isPressed()== true){
+
+            motor5.setPower((-1*(Math.abs(gamepad2.right_stick_y)))/2);
         }
         else{
+
+
             motor5.setPower(armExtend);
         }
         motor6.setPower(armRotate);
@@ -193,7 +192,7 @@ Above is the the shifter for the drive train that allows the drive train to run 
         } else if (gamepad2.left_trigger >= .75) {
             telemetry.addData("screw", "off");
             screw.setPosition(.5);
-        }
+    }
 
 
         /*
@@ -219,7 +218,7 @@ Above is the the shifter for the drive train that allows the drive train to run 
             rightGo.setPosition(0.8);
         }
 
-
+/*
         if(gamepad1.x == true) {
             leftGo.setPosition(.6);
         }
@@ -227,9 +226,11 @@ Above is the the shifter for the drive train that allows the drive train to run 
         if(gamepad1.a == true) {
             rightGo.setPosition(.2);
         }
+  */
         /*
         The above 4 if statements control the pokers. The pokers flip the levers controlling the zip line.
          They can be controlled with the x and a buttons or for more precise control
+
 
          */
 

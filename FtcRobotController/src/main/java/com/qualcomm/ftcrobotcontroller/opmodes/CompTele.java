@@ -19,7 +19,7 @@ public class CompTele extends OpMode {
     Servo screw;
     Servo pivot;
     Servo rightGo;
-    Servo leftGo;
+    //Servo leftGo;
 /* in lines 10 through ______ we declare the use of differenr motors.
 */
 
@@ -50,14 +50,14 @@ public class CompTele extends OpMode {
         motor6 = hardwareMap.dcMotor.get("motor6");
         pivot = hardwareMap.servo.get("pivot");
         screw = hardwareMap.servo.get("screw");
-        leftGo = hardwareMap.servo.get("backGo");
+  //      leftGo = hardwareMap.servo.get("backGo");
         rightGo = hardwareMap.servo.get("frontGo");
 
         double drive = 1;
         pivot.setPosition(Servo.MAX_POSITION);
         screw.setPosition(.5);
 
-        leftGo.setPosition(0);
+      //  leftGo.setPosition(0);
         rightGo.setPosition(.8);
 
     }
@@ -70,7 +70,7 @@ public class CompTele extends OpMode {
             telemetry.addData("drive is ", drive);
             telemetry.addData("screw", screw.getDirection());
             telemetry.addData("pivot is at", pivot.getPosition());
-            telemetry.addData("left toucher is at ", leftGo.getPosition() );
+            //telemetry.addData("left toucher is at ", leftGo.getPosition() );
             telemetry.addData("right toucher is at", rightGo.getPosition());
 
 
@@ -174,13 +174,13 @@ Above is the the shifter for the drive train that allows the drive train to run 
 
 
 
-            if (gamepad1.left_trigger >= .5) {
+            //if (gamepad1.left_trigger >= .5) {
 
-            leftGo.setPosition(gamepad1.left_trigger*.6);
-             } else {
-                leftGo.setPosition(.0);
+           // leftGo.setPosition(gamepad1.left_trigger*.6);
+             //} else {
+              //  leftGo.setPosition(.0);
 
-            }
+            //}
             if (gamepad1.right_trigger >= .5) {
                 rightGo.setPosition((gamepad1.right_trigger * -.7) +.8);
 
@@ -190,9 +190,9 @@ Above is the the shifter for the drive train that allows the drive train to run 
             }
 
 
-            if(gamepad1.x == true) {
-                leftGo.setPosition(.6);
-            }
+            //if(gamepad1.x == true) {
+              //  leftGo.setPosition(.6);
+            //}
 
             if(gamepad1.a == true) {
                 rightGo.setPosition(.2);
