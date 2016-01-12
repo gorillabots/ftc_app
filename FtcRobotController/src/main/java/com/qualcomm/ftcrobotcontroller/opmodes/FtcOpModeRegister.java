@@ -61,9 +61,13 @@ public class FtcOpModeRegister implements OpModeRegister {
       //manager.register("K9TeleOp", K9TeleOp.class);
       //manager.register ("PushBotAuto", PushBotAuto.class);
       //manager.register ("PushBotManual", PushBotManual.class);
+      manager.register("Comp Red",Comp2Red.class);
+      manager.register("Comp Blue", CompBlue.class);
+      manager.register("BLUE AUTO", CoolerBlueAuto.class);
+      manager.register("RED AUTO", CoolerRedAuto.class);
       //manager.register ("RemoteControl", RemoteControl.class);
-      manager.register("CompTele", CompTele.class);
-      manager.register("CompTele2", CompTele_V2.class);
+      //manager.register("CompTele", CompTele.class);
+      //manager.register("CompTele2", CompTele_V2.class);
       manager.register("TapeTest",TapeTest.class);
      //manager.register("teletest1", teletest1.class);
       //manager.register("teletest2", teletest2.class);
@@ -76,17 +80,17 @@ public class FtcOpModeRegister implements OpModeRegister {
       //manager.register("PresserTester", PresserTester.class);
       //manager.register("JarredServoTest",JarredServoTest.class);
       //manager.register("pivortest",pivorTest.class);
-      manager.register("closeTest",closeTest.class);
-      manager.register("FinalAutoBlue",JarredAutoBCork.class);
-      manager.register("Auto2NoCork",Auto2NoCork.class);
+      //manager.register("closeTest",closeTest.class);
+      //manager.register("FinalAutoBlue",JarredAutoBCork.class);
+      //manager.register("Auto2NoCork",Auto2NoCork.class);
       //manager.register("ArmStopFinder",ArmStopFinder.class);
     //manager.register("TESTTTTTTTT",servotestPos.class);
     //manager.register("TESTclose",closeTest.class);
     manager.register("15sec.test", fifteensecs.class);
     manager.register("Robot self-test",Comp_Tst.class);
-    manager.register("GPS_Position_Finder",GPS_Position_Finder.class);
-    manager.register("FinalAutoRed", AdafruitRGBExample.class);
-    manager.register("BrakeTest", BrakeTest.class);
+    //manager.register("GPS_Position_Finder",GPS_Position_Finder.class);
+    //manager.register("FinalAutoRed", AdafruitRGBExample.class);
+    //manager.register("BrakeTest", BrakeTest.class);
      /*
      * Uncomment any of the following lines if you want to register an op mode.
      */

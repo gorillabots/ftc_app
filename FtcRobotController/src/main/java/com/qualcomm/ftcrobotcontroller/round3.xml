@@ -1,32 +1,31 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <Robot>
-    <LegacyModuleController name="Legacy Module 1" serialNumber="AL00VB9Q">
-        <UltrasonicSensor name="distance2" port="4" />
-        <UltrasonicSensor name="distance" port="5" />
-    </LegacyModuleController>
-    <MotorController name="Motor Controller 3" serialNumber="AL00YC5Z">
-        <Motor name="motor3" port="1" />
-        <Motor name="motor4" port="2" />
-    </MotorController>
-    <MotorController name="Motor Controller 2" serialNumber="AL00YC5R">
-        <Motor name="motor5" port="1" />
-        <Motor name="motor6" port="2" />
-    </MotorController>
     <DeviceInterfaceModule name="Device Interface Module 1" serialNumber="AL00VCQT">
+        <Gyro name="gyro" port="4" />
         <ColorSensor name="color" port="5" />
         <OpticalDistanceSensor name="light" port="0" />
         <TouchSensor name="limit" port="0" />
     </DeviceInterfaceModule>
+    <MotorController name="Motor Controller 2" serialNumber="AL00YC5R">
+        <Motor name="motor5" port="1" />
+        <Motor name="motor6" port="2" />
+    </MotorController>
+    <MotorController name="Motor Controller 3" serialNumber="AL00YC5Z">
+        <Motor name="motor3" port="1" />
+        <Motor name="motor4" port="2" />
+    </MotorController>
+    <LegacyModuleController name="Legacy Module 1" serialNumber="AL00VB9Q">
+        <UltrasonicSensor name="distance2" port="4" />
+        <UltrasonicSensor name="distance" port="5" />
+    </LegacyModuleController>
+    <ServoController name="Servo Controller 5" serialNumber="AL00VBC0">
+        <Servo name="frontGo" port="1" />
+        <Servo name="backGo" port="2" />
+        <Servo name="pivot" port="5" />
+        <Servo name="screw" port="6" />
+    </ServoController>
     <MotorController name="Motor Controller 6" serialNumber="AL00VTH7">
         <Motor name="motor1" port="1" />
         <Motor name="motor2" port="2" />
     </MotorController>
-    <ServoController name="Servo Controller 5" serialNumber="AL00VBC0">
-        <Servo name="tape" port="1" />
-        <Servo name="backGo" port="2" />
-        <Servo name="tilt" port="3" />
-        <Servo name="rotate" port="4" />
-        <Servo name="pivot" port="5" />
-        <Servo name="screw" port="6" />
-    </ServoController>
 </Robot>
