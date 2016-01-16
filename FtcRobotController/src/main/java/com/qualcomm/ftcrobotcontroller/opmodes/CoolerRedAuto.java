@@ -26,6 +26,10 @@ public class CoolerRedAuto extends LinearOpMode{
     Servo screw;
     Servo pivot;
     Servo rightGo;
+    Servo tape;
+    Servo rotate;
+    Servo tilt;
+
     void turn_left(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
         motor2.setPower(-power);
@@ -125,9 +129,19 @@ public class CoolerRedAuto extends LinearOpMode{
         motor3.setChannelMode(RunMode.RUN_USING_ENCODERS);
         motor4.setChannelMode(RunMode.RUN_USING_ENCODERS);
         rightGo = hardwareMap.servo.get("frontGo");
-        pivot.setPosition((7/9));
+        pivot.setPosition(.77);
         screw.setPosition(.5);
         rightGo.setPosition(.8);
+
+
+        tape = hardwareMap.servo.get("tape");
+        tilt = hardwareMap.servo.get("tilt");
+        rotate = hardwareMap.servo.get("rotate");
+
+        tape.setPosition(.5);
+        rotate.setPosition(.5);
+        tilt.setPosition(.5);
+
     }
 
     @Override

@@ -6,8 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by Jarred on 12/31/2015.
  */
-public class Movement extends LinearOpMode {
 
+/*
+
+
+public class Movement extends LinearOpMode {
     DcMotor motor1;
     DcMotor motor2;
     DcMotor motor3;
@@ -82,11 +85,5 @@ public class Movement extends LinearOpMode {
     }
 
 
-    public void runOpMode() throws InterruptedException{
-
-        while(opModeIsActive()){
-
-        }
     }
-
-}
+*/

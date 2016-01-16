@@ -26,6 +26,9 @@ public class CoolerBlueAuto extends LinearOpMode{
     Servo screw;
     Servo leftGo;
     Servo pivot;
+    Servo tape;
+    Servo rotate;
+    Servo tilt;
     void turn_left(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
         motor2.setPower(-power);
@@ -125,7 +128,14 @@ public class CoolerBlueAuto extends LinearOpMode{
         motor2.setChannelMode(RunMode.RUN_USING_ENCODERS);
         motor3.setChannelMode(RunMode.RUN_USING_ENCODERS);
         motor4.setChannelMode(RunMode.RUN_USING_ENCODERS);
-        pivot.setPosition((7/9));
+        tape = hardwareMap.servo.get("tape");
+        tilt = hardwareMap.servo.get("tilt");
+        rotate = hardwareMap.servo.get("rotate");
+
+        tape.setPosition(.5);
+        rotate.setPosition(.5);
+        tilt.setPosition(.5);
+        pivot.setPosition(.77);
         screw.setPosition(.5);
         leftGo.setPosition(0.0);
 
@@ -136,10 +146,13 @@ public class CoolerBlueAuto extends LinearOpMode{
         _init();
         waitForStart();
         while (opModeIsActive()) {
+
             screw.setPosition(.5);
             backward(0.25, 1300);
             stop_robot(1000);
             while (true) {
+                telemetry.addData("distance", distance.getUltrasonicLevel());
+                telemetry.addData("distance2", distance2.getUltrasonicLevel());
                 int i;
                 for(i = 0; i < 3; i++){
                     stop_robot(100);

@@ -26,6 +26,10 @@ public class RedAutoTrap extends LinearOpMode{
     Servo screw;
     Servo pivot;
     Servo rightGo;
+    Servo tape;
+    Servo rotate;
+    Servo tilt;
+
     void turn_left(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
         motor2.setPower(-power);
@@ -85,7 +89,7 @@ public class RedAutoTrap extends LinearOpMode{
         stop_robot(1000);
     }
 
-    void your_mom() throws InterruptedException{
+    void correct() throws InterruptedException{
         while(distance.getUltrasonicLevel() > distance2.getUltrasonicLevel()){
             motor1.setPower(-0.1);
             motor2.setPower(-0.1);
@@ -125,9 +129,19 @@ public class RedAutoTrap extends LinearOpMode{
         motor3.setChannelMode(RunMode.RUN_USING_ENCODERS);
         motor4.setChannelMode(RunMode.RUN_USING_ENCODERS);
         rightGo = hardwareMap.servo.get("frontGo");
-        pivot.setPosition((7/9));
+        pivot.setPosition(.77);
         screw.setPosition(.5);
         rightGo.setPosition(.8);
+
+
+        tape = hardwareMap.servo.get("tape");
+        tilt = hardwareMap.servo.get("tilt");
+        rotate = hardwareMap.servo.get("rotate");
+
+        tape.setPosition(.5);
+        rotate.setPosition(.5);
+        tilt.setPosition(.5);
+
     }
 
     @Override
@@ -156,7 +170,7 @@ public class RedAutoTrap extends LinearOpMode{
             }
             turn_left(0.3, 500);
             stop_robot(500);
-            backward(0.25, 2320);
+            backward(0.25, 2200);
             stop_robot(500);
             turn_left(0.3,450);
             stop_robot(500);

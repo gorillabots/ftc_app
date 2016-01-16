@@ -20,7 +20,11 @@ public class Comp2Red extends OpMode {
     Servo screw;
     Servo pivot;
     Servo rightGo;
+    Servo tape;
+    Servo rotate;
+    Servo tilt;
     //Servo leftGo;
+
     int direction;
     TouchSensor limit;
 /* in lines 10 through ______ we declare the use of differenr motors.
@@ -57,6 +61,14 @@ public class Comp2Red extends OpMode {
         rightGo = hardwareMap.servo.get("frontGo");
         limit = hardwareMap.touchSensor.get("limit");
 
+        tape = hardwareMap.servo.get("tape");
+        tilt = hardwareMap.servo.get("tilt");
+        rotate = hardwareMap.servo.get("rotate");
+
+        tape.setPosition(.5);
+        rotate.setPosition(.5);
+        tilt.setPosition(.5);
+
         double drive = 1;
         direction = 1;
 
@@ -78,6 +90,10 @@ public class Comp2Red extends OpMode {
         telemetry.addData("pivot is at", pivot.getPosition());
         //telemetry.addData("left toucher is at ", leftGo.getPosition() );
         telemetry.addData("right toucher is at", rightGo.getPosition());
+        telemetry.addData("tape (P1.Y=0 | P1.A=1)", tape.getPosition());
+        telemetry.addData("rotate (P2.dLeft=0 | P2.dRight=1)", rotate.getPosition());
+        telemetry.addData("tilt (P2.B=0 | P2.X=0)", tilt.getPosition());
+
 
         if(direction == 1){
             telemetry.addData("direction","forward");
@@ -182,7 +198,7 @@ Above is the the shifter for the drive train that allows the drive train to run 
 
 
         if (gamepad2.right_bumper == true) {
-            pivot.setPosition(Servo.MAX_POSITION);
+            pivot.setPosition(.81);
         }
 
         if (gamepad2.right_trigger >= .75) {
@@ -196,6 +212,49 @@ Above is the the shifter for the drive train that allows the drive train to run 
             telemetry.addData("screw", "off");
             screw.setPosition(.5);
         }
+
+
+        if (gamepad1.a == true) {
+            tape.setPosition(0);
+
+        }
+        else if (gamepad1.y == true) {
+            tape.setPosition(1);
+        }
+        else {
+            tape.setPosition(.5);
+        }
+
+
+        if (gamepad2.b == true) {
+            tilt.setPosition(0);
+
+
+        }
+        else if (gamepad2.x == true) {
+
+            tilt.setPosition(1);
+
+        }
+        else {
+            tilt.setPosition(.5);
+        }
+
+
+        if (gamepad2.dpad_right == true) {
+
+            rotate.setPosition(0);
+
+        }
+        else if (gamepad2.dpad_left == true) {
+
+            rotate.setPosition(1);
+
+        }
+        else {
+            rotate.setPosition(.5);
+        }
+
 
 
         /*
@@ -214,7 +273,7 @@ Above is the the shifter for the drive train that allows the drive train to run 
 
         //}
         if (gamepad1.right_trigger >= .5) {
-            rightGo.setPosition((gamepad1.right_trigger * -.7) +.8);
+            rightGo.setPosition((gamepad1.right_trigger * -.7) +.7);
 
         }
         else {

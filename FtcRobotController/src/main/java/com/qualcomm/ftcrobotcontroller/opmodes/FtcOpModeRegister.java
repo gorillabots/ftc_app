@@ -55,71 +55,20 @@ public class FtcOpModeRegister implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
 
-      //manager.register("NullOp", NullOp.class);
-      //manager.register("armTest" , armTest.class);
-      //manager.register("MatrixK9TeleOp", MatrixK9T.eleOp.class);
-      //manager.register("K9TeleOp", K9TeleOp.class);
-      //manager.register ("PushBotAuto", PushBotAuto.class);
-      //manager.register ("PushBotManual", PushBotManual.class);
+
       manager.register("Comp Red",Comp2Red.class);
       manager.register("Comp Blue", CompBlue.class);
-      manager.register("BLUE AUTO", CoolerBlueAuto.class);
-      manager.register("RED AUTO", CoolerRedAuto.class);
-      //manager.register ("RemoteControl", RemoteControl.class);
-      //manager.register("CompTele", CompTele.class);
-      //manager.register("CompTele2", CompTele_V2.class);
-      manager.register("TapeTest",TapeTest.class);
-     //manager.register("teletest1", teletest1.class);
-      //manager.register("teletest2", teletest2.class);
-      //manager.register("teletest3", teletest3.class);
-      //manager.register("teletest1half", teletest1half.class);
-      //manager.register("teletest2half", teletest2half.class);
-      //manager.register("armTest", armTest.class);
-      //manager.register("JoyStickMountTest", JoyStickMountTest.class);
-      //manager.register("CorkscrewTest", CorkscrewTest.class);
-      //manager.register("PresserTester", PresserTester.class);
-      //manager.register("JarredServoTest",JarredServoTest.class);
-      //manager.register("pivortest",pivorTest.class);
-      //manager.register("closeTest",closeTest.class);
-      //manager.register("FinalAutoBlue",JarredAutoBCork.class);
-      //manager.register("Auto2NoCork",Auto2NoCork.class);
-      //manager.register("ArmStopFinder",ArmStopFinder.class);
-    //manager.register("TESTTTTTTTT",servotestPos.class);
-    //manager.register("TESTclose",closeTest.class);
-    manager.register("15sec.test", fifteensecs.class);
-    manager.register("Robot self-test",Comp_Tst.class);
-    //manager.register("GPS_Position_Finder",GPS_Position_Finder.class);
-    //manager.register("FinalAutoRed", AdafruitRGBExample.class);
-    //manager.register("BrakeTest", BrakeTest.class);
-     /*
-     * Uncomment any of the following lines if you want to register an op mode.
-     */
 
-    //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
-    //manager.register("ColorSensorDriver", ColorSensorDriver.class);
+      manager.register("BLUE AUTO TRAP", BlueAutoTrap.class);
+      manager.register("RED AUTO TRAP", RedAutoTrap .class);
 
-    //manager.register("IrSeekerOp", IrSeekerOp.class);
-    //manager.register("CompassCalibration", CompassCalibration.class);
-    //manager.register("I2cAddressChangeExample", LinearI2cAddressChange.class);
+      manager.register("BLUE AUTO ", CoolerBlueAuto.class);
+      manager.register("RED AUTO ", CoolerRedAuto.class);
 
-    //manager.register("NxtTeleOp", NxtTeleOp.class);
-    
-    //manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
-    //manager.register("LinearIrExample", LinearIrExample.class);
 
-    
-    //manager.register ("PushBotManual1", PushBotManual1.class);
-    //manager.register ("PushBotAutoSensors", PushBotAutoSensors.class);
-    //manager.register ("PushBotIrEvent", PushBotIrEvent.class);
-    
-    //manager.register ("PushBotManualSensors", PushBotManualSensors.class);
-    //manager.register ("PushBotOdsDetectEvent", PushBotOdsDetectEvent.class);
-    //manager.register ("PushBotOdsFollowEvent", PushBotOdsFollowEvent.class);
-    //manager.register ("PushBotTouchEvent", PushBotTouchEvent.class);    
-    
-    //manager.register("PushBotDriveTouch", PushBotDriveTouch.java);
-    //manager.register("PushBotIrSeek", PushBotIrSeek.java);
-    //manager.register("PushBotSquare", PushBotSquare.java);
+      manager.register("15sec.test", fifteensecs.class);
+      manager.register("Robot self-test",Comp_Tst.class);
+
 
     
     
