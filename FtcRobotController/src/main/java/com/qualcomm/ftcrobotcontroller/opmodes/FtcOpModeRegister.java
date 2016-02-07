@@ -70,7 +70,7 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("Robot self-test",Comp_Tst.class);
 
 
-    
+      manager.register("balling",BALL.class);
     
   }
 }
