@@ -14,8 +14,8 @@ public class BALL extends OpMode {
     public void init(){
         swoop = hardwareMap.servo.get("swoop");
         elbow = hardwareMap.servo.get("elbow");
-        retract = .5;
-        pickUp = 0.0;
+        retract = 1;
+        pickUp = 0.;
 
         swoop.setPosition(.5);
         elbow.setPosition(.5);
@@ -27,14 +27,20 @@ public class BALL extends OpMode {
         if(gamepad1.a == true){
             swoop.setPosition(1);
         }
+        else{
+            swoop.setPosition(.5);
+        }
 
-        if(gamepad1.right_bumper == true){
 
-           elbow.setPosition(pickUp);
+        if(gamepad1.y == true){
+
+           elbow.setPosition(0);
+
+
 
         }
-        else if(gamepad1.left_bumper == true){
-            elbow.setPosition(retract);
+        else if(gamepad1.x == true){
+            elbow.setPosition(.5);
 
         }
 

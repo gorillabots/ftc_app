@@ -56,21 +56,21 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
 
 
-      manager.register("Comp Red",Comp2Red.class);
-      manager.register("Comp Blue", CompBlue.class);
+    manager.register("Comp Red",Comp2Red.class);
+    manager.register("Comp Blue", CompBlue.class);
 
-      manager.register("BLUE AUTO TRAP", BlueAutoTrap.class);
-      manager.register("RED AUTO TRAP", RedAutoTrap .class);
+    manager.register("BLUE AUTO TRAP", BlueAutoTrap.class);
+    manager.register("RED AUTO TRAP", RedAutoTrap .class);
 
-      manager.register("BLUE AUTO ", CoolerBlueAuto.class);
-      manager.register("RED AUTO ", CoolerRedAuto.class);
-
-
-      manager.register("15sec.test", fifteensecs.class);
-      manager.register("Robot self-test",Comp_Tst.class);
+    manager.register("BLUE AUTO ", CoolerBlueAuto.class);
+    manager.register("RED AUTO ", CoolerRedAuto.class);
 
 
-      manager.register("balling",BALL.class);
-    
+    manager.register("15sec.test", fifteensecs.class);
+    manager.register("Robot self-test",Comp_Tst.class);
+
+
+    manager.register("balling",BALL.class);
+
   }
 }
