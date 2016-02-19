@@ -19,9 +19,7 @@ public class CompBlue extends OpMode {
     double drive;
     Servo screw;
     Servo pivot;
-    Servo tape;
-    Servo rotate;
-    Servo tilt;
+    Servo hook;
 
 
 
@@ -62,20 +60,18 @@ public class CompBlue extends OpMode {
         leftGo = hardwareMap.servo.get("backGo");
         //rightGo = hardwareMap.servo.get("frontGo");
         limit = hardwareMap.touchSensor.get("limit");
+        hook= hardwareMap.servo.get("hook");
 
-        tape = hardwareMap.servo.get("tape");
-        tilt = hardwareMap.servo.get("tilt");
-        rotate = hardwareMap.servo.get("rotate");
 
-        tape.setPosition(.5);
-        rotate.setPosition(.5);
-        tilt.setPosition(.5);
+
 
         double drive = 1;
         direction = 1;
 
         pivot.setPosition(.77);
         screw.setPosition(.5);
+
+        hook.setPosition(1);
 
         leftGo.setPosition(0);
       //  rightGo.setPosition(.8);
@@ -91,9 +87,7 @@ public class CompBlue extends OpMode {
         telemetry.addData("screw", screw.getDirection());
         telemetry.addData("pivot is at", pivot.getPosition());
         telemetry.addData("leftGo (P1.LT=down)", leftGo.getPosition() );
-        telemetry.addData("tape (P1.Y=0 | P1.A=1)", tape.getPosition());
-        telemetry.addData("rotate (P2.dLeft=0 | P2.dRight=1)", rotate.getPosition());
-        telemetry.addData("tilt (P2.B=0 | P2.X=0)", tilt.getPosition());
+
 
         //telemetry.addData("right toucher is at", rightGo.getPosition());
 
@@ -212,46 +206,7 @@ Above is the the shifter for the drive train that allows the drive train to run 
             screw.setPosition(.5);
         }
 
-        if (gamepad1.a == true) {
-            tape.setPosition(0);
 
-        }
-        else if (gamepad1.y == true) {
-            tape.setPosition(1);
-        }
-        else {
-            tape.setPosition(.5);
-        }
-
-
-        if (gamepad2.b == true) {
-            tilt.setPosition(0);
-
-
-        }
-        else if (gamepad2.x == true) {
-
-            tilt.setPosition(1);
-
-        }
-        else {
-            tilt.setPosition(.5);
-        }
-
-
-        if (gamepad2.dpad_right == true) {
-
-            rotate.setPosition(0);
-
-        }
-        else if (gamepad2.dpad_left == true) {
-
-            rotate.setPosition(1);
-
-        }
-        else {
-            rotate.setPosition(.5);
-        }
 
 
 
@@ -269,6 +224,15 @@ Above is the the shifter for the drive train that allows the drive train to run 
             leftGo.setPosition(.0);
 
         }
+
+
+        if(gamepad1.a == true){
+            hook.setPosition(0);
+        }
+        else{
+            hook.setPosition(1);
+        }
+
         /*
         if (gamepad1.right_trigger >= .5) {
             rightGo.setPosition((gamepad1.right_trigger * -.7) +.8);

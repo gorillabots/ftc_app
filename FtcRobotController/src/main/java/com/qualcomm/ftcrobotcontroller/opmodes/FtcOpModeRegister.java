@@ -71,6 +71,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
 
     manager.register("balling",BALL.class);
+    manager.register("Swooper",ArmFInd.class);
 
   }
 }
