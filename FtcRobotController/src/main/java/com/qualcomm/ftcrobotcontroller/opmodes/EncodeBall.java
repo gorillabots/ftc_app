@@ -15,9 +15,11 @@ public class EncodeBall extends OpMode {
     TouchSensor posOne;
     TouchSensor posTwo;
     TouchSensor posThree;
+    TouchSensor posFour;
     boolean stateOne;
     boolean stateTwo;
     boolean stateThree;
+    boolean stateFour;
     int currentPos;
     int directionGo;
     double stager;
@@ -45,17 +47,24 @@ public class EncodeBall extends OpMode {
             stateThree = false;
         }
 
-        if(stateOne==true && stateTwo==false && stateThree==false){
+        if(posFour.isPressed()){
+            stateFour = true;
+        }
+        else{
+            stateFour = false;
+        }
+
+        if(stateOne==true && stateTwo==false && stateThree==false && stateFour == false){
             currentPos = 1;
 
         }
-        if(stateOne==true && stateTwo == true && stateThree==false){
+        if(stateOne==false && stateTwo==true && stateThree==false && stateFour == false){
             currentPos=2;
         }
-        if(stateOne==false && stateTwo == true && stateThree == true){
+        if(stateOne==false && stateTwo==false && stateThree==true && stateFour == false){
             currentPos=3;
         }
-        if(stateOne==false && stateTwo == false && stateThree == true){
+        if(stateOne==false && stateTwo==false && stateThree==false && stateFour == false){
             currentPos=4;
         }
 
@@ -72,6 +81,9 @@ public class EncodeBall extends OpMode {
         while(currentPos != stage){
             swoop.setPosition(directionGo + 1);
         }
+        while(currentPos == stage){
+            swoop.setPosition(.5);
+        }
 
     }
 
@@ -82,7 +94,8 @@ public class EncodeBall extends OpMode {
         elbow = hardwareMap.servo.get("elbow");
         posOne = hardwareMap.touchSensor.get("posOne");
         posTwo = hardwareMap.touchSensor.get("posTwo");
-        posThree = hardwareMap.touchSensor.get("posTwo");
+        posThree = hardwareMap.touchSensor.get("posThree");
+        posFour = hardwareMap.touchSensor.get("posFour");
 
         retract = 1;
         pickUp = 0.;
@@ -100,18 +113,18 @@ public class EncodeBall extends OpMode {
 
 
         if (gamepad1.right_bumper == true) {
-            stager += .25;
+            stager += 1;
             telemetry.addData("shifted", "up");
         }
         if (gamepad1.left_bumper == true) {
-            stager -= .25;
+            stager -= 1;
             telemetry.addData("shifted", "down");
         }
-        if (stager > 1) {
-            stager = 1;
+        if (stager > 4) {
+            stager = 4;
         }
-        if (stager < .25) {
-            stager = .25;
+        if (stager < 1) {
+            stager = 1;
         }
         if (gamepad1.a == true) {
             moveNet(stager);
