@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
 /**
@@ -12,21 +13,44 @@ import com.qualcomm.robotcore.hardware.UltrasonicSensor;
  */
 public class movement extends LinearOpMode {
 
-    ColorSensor color;
+
     UltrasonicSensor distance;
     UltrasonicSensor distance2;
+
     DcMotor motor1;
     DcMotor motor2;
     DcMotor motor3;
     DcMotor motor4;
     DcMotor motor5;
     DcMotor motor6;
+
+    ColorSensor color;
+
     Servo screw;
     Servo leftGo;
+    Servo rightGo;
     Servo pivot;
-    Servo tape;
-    Servo rotate;
-    Servo tilt;
+    Servo swoop;
+    Servo elbow;
+
+    TouchSensor posOne;
+    TouchSensor posTwo;
+    TouchSensor posThree;
+    TouchSensor limit;
+
+    boolean stateOne;
+    boolean stateTwo;
+    boolean stateThree;
+    int currentPos;
+    int directionGo;
+    int direction;
+
+
+
+
+
+
+
 
     void turn_left(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
@@ -88,13 +112,13 @@ public class movement extends LinearOpMode {
     }
 
     void your_mom() throws InterruptedException{
-        while(distance.getUltrasonicLevel() > distance2.getUltrasonicLevel()){
+        while( getDistance() > getDistance2()){
             motor1.setPower(-0.1);
             motor2.setPower(-0.1);
             motor3.setPower(-0.1);
             motor4.setPower(-0.1);
         }
-        while(distance.getUltrasonicLevel() < distance2.getUltrasonicLevel()){
+        while(getDistance() < getDistance()){
             motor1.setPower(0.1);
             motor2.setPower(0.1);
             motor3.setPower(0.1);
@@ -104,6 +128,56 @@ public class movement extends LinearOpMode {
 
             stop_robot(5000000);
         }
+    }
+
+    public double getDistance(){
+        return distance.getUltrasonicLevel();
+
+    }
+
+    public double getDistance2(){
+        return distance2.getUltrasonicLevel();
+    }
+
+    public boolean getlimit(){
+        return limit.isPressed();
+    }
+
+    public int updateState(){
+
+        stateOne = posOne.isPressed();
+        stateTwo = posTwo.isPressed();
+        stateThree = posThree.isPressed();
+
+        if(stateOne && ! stateTwo ){
+            currentPos = 1;
+
+        }
+        else if(!stateOne && stateTwo ){
+            currentPos=2;
+        }
+        else if(stateOne && stateTwo ){
+            currentPos=3;
+        }
+        return currentPos;
+
+    }
+    public void moveNet(double stage){
+
+        currentPos = updateState();
+
+        if(stage > currentPos){
+            swoop.setPosition(0);
+
+        }
+        else if(stage < currentPos){
+            directionGo=-1;
+            swoop.setPosition(1);
+        }
+        else{
+            swoop.setPosition(.5);
+        }
+
     }
 
     public void _init() {
@@ -117,8 +191,15 @@ public class movement extends LinearOpMode {
         screw = hardwareMap.servo.get("screw");
         pivot = hardwareMap.servo.get("pivot");
         leftGo = hardwareMap.servo.get("backGo");
+        rightGo =hardwareMap.servo.get("frontGo");
         distance = hardwareMap.ultrasonicSensor.get("distance");
         distance2 = hardwareMap.ultrasonicSensor.get("distance2");
+        swoop = hardwareMap.servo.get("swoop");
+        elbow = hardwareMap.servo.get("elbow");
+        posOne = hardwareMap.touchSensor.get("posOne");
+        posTwo = hardwareMap.touchSensor.get("posTwo");
+        limit = hardwareMap.touchSensor.get("limit");
+
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor2.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor3.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -127,16 +208,14 @@ public class movement extends LinearOpMode {
         motor2.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motor3.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motor4.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        tape = hardwareMap.servo.get("tape");
-        tilt = hardwareMap.servo.get("tilt");
-        rotate = hardwareMap.servo.get("rotate");
 
-        tape.setPosition(.5);
-        rotate.setPosition(.5);
-        tilt.setPosition(.5);
         pivot.setPosition(.77);
         screw.setPosition(.5);
         leftGo.setPosition(0.0);
+        rightGo.setPosition(.8);
+        swoop.setPosition(.5);
+        elbow.setPosition(1);
+
 
     }
     public void runOpMode() throws InterruptedException {
