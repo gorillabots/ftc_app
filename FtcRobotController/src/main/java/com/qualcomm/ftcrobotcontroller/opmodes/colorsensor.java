@@ -7,35 +7,22 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * Created by emper on 11/1/2015.
  */
 public class colorsensor extends OpMode{
-    ColorSensor color;
+    ColorSensor Leftcolor;
+    ColorSensor Rightcolor;
+    ColorSensor Floorcolor;
+    String teamcolor = "red";
+    String notteamcolor = "blue";
     public void init() {
-    color = hardwareMap.colorSensor.get("color_sensor");
-    }
+        Leftcolor = hardwareMap.colorSensor.get("Leftcolor_sensor");
+        Leftcolor.setI2cAddress(60);
+        Rightcolor = hardwareMap.colorSensor.get("Rightcolor_sensor");
+        Rightcolor.setI2cAddress(62);
+        Floorcolor = hardwareMap.colorSensor.get("Floorcolor_sensor");
+        Floorcolor.setI2cAddress(62);
+        Leftcolor.enableLed(false);
+        Rightcolor.enableLed(false);
+        Floorcolor.enableLed(true);
 
-    public String getColor(){
-        String currentcolor = "none";
-
-        if (color.red()>color.blue() && color.red()>color.green() && color.green()== color.blue()){
-
-            currentcolor = "red";
-        }
-
-        if (color.red()<color.blue() && color.green()<color.blue() && color.blue()>1){
-
-            currentcolor = "blue";
-        }
-
-        if (color.red()>color.green() && color.red()>color.blue() && color.green()>=color.blue()){
-
-            currentcolor = "red line";
-        }
-
-        if (color.red()<color.green() && color.blue()<color.green() && color.red() == color.blue()){
-
-            currentcolor = "blue line";
-        }
-        telemetry.addData("current_color" , currentcolor);
-        return currentcolor;
     }
 
     /**
@@ -45,14 +32,13 @@ public class colorsensor extends OpMode{
     public String getFloorcolor(){
         String currentcolor = "none";
 
-        if (color.red()>color.green() && color.red()>color.blue() && color.green()>=color.blue()){
+        if (Floorcolor.red()>Floorcolor.green() && Floorcolor.red()>Floorcolor.blue() && Floorcolor.green()>=Floorcolor.blue()){
             currentcolor = "red";
         }
 
-        if (color.red()<color.green() && color.blue()<color.green() && color.red() == color.blue()) {
+        if (Floorcolor.red()<Floorcolor.green() && Floorcolor.blue()<Floorcolor.green() && Floorcolor.red() == Floorcolor.blue()) {
             currentcolor = "blue";
         }
-        telemetry.addData("floor_color" , currentcolor);
         return currentcolor;
 
     }
@@ -61,7 +47,7 @@ public class colorsensor extends OpMode{
      * retruns red or blue or none depending on what color is read from the beacon sensor.
       * @return String
      */
-    public String getBeaconcolor(){
+    public String getBeaconcolor(ColorSensor color){
         String currentcolor = "none";
 
         if (color.red()>color.blue() && color.red()>color.green() && color.green()== color.blue()){
@@ -70,25 +56,51 @@ public class colorsensor extends OpMode{
         if (color.red()<color.blue() && color.green()<color.blue() && color.blue()>1){
             currentcolor = "blue";
         }
-        telemetry.addData("beacon_color" , currentcolor);
         return currentcolor;
     }
     public void loop() {
-        color.enableLed(false);
-        telemetry.addData("red value", color.red());
-        telemetry.addData("blue value", color.blue());
-        String whatColorAmILookingAt = getColor();
 
-//        if (color.alpha()>color.blue() && color.alpha()>color.green() && color.alpha()>color.red()){
-//            telemetry.addData("current_color", "white line");
+        String whatColorIsRight = getBeaconcolor(Rightcolor);
+        String whatColorIsLeft = getBeaconcolor(Leftcolor);
+        String whatColorIsFloor = getFloorcolor();
+        telemetry.addData("Rightbeacon_color" , whatColorIsRight);
+        telemetry.addData("Leftbeacon_color" , whatColorIsLeft);
+        telemetry.addData("Floor_color" , whatColorIsFloor);
+        if(whatColorIsRight == teamcolor){
+            /*
+            go foward
+            motor1.setPower(1);
+            motor2.setPower(1);
+            motor3.setPower(-1);
+            motor4.setPower(-1);
+             */
+        }
+        else if (whatColorIsRight == notteamcolor){
+            /*
+            pivot backwards
+            pivot other side fully
+            pivot.setPosition(Servo.MAX_POSITION);
 
-//        if (color.blue()<color.red() && color.red()<color.green() && color.green()>color.blue())
-//        }
+            go foward
+            motor1.setPower(1);
+            motor2.setPower(1);
+            motor3.setPower(-1);
+            motor4.setPower(-1);
+             */
 
-        telemetry.addData("red value", color.red());
-        telemetry.addData("blue value", color.blue());
-        telemetry.addData("green value", color.green());
-//        telemetry.addData("white value", color.alpha());
+        }
+        else{
+             /*
+            stop program
+            motor1.setPower(0);
+            motor2.setPower(0);
+            motor3.setPower(0);
+            motor4.setPower(0);
+
+             */
+
+
+        }
 
 }
     public void stop() {
