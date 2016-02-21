@@ -20,12 +20,12 @@ public class colorsensor extends OpMode{
             currentcolor = "red";
         }
 
-        if (color.red()<color.blue() && color.green()<color.blue()){
+        if (color.red()<color.blue() && color.green()<color.blue() && color.blue()>1){
 
             currentcolor = "blue";
         }
 
-        if (color.red()>color.green() && color.red()>color.blue() && color.green()>color.blue()){
+        if (color.red()>color.green() && color.red()>color.blue() && color.green()>=color.blue()){
 
             currentcolor = "red line";
         }
@@ -35,6 +35,42 @@ public class colorsensor extends OpMode{
             currentcolor = "blue line";
         }
         telemetry.addData("current_color" , currentcolor);
+        return currentcolor;
+    }
+
+    /**
+     * returns red or blue or none depending on what color is read from the floor sensor.
+     * @return String
+     */
+    public String getFloorcolor(){
+        String currentcolor = "none";
+
+        if (color.red()>color.green() && color.red()>color.blue() && color.green()>=color.blue()){
+            currentcolor = "red";
+        }
+
+        if (color.red()<color.green() && color.blue()<color.green() && color.red() == color.blue()) {
+            currentcolor = "blue";
+        }
+        telemetry.addData("floor_color" , currentcolor);
+        return currentcolor;
+
+    }
+
+    /**
+     * retruns red or blue or none depending on what color is read from the beacon sensor.
+      * @return String
+     */
+    public String getBeaconcolor(){
+        String currentcolor = "none";
+
+        if (color.red()>color.blue() && color.red()>color.green() && color.green()== color.blue()){
+            currentcolor = "red";
+        }
+        if (color.red()<color.blue() && color.green()<color.blue() && color.blue()>1){
+            currentcolor = "blue";
+        }
+        telemetry.addData("beacon_color" , currentcolor);
         return currentcolor;
     }
     public void loop() {
