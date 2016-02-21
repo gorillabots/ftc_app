@@ -74,15 +74,19 @@ public class EncodeBall extends OpMode {
 
         if(stage > currentPos){
             directionGo = 0;
+            updateState();
         }
         else if(stage < currentPos){
             directionGo=-1;
+            updateState();
         }
         while(currentPos != stage){
             swoop.setPosition(directionGo + 1);
+            updateState();
         }
         while(currentPos == stage){
             swoop.setPosition(.5);
+            updateState();
         }
 
     }
