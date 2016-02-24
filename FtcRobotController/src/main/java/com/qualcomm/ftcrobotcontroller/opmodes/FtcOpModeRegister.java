@@ -69,6 +69,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("15sec.test", fifteensecs.class);
     manager.register("Robot self-test",Comp_Tst.class);
 
+    manager.register("encodeBALLLLLLLL",EncodeBall.class);
 
     manager.register("balling",BALL.class);
     manager.register("Swooper",ArmFInd.class);

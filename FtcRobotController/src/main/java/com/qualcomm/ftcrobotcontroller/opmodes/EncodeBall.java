@@ -1,7 +1,11 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
+import com.qualcomm.hardware.HardwareDeviceManager;
+import com.qualcomm.robotcore.hardware.AnalogInputController;
+import com.qualcomm.robotcore.hardware.DeviceManager;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 
 /**
  * Created by Jarred on 2/5/2016.
@@ -11,13 +15,15 @@ public class EncodeBall extends OpMode {
     Servo swoop;
     Servo elbow;
 
-    TouchSensor posOne;
-    TouchSensor posTwo;
-    TouchSensor posThree;
+    AnalogInput posOne;
+    AnalogInput posTwo;
 
     boolean stateOne;
     boolean stateTwo;
-    boolean stateThree;
+
+    int stateOneTest;
+    int stateTwoTest;
+
 
     int currentPos;
     int directionGo;
@@ -25,33 +31,38 @@ public class EncodeBall extends OpMode {
 
     public int updateState(){
 
-        stateOne = posOne.isPressed();
-        stateTwo = posTwo.isPressed();
-        stateThree = posThree.isPressed();
+        stateOneTest = posOne.getValue();
+        stateTwoTest = posTwo.getValue();
 
-        if(stateOne && ! stateTwo ){
+        telemetry.addData("state1", stateOneTest);
+        telemetry.addData("state2", stateTwoTest);
+
+        stateOne = stateOneTest >= 1020;
+        stateTwo = stateTwoTest >= 1020;
+
+        if(!stateOne &&  stateTwo ){
             currentPos = 1;
 
         }
-        else if(!stateOne && stateTwo ){
+        else if(stateOne && !stateTwo ){
             currentPos=2;
         }
-        else if(stateOne && stateTwo ){
+        else if(!stateOne && !stateTwo ){
             currentPos=3;
         }
         return currentPos;
 
     }
 
-    public void moveNet(double stage){
+    public void moveNet(double stager){
 
         currentPos = updateState();
 
-        if(stage > currentPos){
+        if(stager > currentPos){
             swoop.setPosition(0);
 
         }
-        else if(stage < currentPos){
+        else if(stager < currentPos){
             directionGo=-1;
             swoop.setPosition(1);
         }
@@ -64,10 +75,10 @@ public class EncodeBall extends OpMode {
     public void init() {
         swoop = hardwareMap.servo.get("swoop");
         elbow = hardwareMap.servo.get("elbow");
-        posOne = hardwareMap.touchSensor.get("posOne");
-        posTwo = hardwareMap.touchSensor.get("posTwo");
+        posOne = hardwareMap.analogInput.get("A0");
+        posTwo = hardwareMap.analogInput.get("A1");
 
-
+        currentPos = 1;
         swoop.setPosition(.5);
         elbow.setPosition(1);
 
@@ -77,6 +88,8 @@ public class EncodeBall extends OpMode {
 
     public void loop() {
 
+        telemetry.addData("stager",stager);
+        telemetry.addData("current", currentPos);
 
         if (gamepad1.right_bumper ) {
             stager += 1;

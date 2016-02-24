@@ -1,14 +1,20 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.ftcrobotcontroller.opmodes.movement;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
 /**
  * Created by Jarred on 10/18/2015.
  */
 public class CompTeleScranton extends movement {
+
+
+    UltrasonicSensor distance;
+    UltrasonicSensor distance2;
 
     DcMotor motor1;
     DcMotor motor2;
@@ -16,18 +22,32 @@ public class CompTeleScranton extends movement {
     DcMotor motor4;
     DcMotor motor5;
     DcMotor motor6;
-    double drive;
+
+    ColorSensor color;
+
     Servo screw;
-    Servo pivot;
-    Servo hook;
-    Servo rightGo;
-
-
-
-    //Servo rightGo;
     Servo leftGo;
-    int direction;
+    Servo rightGo;
+    Servo pivot;
+    Servo swoop;
+    Servo elbow;
+    Servo hook;
+
+    TouchSensor posOne;
+    TouchSensor posTwo;
+    TouchSensor posThree;
     TouchSensor limit;
+
+    boolean stateOne;
+    boolean stateTwo;
+    boolean stateThree;
+    int currentPos;
+    int directionGo;
+    int direction;
+
+    double drive;
+
+
 /* in lines 10 through ______ we declare the use of differenr motors.
 */
 
@@ -169,7 +189,7 @@ above is the code that is used to drive the robot using the left and right stick
         }
 
         if(gamepad1.a == true){
-            hook.setPosition(0);
+            hook.setPosition(0.0);
         }
         else{
             hook.setPosition(1);

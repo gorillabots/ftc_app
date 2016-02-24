@@ -32,6 +32,7 @@ public class movement extends LinearOpMode {
     Servo pivot;
     Servo swoop;
     Servo elbow;
+    Servo hook;
 
     TouchSensor posOne;
     TouchSensor posTwo;
@@ -181,7 +182,7 @@ public class movement extends LinearOpMode {
     }
 
     public void _init() {
-        motor1 = hardwareMap.dcMotor.get("motor1");//motor1 on AL00VTH7
+               motor1 = hardwareMap.dcMotor.get("motor1");//motor1 on AL00VTH7
         motor2 = hardwareMap.dcMotor.get("motor2");//motor2 on AL00VTH7
         motor3 = hardwareMap.dcMotor.get("motor3");//motor3 on AL00YC5Z
         motor4 = hardwareMap.dcMotor.get("motor4");//motor4 on AL00YC5Z
@@ -199,7 +200,7 @@ public class movement extends LinearOpMode {
         posOne = hardwareMap.touchSensor.get("posOne");
         posTwo = hardwareMap.touchSensor.get("posTwo");
         limit = hardwareMap.touchSensor.get("limit");
-
+        hook = hardwareMap.servo.get("hook");
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor2.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor3.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
