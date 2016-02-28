@@ -48,9 +48,9 @@ public class CompTeleScranton extends movement {
     double drive;
 
 
-/* in lines 10 through ______ we declare the use of differenr motors.
-*/
-
+/*
+    above we declare all of the variables, sensors, and motors, we are using
+ */
 
 
 
@@ -74,14 +74,18 @@ public class CompTeleScranton extends movement {
     @Override
     public void runOpMode() {
         _init();
+
+        /*
+         above we run the init function from our parent class, this _init function is the same
+        function used across all of the competetition
+          */
+
         while(opModeIsActive())
         telemetry.addData("drive is ", drive);
         telemetry.addData("screw", screw.getDirection());
         telemetry.addData("pivot is at", pivot.getPosition());
         telemetry.addData("leftGo (P1.LT=down)", leftGo.getPosition() );
-
-
-        //telemetry.addData("right toucher is at", rightGo.getPosition());
+        telemetry.addData("right toucher is at", rightGo.getPosition());
 
         if(direction == 1){
             telemetry.addData("direction","forward");
@@ -125,9 +129,11 @@ public class CompTeleScranton extends movement {
         telemetry.addData("Left drive control",gamepad1.left_stick_y );
         telemetry.addData("Right drive control",gamepad1.right_stick_y);
 
-
 /*
-above is the code that is used to drive the robot using the left and right sticks on the first controller. Also, above is the the shifter for the drive train that allows the drive train to run at 4 different speeds with the default speed being .5
+above is the code that is used to drive the robot using the left and right sticks on the first controller.
+Also, above is the the shifter for the drive train that allows the drive train to run at 4 different speeds
+ with the default speed being 1. There is also a default direction toggler that controls which way the robot
+  is moving when the y values of the joysticks on the first controler are positive.
  */
         int armExtend = Math.round(gamepad2.right_stick_y);
         float armRotate = gamepad2.left_stick_y;
@@ -146,6 +152,13 @@ above is the code that is used to drive the robot using the left and right stick
         if (armExtend <= -.25) {
             telemetry.addData("arm", "retracting");
         }
+
+        /*
+            In the above 16 lines, we have telemetry data for the main arm.
+            There is also controls for the main arm rotation as well as
+            controls for the main arm extension and a limiter that controls
+            how farm the main arm can extend.
+        */
 
         if (gamepad2.right_bumper == true) {
             pivot.setPosition(.81);
@@ -168,25 +181,23 @@ above is the code that is used to drive the robot using the left and right stick
          */
 
         if (gamepad1.left_trigger >= .5) {
-
             leftGo.setPosition((gamepad1.left_trigger*.7));
             telemetry.addData("P1.LT Pressed", "true");
         } else {
             telemetry.addData("P1.LT Pressed","false");
             leftGo.setPosition(.0);
-
         }
-
-
-
-
         if (gamepad1.right_trigger >= .5) {
             rightGo.setPosition((gamepad1.right_trigger * -.7) + .8);
-
         }
         else {
             rightGo.setPosition(0.8);
         }
+
+        /*
+            The above 13 lines controls the two zip-line trippers.
+         */
+
 
         if(gamepad1.a == true){
             hook.setPosition(0.0);

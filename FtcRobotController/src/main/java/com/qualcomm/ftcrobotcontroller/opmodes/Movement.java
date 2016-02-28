@@ -107,12 +107,21 @@ public class movement extends LinearOpMode {
         sleep(time);
     }
 
+    /*
+    The above functions control the robots movement in autnomous. The user can just use a
+     meatheod with a speed and time to control the robot without needing to input individual values
+     for all values
+     */
+
+
    public void startup() throws InterruptedException{
         backward(0.175, 1500);
         stop_robot(1000);
     }
-
-   public void your_mom() throws InterruptedException{
+    /*
+    startup makes sure taht the robot is against the wall when starting
+     */
+   public void wiggle() throws InterruptedException{
         while( getDistance() > getDistance2()){
             motor1.setPower(-0.1);
             motor2.setPower(-0.1);
@@ -131,6 +140,10 @@ public class movement extends LinearOpMode {
         }
     }
 
+        /*
+        The above function ___________
+         */
+
     public double getDistance(){
         return distance.getUltrasonicLevel();
 
@@ -143,7 +156,10 @@ public class movement extends LinearOpMode {
     public boolean getlimit(){
         return limit.isPressed();
     }
-
+    /*
+    The above get functions gets the values for all sensors used.
+    This allows them to be used in the child classes
+    */
     public int updateState(){
 
         stateOne = posOne.isPressed();
@@ -163,6 +179,11 @@ public class movement extends LinearOpMode {
         return currentPos;
 
     }
+
+    /*
+    The above function interprets the state of the limit switches into
+     positions and supplies that info to the moveNet function
+     */
    public void moveNet(double stage){
 
         currentPos = updateState();
@@ -180,7 +201,11 @@ public class movement extends LinearOpMode {
         }
 
     }
-
+    /*
+      The above functions controls the moving aspect the the scooper. It makes sure
+      that the servo knows in what direction to move, when to stop, and in which
+       direction to move
+     */
    public void _init() {
                motor1 = hardwareMap.dcMotor.get("motor1");//motor1 on AL00VTH7
         motor2 = hardwareMap.dcMotor.get("motor2");//motor2 on AL00VTH7
@@ -219,6 +244,12 @@ public class movement extends LinearOpMode {
 
 
     }
+
+    /*
+    above is the init function which is used in all competitive programs
+    It initializes all the variables and servos and configures all of the motors
+     */
+
    public void runOpMode() throws InterruptedException {
 
     }
