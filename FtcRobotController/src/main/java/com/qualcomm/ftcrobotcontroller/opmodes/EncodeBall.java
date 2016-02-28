@@ -4,16 +4,17 @@ import com.qualcomm.robotcore.hardware.AnalogInputController;
 import com.qualcomm.robotcore.hardware.DeviceManager;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * Created by Jarred on 2/5/2016.
  */
-public class EncodeBall extends OpMode {
+public class EncodeBall extends LinearOpMode {
 
     Servo swoop;
-    Servo elbow;
+    //Servo elbow;
 
     AnalogInput posOne;
     AnalogInput posTwo;
@@ -29,7 +30,11 @@ public class EncodeBall extends OpMode {
     int directionGo;
     double stager;
 
-    public int updateState(){
+    ElapsedTime timer;
+
+    boolean running;
+
+    public int updateState() {
 
         stateOneTest = posOne.getValue();
         stateTwoTest = posTwo.getValue();
@@ -40,72 +45,89 @@ public class EncodeBall extends OpMode {
         stateOne = stateOneTest >= 1020;
         stateTwo = stateTwoTest >= 1020;
 
-        if(!stateOne &&  stateTwo ){
+        if (stateOne == false && stateTwo == true) {
             currentPos = 1;
 
+        } else if (stateOne == true && stateTwo == false) {
+            currentPos = 2;
+        } else if (stateOne == false && stateTwo == false) {
+            currentPos = 3;
         }
-        else if(stateOne && !stateTwo ){
-            currentPos=2;
-        }
-        else if(!stateOne && !stateTwo ){
-            currentPos=3;
-        }
+
         return currentPos;
 
     }
 
-    public void moveNet(double stager){
+    public void moveNet(double stager) throws  InterruptedException{
+
+        updateState();
 
         currentPos = updateState();
 
-        if(stager > currentPos){
-            swoop.setPosition(0);
+        if (stager > currentPos) {
+            swoop.setPosition(.2);
 
-        }
-        else if(stager < currentPos){
-            directionGo=-1;
-            swoop.setPosition(1);
-        }
-        else{
-            swoop.setPosition(.5);
+        } else if (stager < currentPos) {
+
+            swoop.setPosition(.8);
+        } else if (stager == currentPos) {
+            swoop.setPosition(.50196078);
+
         }
 
     }
 
-    public void init() {
+
+
+    // .49803922
+    //0.00196078
+    //0.50196078
+    public void _init() {
         swoop = hardwareMap.servo.get("swoop");
-        elbow = hardwareMap.servo.get("elbow");
+        //elbow = hardwareMap.servo.get("elbow");
         posOne = hardwareMap.analogInput.get("A0");
         posTwo = hardwareMap.analogInput.get("A1");
+        running = false;
+        updateState();
 
-        currentPos = 1;
-        swoop.setPosition(.5);
-        elbow.setPosition(1);
-
-
+        stager = 1;
+        swoop.setPosition(0.5);
+        // elbow.setPosition(1);
+        timer = new ElapsedTime();
+        timer.startTime();
     }
 
 
-    public void loop() {
+    public void runOpMode() throws InterruptedException {
+        _init();
+        waitForStart();
+        while (opModeIsActive()) {
 
-        telemetry.addData("stager",stager);
-        telemetry.addData("current", currentPos);
 
-        if (gamepad1.right_bumper ) {
-            stager += 1;
-            telemetry.addData("shifted", "up");
-        }
-        if (gamepad1.left_bumper ) {
-            stager -= 1;
-            telemetry.addData("shifted", "down");
-        }
-        if (stager > 4) {
-            stager = 4;
-        }
-        if (stager < 1) {
-            stager = 1;
-        }
 
+            updateState();
+            moveNet(stager);
+            telemetry.addData("stager", stager);
+            telemetry.addData("current", currentPos);
+            telemetry.addData("timer", timer.toString());
+            telemetry.addData(("spin"), swoop.getPosition());
+
+            if (gamepad1.right_bumper && timer.time() >= 1) {
+                stager += 1;
+                telemetry.addData("shifted", "up");
+                timer.reset();
+            } else if (gamepad1.left_bumper && timer.time() >= 1) {
+                stager -= 1;
+                telemetry.addData("shifted", "down");
+                timer.reset();
+            }
+            if (stager > 3) {
+                stager = 3;
+            }
+            if (stager < 1) {
+                stager = 1;
+            }
+/*
 
             if (gamepad1.y == true) {
 
@@ -115,8 +137,12 @@ public class EncodeBall extends OpMode {
                 elbow.setPosition(1);
             }
 
+*/
 
-        moveNet(stager);
 
+                moveNet(stager);
+
+
+        }
     }
 }

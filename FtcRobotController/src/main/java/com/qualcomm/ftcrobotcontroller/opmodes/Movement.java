@@ -53,7 +53,7 @@ public class movement extends LinearOpMode {
 
 
 
-    void turn_left(double power, long time) throws InterruptedException {
+   public void turn_left(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
         motor2.setPower(-power);
         motor3.setPower(-power);
@@ -61,7 +61,7 @@ public class movement extends LinearOpMode {
         sleep(time);
     }
 
-    void turn_right(double power, long time) throws InterruptedException {
+   public void turn_right(double power, long time) throws InterruptedException {
         motor1.setPower(power);
         motor2.setPower(power);
         motor3.setPower(power);
@@ -69,21 +69,21 @@ public class movement extends LinearOpMode {
         sleep(time);
     }
 
-    void forward(double power) {
+   public void forward(double power) {
         motor1.setPower(-power);
         motor2.setPower(-power);
         motor3.setPower(power);
         motor4.setPower(power);
     }
 
-    void forward_with_time(double power, long time) throws InterruptedException {
+   public void forward_with_time(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
         motor2.setPower(-power);
         motor3.setPower(power);
         motor4.setPower(power);
         sleep(time);
     }
-    void backward(double power, long time) throws InterruptedException {
+   public void backward(double power, long time) throws InterruptedException {
         motor1.setPower(power);
         motor2.setPower(power);
         motor3.setPower(-power);
@@ -91,14 +91,14 @@ public class movement extends LinearOpMode {
         sleep(time);
     }
 
-    void backward_without_time(double power) {
+   public void backward_without_time(double power) {
         motor1.setPower(power);
         motor2.setPower(power);
         motor3.setPower(-power);
         motor4.setPower(-power);
     }
 
-    void stop_robot(long time) throws InterruptedException {
+   public void stop_robot(long time) throws InterruptedException {
         //this will stop the robot
         motor1.setPower(0);
         motor2.setPower(0);
@@ -107,12 +107,12 @@ public class movement extends LinearOpMode {
         sleep(time);
     }
 
-    void startup() throws InterruptedException{
+   public void startup() throws InterruptedException{
         backward(0.175, 1500);
         stop_robot(1000);
     }
 
-    void your_mom() throws InterruptedException{
+   public void your_mom() throws InterruptedException{
         while( getDistance() > getDistance2()){
             motor1.setPower(-0.1);
             motor2.setPower(-0.1);
@@ -163,7 +163,7 @@ public class movement extends LinearOpMode {
         return currentPos;
 
     }
-    public void moveNet(double stage){
+   public void moveNet(double stage){
 
         currentPos = updateState();
 
@@ -181,7 +181,7 @@ public class movement extends LinearOpMode {
 
     }
 
-    public void _init() {
+   public void _init() {
                motor1 = hardwareMap.dcMotor.get("motor1");//motor1 on AL00VTH7
         motor2 = hardwareMap.dcMotor.get("motor2");//motor2 on AL00VTH7
         motor3 = hardwareMap.dcMotor.get("motor3");//motor3 on AL00YC5Z
@@ -219,7 +219,7 @@ public class movement extends LinearOpMode {
 
 
     }
-    public void runOpMode() throws InterruptedException {
+   public void runOpMode() throws InterruptedException {
 
     }
 
