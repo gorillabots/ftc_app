@@ -75,6 +75,5 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("Swooper",ArmFInd.class);
 
     manager.register("scranton",CompTeleScranton.class);
-
   }
 }
