@@ -6,28 +6,24 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
  * Created by Jarred on 12/31/2015.
  */
 public class ServoFinder_V2 extends OpMode{
-    Servo extend;
-    Servo rotate;
-    Servo swing;
+    Servo hook;
+
 
 
     @Override
 
     public void init(){
-        extend = hardwareMap.servo.get("extend");
-        swing = hardwareMap.servo.get("swing");
-        rotate = hardwareMap.servo.get("rotate");
+        hook = hardwareMap.servo.get("hook");
+
     }
     @Override
 
     public void loop(){
 
-            telemetry.addData("extend", extend.getPosition());
-            telemetry.addData("swing", extend.getPosition());
-            telemetry.addData("rotate", rotate.getPosition());
 
-            extend.setPosition(.5*(gamepad1.left_stick_y) + .5);
-        rotate.setPosition(.5*(gamepad1.right_stick_y) + .5);
-        swing.setPosition(.5*(gamepad2.left_stick_y)+.5);
+            telemetry.addData("hook", hook.getPosition());
+
+            hook.setPosition(Math.abs(gamepad1.left_stick_y));
+
     }
 }

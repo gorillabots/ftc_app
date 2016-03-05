@@ -192,7 +192,7 @@ Also, above is the the shifter for the drive train that allows the drive train t
             }
 
         /*
-            The above 13 lines controls the two zip-line trippers.
+            The above 13 lines contr0ols the two zip-line trippers.
          */
 
 

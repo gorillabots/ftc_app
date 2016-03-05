@@ -7,14 +7,22 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * Created by Jarred on 2/5/2016.
  */
 public class EncodeBall extends LinearOpMode {
 
+
+    DcMotor motor1;
+    DcMotor motor2;
+    DcMotor motor3;
+    DcMotor motor4;
+
+
     Servo swoop;
-    //Servo elbow;
+    Servo elbow;
 
     AnalogInput posOne;
     AnalogInput posTwo;
@@ -84,15 +92,16 @@ public class EncodeBall extends LinearOpMode {
     //0.50196078
     public void _init() {
         swoop = hardwareMap.servo.get("swoop");
-        //elbow = hardwareMap.servo.get("elbow");
+        elbow = hardwareMap.servo.get("elbow");
         posOne = hardwareMap.analogInput.get("A0");
         posTwo = hardwareMap.analogInput.get("A1");
         running = false;
         updateState();
 
         stager = 1;
+        elbow.setPosition(1);
         swoop.setPosition(0.5);
-        // elbow.setPosition(1);
+
         timer = new ElapsedTime();
         timer.startTime();
     }
@@ -127,20 +136,23 @@ public class EncodeBall extends LinearOpMode {
             if (stager < 1) {
                 stager = 1;
             }
-/*
 
-            if (gamepad1.y == true) {
+
+            if (gamepad2.y == true) {
 
                 elbow.setPosition(.5);
 
-            } else if (gamepad1.x == true) {
+            } else if (gamepad2.x == true) {
                 elbow.setPosition(1);
             }
 
-*/
-
+            motor4.setPower((gamepad1.left_stick_y));
+            motor3.setPower((gamepad1.left_stick_y ));
+            motor2.setPower((gamepad1.right_stick_y ));
+            motor1.setPower((gamepad1.right_stick_y ));
 
                 moveNet(stager);
+
 
 
         }
