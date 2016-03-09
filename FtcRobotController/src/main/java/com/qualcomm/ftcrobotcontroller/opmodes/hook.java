@@ -14,7 +14,16 @@ public class hook extends OpMode{
         hook = hardwareMap.servo.get("hook");
     }
 
-    public void loop(){
+    public void loop() {
+
+        if (gamepad1.a) {
+            hook.setPosition(1);
+        }
+        else if (gamepad1.b) {
+            hook.setPosition(0);
+
+        }
+
 
     }
 }
