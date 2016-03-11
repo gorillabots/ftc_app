@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * Created by Jarred on 10/18/2015.
@@ -46,6 +47,8 @@ public class CompTeleScranton extends OpMode {
     //int currentPos;
     //int directionGo;
     int direction;
+
+    ElapsedTime shiftHelp;
 
     double drive;
 
@@ -112,6 +115,8 @@ public class CompTeleScranton extends OpMode {
         drive = 1;
         direction=1;
 //
+        shiftHelp = new ElapsedTime();
+        shiftHelp .startTime();
 
     }
     @Override
@@ -146,13 +151,15 @@ public class CompTeleScranton extends OpMode {
             motor1.setPower((gamepad1.left_stick_y*drive*direction ));
 
 
-            if (gamepad1.right_bumper == true) {
+            if (gamepad1.right_bumper == true && shiftHelp.time() >= 1) {
                 drive += .25;
                 telemetry.addData("shifted", "up");
+                shiftHelp.reset();
             }
-            if (gamepad1.left_bumper == true) {
+            if (gamepad1.left_bumper == true && shiftHelp.time() >= 1) {
                 drive -= .25;
                 telemetry.addData("shifted", "down");
+                shiftHelp.reset();
             }
             if (drive > 1) {
                 drive = 1;
@@ -227,7 +234,12 @@ Also, above is the the shifter for the drive train that allows the drive train t
                 leftGo.setPosition(.0);
             }
 
+            if(gamepad1.right_trigger >= .5) {
                 rightGo.setPosition((gamepad1.right_trigger * -.7) + .8);
+            }
+            else{
+                rightGo.setPosition(.8);
+            }
 
 
         /*
