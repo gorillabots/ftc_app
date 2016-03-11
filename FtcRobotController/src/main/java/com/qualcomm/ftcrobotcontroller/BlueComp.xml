@@ -22,11 +22,8 @@
         <Motor name="motor2" port="2" />
     </MotorController>
     <ServoController name="Servo Controller 5" serialNumber="AL00VBC0">
-        <Servo name="tape" port="1" />
-        <Servo name="backGo" port="2" />
-        <Servo name="tilt" port="3" />
-        <Servo name="rotate" port="4" />
-        <Servo name="pivot" port="5" />
+        <Servo name="backGo" port="1" />
+        <Servo name="frontGo" port="5" />
         <Servo name="screw" port="6" />
     </ServoController>
 </Robot>

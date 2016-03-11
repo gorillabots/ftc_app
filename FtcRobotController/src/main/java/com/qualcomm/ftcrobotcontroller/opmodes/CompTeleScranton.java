@@ -1,8 +1,11 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.ftcrobotcontroller.opmodes.movement;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
@@ -10,7 +13,7 @@ import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 /**
  * Created by Jarred on 10/18/2015.
  */
-public class CompTeleScranton extends movement {
+public class CompTeleScranton extends OpMode {
 
 
     UltrasonicSensor distance;
@@ -29,20 +32,19 @@ public class CompTeleScranton extends movement {
     Servo leftGo;
     Servo rightGo;
     Servo pivot;
-    Servo swoop;
-    Servo elbow;
+    //Servo swoop;
+   // Servo elbow;
     Servo hook;
 
-    TouchSensor posOne;
-    TouchSensor posTwo;
-    TouchSensor posThree;
+    //TouchSensor posOne;
+    //TouchSensor posTwo;
     TouchSensor limit;
 
-    boolean stateOne;
-    boolean stateTwo;
-    boolean stateThree;
-    int currentPos;
-    int directionGo;
+    //boolean stateOne;
+    //boolean stateTwo;
+    //boolean stateThree;
+    //int currentPos;
+    //int directionGo;
     int direction;
 
     double drive;
@@ -71,16 +73,57 @@ public class CompTeleScranton extends movement {
     /*
     Above, in the init phase, we map all of the hardware.
      */
+
+    public void init() {
+        motor1 = hardwareMap.dcMotor.get("motor1");//motor1 on AL00VTH7
+        motor2 = hardwareMap.dcMotor.get("motor2");//motor2 on AL00VTH7
+        motor3 = hardwareMap.dcMotor.get("motor3");//motor3 on AL00YC5Z
+        motor4 = hardwareMap.dcMotor.get("motor4");//motor4 on AL00YC5Z
+        motor5 = hardwareMap.dcMotor.get("motor5");
+        motor6 = hardwareMap.dcMotor.get("motor6");
+        color = hardwareMap.colorSensor.get("color");//beacon sensor
+        screw = hardwareMap.servo.get("screw");
+        pivot = hardwareMap.servo.get("pivot");
+        leftGo = hardwareMap.servo.get("backGo");
+        rightGo =hardwareMap.servo.get("frontGo");
+        distance = hardwareMap.ultrasonicSensor.get("distance");
+        distance2 = hardwareMap.ultrasonicSensor.get("distance2");
+        // swoop = hardwareMap.servo.get("swoop");
+        // elbow = hardwareMap.servo.get("elbow");
+        // posOne = hardwareMap.touchSensor.get("posOne");
+        // posTwo = hardwareMap.touchSensor.get("posTwo");
+        limit = hardwareMap.touchSensor.get("limit");
+        hook = hardwareMap.servo.get("hook");
+        motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motor2.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motor3.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motor4.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motor1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        motor2.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        motor3.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        motor4.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+
+        pivot.setPosition(.77);
+        screw.setPosition(.5);
+        leftGo.setPosition(0.0);
+        rightGo.setPosition(.8);
+        //  swoop.setPosition(.5);
+        //   elbow.setPosition(1);
+        drive = 1;
+        direction=1;
+//
+
+    }
     @Override
-    public void runOpMode() {
-        _init();
+    public void loop() {
+
 
         /*
          above we run the init function from our parent class, this _init function is the same
         function used across all of the competetition
           */
 
-        while (opModeIsActive()) {
+
             telemetry.addData("drive is ", drive);
             telemetry.addData("screw", screw.getDirection());
             telemetry.addData("pivot is at", pivot.getPosition());
@@ -96,13 +139,11 @@ public class CompTeleScranton extends movement {
             }
 
 
-            float throttleLeft = gamepad1.left_stick_y;
-            float throttleRight = gamepad1.right_stick_y;
 
-            motor4.setPower((gamepad1.left_stick_y * drive * -1) * direction);
-            motor3.setPower((throttleLeft * drive * -1) * direction);
-            motor2.setPower((gamepad1.right_stick_y * drive) * direction);
-            motor1.setPower((throttleRight * drive) * direction);
+            motor4.setPower((gamepad1.left_stick_y* -1*drive*direction));
+            motor3.setPower((gamepad1.left_stick_y* -1*drive*direction));
+            motor2.setPower((gamepad1.right_stick_y*drive*direction));
+            motor1.setPower((gamepad1.left_stick_y*drive*direction ));
 
 
             if (gamepad1.right_bumper == true) {
@@ -176,20 +217,18 @@ Also, above is the the shifter for the drive train that allows the drive train t
         /*
         The above lines of code control the corkscrew and the arm it is mounted on.
         The arm moves from maximum to minimum positions and also toggles the corkscrew
-         */
+        */
 
             if (gamepad1.left_trigger >= .5) {
-                leftGo.setPosition((gamepad1.left_trigger * .7));
+                leftGo.setPosition((gamepad1.left_trigger * .62));
                 telemetry.addData("P1.LT Pressed", "true");
             } else {
                 telemetry.addData("P1.LT Pressed", "false");
                 leftGo.setPosition(.0);
             }
-            if (gamepad1.right_trigger >= .5) {
+
                 rightGo.setPosition((gamepad1.right_trigger * -.7) + .8);
-            } else {
-                rightGo.setPosition(0.8);
-            }
+
 
         /*
             The above 13 lines contr0ols the two zip-line trippers.
@@ -206,4 +245,3 @@ Also, above is the the shifter for the drive train that allows the drive train t
         }
 
     }
-}

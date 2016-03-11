@@ -34,16 +34,16 @@ public class movement extends LinearOpMode {
     Servo elbow;
     Servo hook;
 
-    TouchSensor posOne;
-    TouchSensor posTwo;
-    TouchSensor posThree;
+    //TouchSensor posOne;
+    //TouchSensor posTwo;
+    //TouchSensor posThree;
     TouchSensor limit;
 
-    boolean stateOne;
-    boolean stateTwo;
-    boolean stateThree;
-    int currentPos;
-    int directionGo;
+    //boolean stateOne;
+    //boolean stateTwo;
+    //boolean stateThree;
+    //int currentPos;
+    //int directionGo;
     int direction;
 
 
@@ -160,6 +160,8 @@ public class movement extends LinearOpMode {
     The above get functions gets the values for all sensors used.
     This allows them to be used in the child classes
     */
+
+    /*
     public int updateState(){
 
         stateOne = posOne.isPressed();
@@ -183,7 +185,7 @@ public class movement extends LinearOpMode {
     /*
     The above function interprets the state of the limit switches into
      positions and supplies that info to the moveNet function
-     */
+
    public void moveNet(double stage){
 
         currentPos = updateState();
@@ -201,6 +203,7 @@ public class movement extends LinearOpMode {
         }
 
     }
+    */
     /*
       The above functions controls the moving aspect the the scooper. It makes sure
       that the servo knows in what direction to move, when to stop, and in which
@@ -220,10 +223,10 @@ public class movement extends LinearOpMode {
         rightGo =hardwareMap.servo.get("frontGo");
         distance = hardwareMap.ultrasonicSensor.get("distance");
         distance2 = hardwareMap.ultrasonicSensor.get("distance2");
-        swoop = hardwareMap.servo.get("swoop");
-        elbow = hardwareMap.servo.get("elbow");
-        posOne = hardwareMap.touchSensor.get("posOne");
-        posTwo = hardwareMap.touchSensor.get("posTwo");
+       // swoop = hardwareMap.servo.get("swoop");
+       // elbow = hardwareMap.servo.get("elbow");
+       // posOne = hardwareMap.touchSensor.get("posOne");
+       // posTwo = hardwareMap.touchSensor.get("posTwo");
         limit = hardwareMap.touchSensor.get("limit");
         hook = hardwareMap.servo.get("hook");
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -239,9 +242,9 @@ public class movement extends LinearOpMode {
         screw.setPosition(.5);
         leftGo.setPosition(0.0);
         rightGo.setPosition(.8);
-        swoop.setPosition(.5);
-        elbow.setPosition(1);
-
+      //  swoop.setPosition(.5);
+     //   elbow.setPosition(1);
+//
 
     }
 

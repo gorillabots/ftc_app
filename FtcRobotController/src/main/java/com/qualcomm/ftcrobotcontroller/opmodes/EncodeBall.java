@@ -40,7 +40,7 @@ public class EncodeBall extends LinearOpMode {
 
     ElapsedTime timer;
 
-    boolean running;
+
 
     public int updateState() {
 
@@ -72,13 +72,13 @@ public class EncodeBall extends LinearOpMode {
 
         currentPos = updateState();
 
-        if (stager > currentPos) {
-            swoop.setPosition(.2);
+        if (stager != currentPos) {
+            swoop.setPosition(0);
 
-        } else if (stager < currentPos) {
-
-            swoop.setPosition(.8);
-        } else if (stager == currentPos) {
+        }// else if (stager < currentPos) {
+//
+  //          swoop.setPosition(1);
+         else if (stager == currentPos) {
             swoop.setPosition(.50196078);
 
         }
@@ -95,12 +95,18 @@ public class EncodeBall extends LinearOpMode {
         elbow = hardwareMap.servo.get("elbow");
         posOne = hardwareMap.analogInput.get("A0");
         posTwo = hardwareMap.analogInput.get("A1");
-        running = false;
+
+        motor1 = hardwareMap.dcMotor.get("motor1");
+        motor2 = hardwareMap.dcMotor.get("motor2");
+        motor3 = hardwareMap.dcMotor.get("motor3");
+        motor4 = hardwareMap.dcMotor.get("motor4");
+
+
         updateState();
 
         stager = 1;
         elbow.setPosition(1);
-        swoop.setPosition(0.5);
+        swoop.setPosition(0.50196078);
 
         timer = new ElapsedTime();
         timer.startTime();
@@ -121,11 +127,11 @@ public class EncodeBall extends LinearOpMode {
             telemetry.addData("timer", timer.toString());
             telemetry.addData(("spin"), swoop.getPosition());
 
-            if (gamepad1.right_bumper && timer.time() >= 1) {
+            if (gamepad2.right_bumper && timer.time() >= 1) {
                 stager += 1;
                 telemetry.addData("shifted", "up");
                 timer.reset();
-            } else if (gamepad1.left_bumper && timer.time() >= 1) {
+            } else if (gamepad2.left_bumper && timer.time() >= 1) {
                 stager -= 1;
                 telemetry.addData("shifted", "down");
                 timer.reset();
@@ -147,13 +153,11 @@ public class EncodeBall extends LinearOpMode {
             }
 
             motor4.setPower((gamepad1.left_stick_y));
-            motor3.setPower((gamepad1.left_stick_y ));
-            motor2.setPower((gamepad1.right_stick_y ));
-            motor1.setPower((gamepad1.right_stick_y ));
+            motor3.setPower((gamepad1.left_stick_y));
+            motor2.setPower((gamepad1.right_stick_y));
+            motor1.setPower((gamepad1.right_stick_y));
 
                 moveNet(stager);
-
-
 
         }
     }
