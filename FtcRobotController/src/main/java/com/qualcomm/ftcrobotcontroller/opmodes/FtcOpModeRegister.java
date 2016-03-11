@@ -54,6 +54,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      *
      * If two or more op modes are registered with the same name, the app will display an error.
      */
+    manager.register("color test M", colorSensorTEst.class);
     manager.register("left", left.class);
 
     manager.register("Comp Red",Comp2Red.class);
