@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 /**
  * Created by Jarred on 2/2/2016.
  */
-public class movement extends LinearOpMode {
+public class Movement extends LinearOpMode {
 
 
     UltrasonicSensor distance;

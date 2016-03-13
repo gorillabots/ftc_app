@@ -7,13 +7,13 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorController.RunMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
-import com.qualcomm.ftcrobotcontroller.opmodes.movement;
+import com.qualcomm.ftcrobotcontroller.opmodes.Movement;
 /**
  * Created by emper on 1/9/2016.
  */
 
 // Do this one
-public class CoolerBlueAuto extends movement{
+public class CoolerBlueAuto extends Movement{
 
     ColorSensor color;
     UltrasonicSensor distance;

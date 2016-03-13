@@ -1,0 +1,22 @@
+diff a/FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/EncodeBall.java b/FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/EncodeBall.java	(rejected hunks)
+@@ -4,16 +4,17 @@
+ import com.qualcomm.robotcore.hardware.DeviceManager;
+ import com.qualcomm.robotcore.hardware.HardwareDevice;
+ import com.qualcomm.robotcore.hardware.Servo;
+-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
++import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+ import com.qualcomm.robotcore.hardware.AnalogInput;
++import com.qualcomm.robotcore.util.ElapsedTime;
+ 
+ /**
+  * Created by Jarred on 2/5/2016.
+  */
+-public class EncodeBall extends OpMode {
++public class EncodeBall extends LinearOpMode {
+ 
+     Servo swoop;
+-    Servo elbow;
++    //Servo elbow;
+ 
+     AnalogInput posOne;
+     AnalogInput posTwo;

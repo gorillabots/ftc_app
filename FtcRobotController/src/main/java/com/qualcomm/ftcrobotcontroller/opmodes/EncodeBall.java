@@ -40,6 +40,8 @@ public class EncodeBall extends LinearOpMode {
 
     ElapsedTime timer;
 
+    double stopper;
+
 
 
     public int updateState() {
@@ -61,6 +63,9 @@ public class EncodeBall extends LinearOpMode {
         } else if (stateOne == false && stateTwo == false) {
             currentPos = 3;
         }
+        else if(stateOne ==true && stateTwo == true){
+            currentPos = 0;
+        }
 
         return currentPos;
 
@@ -72,14 +77,12 @@ public class EncodeBall extends LinearOpMode {
 
         currentPos = updateState();
 
-        if (stager != currentPos) {
+        if (stager > currentPos || currentPos == 0) {
             swoop.setPosition(0);
 
-        }// else if (stager < currentPos) {
-//
-  //          swoop.setPosition(1);
-         else if (stager == currentPos) {
-            swoop.setPosition(.50196078);
+        }
+        else  {
+            swoop.setPosition(stopper);
 
         }
 
@@ -101,15 +104,18 @@ public class EncodeBall extends LinearOpMode {
         motor3 = hardwareMap.dcMotor.get("motor3");
         motor4 = hardwareMap.dcMotor.get("motor4");
 
+        stopper = 0.50196078;
 
         updateState();
 
         stager = 1;
         elbow.setPosition(1);
-        swoop.setPosition(0.50196078);
+        swoop.setPosition(stopper);
 
         timer = new ElapsedTime();
         timer.startTime();
+
+
     }
 
 
@@ -117,8 +123,6 @@ public class EncodeBall extends LinearOpMode {
         _init();
         waitForStart();
         while (opModeIsActive()) {
-
-
 
             updateState();
             moveNet(stager);
@@ -131,23 +135,13 @@ public class EncodeBall extends LinearOpMode {
                 stager += 1;
                 telemetry.addData("shifted", "up");
                 timer.reset();
-            } else if (gamepad2.left_bumper && timer.time() >= 1) {
-                stager -= 1;
-                telemetry.addData("shifted", "down");
-                timer.reset();
             }
             if (stager > 3) {
                 stager = 3;
             }
-            if (stager < 1) {
-                stager = 1;
-            }
-
 
             if (gamepad2.y == true) {
-
                 elbow.setPosition(.5);
-
             } else if (gamepad2.x == true) {
                 elbow.setPosition(1);
             }
@@ -157,7 +151,7 @@ public class EncodeBall extends LinearOpMode {
             motor2.setPower((gamepad1.right_stick_y));
             motor1.setPower((gamepad1.right_stick_y));
 
-                moveNet(stager);
+            moveNet(stager);
 
         }
     }

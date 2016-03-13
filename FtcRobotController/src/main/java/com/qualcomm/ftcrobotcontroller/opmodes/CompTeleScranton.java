@@ -2,6 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -33,26 +34,36 @@ public class CompTeleScranton extends OpMode {
     Servo leftGo;
     Servo rightGo;
     Servo pivot;
-    //Servo swoop;
-   // Servo elbow;
+    Servo swoop;
+    Servo elbow;
     Servo hook;
 
     //TouchSensor posOne;
     //TouchSensor posTwo;
     TouchSensor limit;
 
-    //boolean stateOne;
-    //boolean stateTwo;
-    //boolean stateThree;
-    //int currentPos;
-    //int directionGo;
+
     int direction;
 
     ElapsedTime shiftHelp;
 
     double drive;
 
+    AnalogInput posOne;
+    AnalogInput posTwo;
 
+    int currentPos;
+    int directionGo;
+    double stager;
+
+    ElapsedTime timer;
+
+    boolean stateOne;
+    boolean stateTwo;
+
+
+    int stateOneTest;
+    int stateTwoTest;
 /*
     above we declare all of the variables, sensors, and motors, we are using
  */
@@ -77,6 +88,49 @@ public class CompTeleScranton extends OpMode {
     Above, in the init phase, we map all of the hardware.
      */
 
+    public int updateState() {
+
+        stateOneTest = posOne.getValue();
+        stateTwoTest = posTwo.getValue();
+
+        telemetry.addData("state1", stateOneTest);
+        telemetry.addData("state2", stateTwoTest);
+
+        stateOne = stateOneTest >= 1020;
+        stateTwo = stateTwoTest >= 1020;
+
+        if (stateOne == false && stateTwo == true) {
+            currentPos = 1;
+
+        } else if (stateOne == true && stateTwo == false) {
+            currentPos = 2;
+        } else if (stateOne == false && stateTwo == false) {
+            currentPos = 3;
+        }
+
+        return currentPos;
+
+    }
+
+    public void moveNet(double stager) {
+
+        updateState();
+
+        currentPos = updateState();
+
+        if (stager != currentPos) {
+            swoop.setPosition(0);
+
+        }// else if (stager < currentPos) {
+//
+        //          swoop.setPosition(1);
+        else if (stager == currentPos) {
+            swoop.setPosition(.50196078);
+
+        }
+
+    }
+
     public void init() {
         motor1 = hardwareMap.dcMotor.get("motor1");//motor1 on AL00VTH7
         motor2 = hardwareMap.dcMotor.get("motor2");//motor2 on AL00VTH7
@@ -91,10 +145,10 @@ public class CompTeleScranton extends OpMode {
         rightGo =hardwareMap.servo.get("frontGo");
         distance = hardwareMap.ultrasonicSensor.get("distance");
         distance2 = hardwareMap.ultrasonicSensor.get("distance2");
-        // swoop = hardwareMap.servo.get("swoop");
-        // elbow = hardwareMap.servo.get("elbow");
-        // posOne = hardwareMap.touchSensor.get("posOne");
-        // posTwo = hardwareMap.touchSensor.get("posTwo");
+        swoop = hardwareMap.servo.get("swoop");
+        elbow = hardwareMap.servo.get("elbow");
+        posOne = hardwareMap.analogInput.get("A0");
+        posTwo = hardwareMap.analogInput.get("A1");
         limit = hardwareMap.touchSensor.get("limit");
         hook = hardwareMap.servo.get("hook");
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -118,10 +172,50 @@ public class CompTeleScranton extends OpMode {
         shiftHelp = new ElapsedTime();
         shiftHelp .startTime();
 
+        stager = 1;
+        elbow.setPosition(1);
+        swoop.setPosition(0.50196078);
+
+        timer = new ElapsedTime();
+        timer.startTime();
     }
     @Override
     public void loop() {
 
+
+
+        updateState();
+        moveNet(stager);
+        telemetry.addData("stager", stager);
+        telemetry.addData("current", currentPos);
+        telemetry.addData("timer", timer.toString());
+        telemetry.addData(("spin"), swoop.getPosition());
+
+
+        if (gamepad1.dpad_right && timer.time() >= 1) {
+            stager += 1;
+            telemetry.addData("shifted", "up");
+            timer.reset();
+        } else if (gamepad1.dpad_left && timer.time() >= 1) {
+            stager -= 1;
+            telemetry.addData("shifted", "down");
+            timer.reset();
+        }
+        if (stager > 3) {
+            stager = 3;
+        }
+        if (stager < 1) {
+            stager = 1;
+        }
+
+
+        if (gamepad2.y == true) {
+
+            elbow.setPosition(.5);
+
+        } else if (gamepad2.x == true) {
+            elbow.setPosition(1);
+        }
 
         /*
          above we run the init function from our parent class, this _init function is the same
@@ -199,6 +293,8 @@ Also, above is the the shifter for the drive train that allows the drive train t
                 telemetry.addData("arm", "retracting");
             }
 
+        moveNet(stager);
+
         /*
             In the above 16 lines, we have telemetry data for the main arm.
             There is also controls for the main arm rotation as well as
@@ -241,7 +337,7 @@ Also, above is the the shifter for the drive train that allows the drive train t
                 rightGo.setPosition(.8);
             }
 
-
+        moveNet(stager);
         /*
             The above 13 lines contr0ols the two zip-line trippers.
          */
@@ -253,7 +349,7 @@ Also, above is the the shifter for the drive train that allows the drive train t
                 hook.setPosition(1);
             }
 
-
+        moveNet(stager);
         }
 
     }
