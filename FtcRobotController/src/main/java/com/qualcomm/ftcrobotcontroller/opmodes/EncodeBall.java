@@ -63,9 +63,7 @@ public class EncodeBall extends LinearOpMode {
         } else if (stateOne == false && stateTwo == false) {
             currentPos = 3;
         }
-        else if(stateOne ==true && stateTwo == true){
-            currentPos = 0;
-        }
+
 
         return currentPos;
 
@@ -77,7 +75,7 @@ public class EncodeBall extends LinearOpMode {
 
         currentPos = updateState();
 
-        if (stager > currentPos || currentPos == 0) {
+        if (stager > currentPos)  {
             swoop.setPosition(0);
 
         }
