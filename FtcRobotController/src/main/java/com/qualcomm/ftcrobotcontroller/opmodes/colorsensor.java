@@ -16,6 +16,7 @@ public class colorsensor extends LinearOpMode {
     String notteamcolor = "blue";
     Servo leftarm;
     Servo rightarm;
+    //Servo screw;
     DcMotor motor1;
     DcMotor motor2;
     DcMotor motor3;
@@ -108,7 +109,7 @@ public class colorsensor extends LinearOpMode {
 
             telemetry.addData("state", "both arms extended");
             leftarm.setPosition(.7);
-            rightarm.setPosition(.9);
+            rightarm.setPosition(0);
             telemetry.addData("state", "moving foward");
             motor1.setPower(.3);
             motor2.setPower(.3);
@@ -128,7 +129,7 @@ public class colorsensor extends LinearOpMode {
             if (whatColorIsLeft == teamcolor) {
 
                 telemetry.addData("state", "preparing left arm to hit team color");
-                rightarm.setPosition(0);
+                rightarm.setPosition(1);
 
 
             } else if (whatColorIsLeft == notteamcolor) {
