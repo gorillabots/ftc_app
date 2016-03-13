@@ -22,6 +22,8 @@ public class colorsensor extends LinearOpMode {
     DcMotor motor4;
     DcMotor motor5;
     DcMotor motor6;
+    String whatColorIsLeft;
+    String whatColorIsFloor;
 
     /**
      * team color is red for this program
@@ -35,10 +37,12 @@ public class colorsensor extends LinearOpMode {
         Floorcolor.setI2cAddress(62);
         Leftcolor.enableLed(false);
         Floorcolor.enableLed(true);
+        telemetry.addData("state","setup color sensors");
         leftarm = hardwareMap.servo.get("extend");
-        leftarm.setPosition(1);
+        leftarm.setPosition(0);
         rightarm = hardwareMap.servo.get("swing");
         rightarm.setPosition(1);
+        telemetry.addData("sate","setup servos");
         motor1 = hardwareMap.dcMotor.get("motor1");
         motor2 = hardwareMap.dcMotor.get("motor2");
         motor3 = hardwareMap.dcMotor.get("motor3");
@@ -88,21 +92,23 @@ public class colorsensor extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        telemetry.addData("state","going into init");
         _init();
         telemetry.addData("state", "setting up sensors");
+        waitForStart();
         while (opModeIsActive()) {
 
 
-            String whatColorIsLeft = getBeaconcolor(Leftcolor);
-            String whatColorIsFloor = getFloorcolor();
+            whatColorIsLeft = getBeaconcolor(Leftcolor);
+            whatColorIsFloor = getFloorcolor();
             telemetry.addData("Leftbeacon_color", whatColorIsLeft);
             telemetry.addData("Floor_color", whatColorIsFloor);
             telemetry.addData("extend", leftarm.getPosition());
             telemetry.addData("swing", rightarm.getPosition());
 
             telemetry.addData("state", "both arms extended");
-            leftarm.setPosition(.5);
-            rightarm.setPosition(.5);
+            leftarm.setPosition(.7);
+            rightarm.setPosition(.9);
             telemetry.addData("state", "moving foward");
             motor1.setPower(.3);
             motor2.setPower(.3);
@@ -122,12 +128,12 @@ public class colorsensor extends LinearOpMode {
             if (whatColorIsLeft == teamcolor) {
 
                 telemetry.addData("state", "preparing left arm to hit team color");
-                rightarm.setPosition(1);
+                rightarm.setPosition(0);
 
 
             } else if (whatColorIsLeft == notteamcolor) {
                 telemetry.addData("state", "preparing right arm to hit team color");
-                leftarm.setPosition(1);
+                leftarm.setPosition(0);
 
                 
 

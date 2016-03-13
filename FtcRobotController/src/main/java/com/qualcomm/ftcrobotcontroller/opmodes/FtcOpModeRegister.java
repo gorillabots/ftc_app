@@ -63,7 +63,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("BLUE AUTO TRAP", BlueAutoTrap.class);
     manager.register("RED AUTO TRAP", RedAutoTrap .class);
 
-    manager.register("BLUE AUTO ", CoolerBlueAuto.class);
+   // manager.register("BLUE AUTO ", CoolerBlueAuto.class);
     manager.register("RED AUTO ", CoolerRedAuto.class);
 
     manager.register("colorTest ", colorsensor.class);
