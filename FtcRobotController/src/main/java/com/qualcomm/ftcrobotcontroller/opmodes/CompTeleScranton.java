@@ -114,7 +114,6 @@ public class CompTeleScranton extends OpMode {
 
     public void moveNet(double stager) {
 
-        updateState();
 
         currentPos = updateState();
 
@@ -125,7 +124,7 @@ public class CompTeleScranton extends OpMode {
 //
         //          swoop.setPosition(1);
         else if (stager == currentPos) {
-            swoop.setPosition(.50196078);
+            swoop.setPosition(.502);
 
         }
 
@@ -160,10 +159,11 @@ public class CompTeleScranton extends OpMode {
         motor3.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motor4.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
-        pivot.setPosition(.77);
+        pivot.setPosition(.9);
         screw.setPosition(.5);
         leftGo.setPosition(0.0);
         rightGo.setPosition(.8);
+
         //  swoop.setPosition(.5);
         //   elbow.setPosition(1);
         drive = 1;
@@ -174,10 +174,12 @@ public class CompTeleScranton extends OpMode {
 
         stager = 1;
         elbow.setPosition(1);
-        swoop.setPosition(0.50196078);
+        swoop.setPosition(0.502);
 
         timer = new ElapsedTime();
         timer.startTime();
+
+        hook.setPosition(1);
     }
     @Override
     public void loop() {
@@ -185,7 +187,6 @@ public class CompTeleScranton extends OpMode {
 
 
         updateState();
-        moveNet(stager);
         telemetry.addData("stager", stager);
         telemetry.addData("current", currentPos);
         telemetry.addData("timer", timer.toString());
@@ -242,7 +243,7 @@ public class CompTeleScranton extends OpMode {
             motor4.setPower((gamepad1.left_stick_y* -1*drive*direction));
             motor3.setPower((gamepad1.left_stick_y* -1*drive*direction));
             motor2.setPower((gamepad1.right_stick_y*drive*direction));
-            motor1.setPower((gamepad1.left_stick_y*drive*direction ));
+            motor1.setPower((gamepad1.right_stick_y*drive*direction ));
 
 
             if (gamepad1.right_bumper == true && shiftHelp.time() >= 1) {
@@ -293,7 +294,7 @@ Also, above is the the shifter for the drive train that allows the drive train t
                 telemetry.addData("arm", "retracting");
             }
 
-        moveNet(stager);
+
 
         /*
             In the above 16 lines, we have telemetry data for the main arm.
@@ -344,12 +345,9 @@ Also, above is the the shifter for the drive train that allows the drive train t
 
 
             if (gamepad1.a == true) {
-                hook.setPosition(0.0);
+                hook.setPosition(0);
             } else {
-                hook.setPosition(1);
+                hook.setPosition(1.0);
             }
-
-        moveNet(stager);
         }
-
     }
