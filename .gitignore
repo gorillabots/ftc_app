@@ -1,6 +1,7 @@
 # built application files
 *.apk
 *.ap_
+!apk_backup/**
 
 # Java class files
 *.class
@@ -21,6 +22,7 @@ Thumbs.db
 # Android Studio
 *.iml
 .idea
+*.swp
 .gradle
 build/
 *ASUS_PC_01*
