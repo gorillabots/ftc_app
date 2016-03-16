@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.UltrasonicSensor;
  */
 
 // Do this one
-public class CoolerRedAuto extends LinearOpMode{
+public class RedAutoTrap extends LinearOpMode{
     ColorSensor color;
     UltrasonicSensor distance;
     UltrasonicSensor distance2;
@@ -89,7 +89,7 @@ public class CoolerRedAuto extends LinearOpMode{
         stop_robot(1000);
     }
 
-    void your_mom() throws InterruptedException{
+    void correct() throws InterruptedException{
         while(distance.getUltrasonicLevel() > distance2.getUltrasonicLevel()){
             motor1.setPower(-0.1);
             motor2.setPower(-0.1);
@@ -170,7 +170,7 @@ public class CoolerRedAuto extends LinearOpMode{
             }
             turn_left(0.3, 500);
             stop_robot(500);
-            backward(0.25, 2900);
+            backward(0.25, 2200);
             stop_robot(500);
             turn_left(0.3,450);
             stop_robot(500);

@@ -3,11 +3,12 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * Created by Jarred on 10/18/2015.
  */
-public class CompTele extends OpMode {
+public class Comp2Red extends OpMode {
 
     DcMotor motor1;
     DcMotor motor2;
@@ -19,24 +20,30 @@ public class CompTele extends OpMode {
     Servo screw;
     Servo pivot;
     Servo rightGo;
+    Servo tape;
+    Servo rotate;
+    Servo tilt;
     //Servo leftGo;
+
+    int direction;
+    TouchSensor limit;
 /* in lines 10 through ______ we declare the use of differenr motors.
 */
 
-
+/*
     public void driveSide(String side, float power) {
         if (side == "left") {
-            motor1.setPower((double) power);
+      //      motor1.setPower((double) power);
             motor2.setPower((double) power);
 
 
         } else {
-            motor3.setPower((double) power);
+        //    motor3.setPower((double) power);
             motor4.setPower((double) power);
 
         }
+*/
 
-    }
  /* the above custom metheod is meant to allow us to use the motors that are connected to the the wheels by side without having to
     declare the motor values individually */
 
@@ -50,14 +57,25 @@ public class CompTele extends OpMode {
         motor6 = hardwareMap.dcMotor.get("motor6");
         pivot = hardwareMap.servo.get("pivot");
         screw = hardwareMap.servo.get("screw");
-  //      leftGo = hardwareMap.servo.get("backGo");
+     //   leftGo = hardwareMap.servo.get("backGo");
         rightGo = hardwareMap.servo.get("frontGo");
+        limit = hardwareMap.touchSensor.get("limit");
+
+        tape = hardwareMap.servo.get("tape");
+        tilt = hardwareMap.servo.get("tilt");
+        rotate = hardwareMap.servo.get("rotate");
+
+        tape.setPosition(.5);
+        rotate.setPosition(.5);
+        tilt.setPosition(.5);
 
         double drive = 1;
-        pivot.setPosition(Servo.MAX_POSITION);
-        screw.setPosition(.5);
+        direction = 1;
 
-      //  leftGo.setPosition(0);
+        screw.setPosition(.5);
+    pivot.setPosition(.7777777);
+
+        //leftGo.setPosition(0);
         rightGo.setPosition(.8);
 
     }
@@ -67,11 +85,23 @@ public class CompTele extends OpMode {
      */
     @Override
     public void loop() {
-            telemetry.addData("drive is ", drive);
-            telemetry.addData("screw", screw.getDirection());
-            telemetry.addData("pivot is at", pivot.getPosition());
-            //telemetry.addData("left toucher is at ", leftGo.getPosition() );
-            telemetry.addData("right toucher is at", rightGo.getPosition());
+        telemetry.addData("drive is ", drive);
+        telemetry.addData("screw", screw.getDirection());
+        telemetry.addData("pivot is at", pivot.getPosition());
+        //telemetry.addData("left toucher is at ", leftGo.getPosition() );
+        telemetry.addData("right toucher is at", rightGo.getPosition());
+        telemetry.addData("tape (P1.Y=0 | P1.A=1)", tape.getPosition());
+        telemetry.addData("rotate (P2.dLeft=0 | P2.dRight=1)", rotate.getPosition());
+        telemetry.addData("tilt (P2.B=0 | P2.X=0)", tilt.getPosition());
+
+
+        if(direction == 1){
+            telemetry.addData("direction","forward");
+        }
+        if(direction == -1){
+            telemetry.addData("direction","reverse");
+
+        }
 
 
         float throttleLeft = gamepad1.left_stick_y;
@@ -80,12 +110,10 @@ public class CompTele extends OpMode {
         //float speedTwo = gamepad1.right_trigger;
         //boolean  speedThree = gamepad1.left_bumper;
         //float speedFour = gamepad1.left_trigger;
-
-        motor4.setPower((throttleLeft * drive  * -1));
-        motor3.setPower((throttleLeft * drive  * -1));
-        motor2.setPower((throttleRight * drive));
-        motor1.setPower((throttleRight * drive));
-
+        motor4.setPower((gamepad1.left_stick_y * drive  * -1)*direction );
+        motor3.setPower((throttleLeft * drive  * -1)*direction);
+        motor2.setPower((gamepad1.right_stick_y * drive)*direction );
+        motor1.setPower((throttleRight * drive)*direction);
 
 
 
@@ -132,14 +160,33 @@ above is the code that is used to drive the robot using the left and right stick
             drive = .25;
         }
 
+
+        if(gamepad1.dpad_up == true){
+            direction = 1;
+        }
+
+        else if(gamepad1.dpad_down == true){
+            direction = -1;
+        }
+
 /*
 Above is the the shifter for the drive train that allows the drive train to run at 4 different speeds with the default speed being .5
  */
-        float armExtend = gamepad2.right_stick_y;
+        int armExtend = Math.round(gamepad2.right_stick_y);
         float armRotate = gamepad2.left_stick_y;
 
-        motor5.setPower(armExtend);
-        motor6.setPower(armRotate);
+        if(limit.isPressed()== true){
+
+            motor6.setPower(((Math.abs(gamepad2.right_stick_y)))/2);
+        }
+        else{
+
+
+            motor6.setPower(armExtend);
+
+
+        }
+        motor5.setPower(armRotate);
 
         if (armExtend >= .25) {
             telemetry.addData("arm", "extending");
@@ -151,7 +198,7 @@ Above is the the shifter for the drive train that allows the drive train to run 
 
 
         if (gamepad2.right_bumper == true) {
-            pivot.setPosition(Servo.MAX_POSITION);
+            pivot.setPosition(.81);
         }
 
         if (gamepad2.right_trigger >= .75) {
@@ -160,10 +207,54 @@ Above is the the shifter for the drive train that allows the drive train to run 
 
         if (gamepad2.left_bumper == true) {
             screw.setPosition(0.0);
-        } else if (gamepad2.left_trigger >= .75) {
+        } else //if (gamepad2.left_trigger >= .75)
+         {
             telemetry.addData("screw", "off");
             screw.setPosition(.5);
         }
+
+
+        if (gamepad1.a == true) {
+            tape.setPosition(0);
+
+        }
+        else if (gamepad1.y == true) {
+            tape.setPosition(1);
+        }
+        else {
+            tape.setPosition(.5);
+        }
+
+
+        if (gamepad2.b == true) {
+            tilt.setPosition(0);
+
+
+        }
+        else if (gamepad2.x == true) {
+
+            tilt.setPosition(1);
+
+        }
+        else {
+            tilt.setPosition(.5);
+        }
+
+
+        if (gamepad2.dpad_right == true) {
+
+            rotate.setPosition(0);
+
+        }
+        else if (gamepad2.dpad_left == true) {
+
+            rotate.setPosition(1);
+
+        }
+        else {
+            rotate.setPosition(.5);
+        }
+
 
 
         /*
@@ -174,35 +265,37 @@ Above is the the shifter for the drive train that allows the drive train to run 
 
 
 
-            //if (gamepad1.left_trigger >= .5) {
+//        if (gamepad1.left_trigger >= .5) {
 
-           // leftGo.setPosition(gamepad1.left_trigger*.6);
-             //} else {
-              //  leftGo.setPosition(.0);
+  //          leftGo.setPosition(gamepad1.left_trigger*.6);
+    //    } else {
+      //      leftGo.setPosition(.0);
 
-            //}
-            if (gamepad1.right_trigger >= .5) {
-                rightGo.setPosition((gamepad1.right_trigger * -.7) +.8);
+        //}
+        if (gamepad1.right_trigger >= .5) {
+            rightGo.setPosition((gamepad1.right_trigger * -.7) +.7);
 
-            }
-            else {
-                rightGo.setPosition(0.8);
-            }
+        }
+        else {
+            rightGo.setPosition(0.8);
+        }
 
+/*
+        if(gamepad1.x == true) {
+            leftGo.setPosition(.6);
+        }
 
-            //if(gamepad1.x == true) {
-              //  leftGo.setPosition(.6);
-            //}
-
-            if(gamepad1.a == true) {
-                rightGo.setPosition(.2);
-            }
+        if(gamepad1.a == true) {
+            rightGo.setPosition(.2);
+        }
+  */
         /*
         The above 4 if statements control the pokers. The pokers flip the levers controlling the zip line.
          They can be controlled with the x and a buttons or for more precise control
 
+
          */
 
-        }
-
     }
+
+}

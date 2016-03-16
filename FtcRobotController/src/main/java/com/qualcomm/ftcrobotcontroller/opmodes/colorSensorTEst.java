@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by emper on 11/1/2015.
  */
-public class colorsensor extends LinearOpMode {
+public class colorSensorTEst extends LinearOpMode {
     ColorSensor Leftcolor;
     ColorSensor Floorcolor;
     String teamcolor = "red";
@@ -129,7 +129,7 @@ public class colorsensor extends LinearOpMode {
                 telemetry.addData("state", "preparing right arm to hit team color");
                 leftarm.setPosition(1);
 
-                
+
 
             } else {
                 telemetry.addData("state", "stopped because no beacon found");

@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.UltrasonicSensor;
  */
 
 // Do this one
-public class CoolerRedAuto extends LinearOpMode{
+public class BlueAutoTrap extends LinearOpMode{
     ColorSensor color;
     UltrasonicSensor distance;
     UltrasonicSensor distance2;
@@ -24,8 +24,8 @@ public class CoolerRedAuto extends LinearOpMode{
     DcMotor motor5;
     DcMotor motor6;
     Servo screw;
+    Servo leftGo;
     Servo pivot;
-    Servo rightGo;
     Servo tape;
     Servo rotate;
     Servo tilt;
@@ -118,6 +118,7 @@ public class CoolerRedAuto extends LinearOpMode{
         color = hardwareMap.colorSensor.get("color");//beacon sensor
         screw = hardwareMap.servo.get("screw");
         pivot = hardwareMap.servo.get("pivot");
+        leftGo = hardwareMap.servo.get("backGo");
         distance = hardwareMap.ultrasonicSensor.get("distance");
         distance2 = hardwareMap.ultrasonicSensor.get("distance2");
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -128,10 +129,9 @@ public class CoolerRedAuto extends LinearOpMode{
         motor2.setChannelMode(RunMode.RUN_USING_ENCODERS);
         motor3.setChannelMode(RunMode.RUN_USING_ENCODERS);
         motor4.setChannelMode(RunMode.RUN_USING_ENCODERS);
-        rightGo = hardwareMap.servo.get("frontGo");
         pivot.setPosition(.77);
         screw.setPosition(.5);
-        rightGo.setPosition(.8);
+        leftGo.setPosition(0.0);
 
 
         tape = hardwareMap.servo.get("tape");
@@ -142,6 +142,7 @@ public class CoolerRedAuto extends LinearOpMode{
         rotate.setPosition(.5);
         tilt.setPosition(.5);
 
+
     }
 
     @Override
@@ -149,6 +150,7 @@ public class CoolerRedAuto extends LinearOpMode{
         _init();
         waitForStart();
         while (opModeIsActive()) {
+            screw.setPosition(.5);
             backward(0.25, 1300);
             stop_robot(1000);
             while (true) {
@@ -168,16 +170,13 @@ public class CoolerRedAuto extends LinearOpMode{
                     stop_robot(100);
                 }
             }
-            turn_left(0.3, 500);
+            turn_right(0.3, 500);
             stop_robot(500);
-            backward(0.25, 2900);
+            backward(0.25, 2200);
             stop_robot(500);
-            turn_left(0.3,450);
+            turn_right(0.3,450);
             stop_robot(500);
             backward(0.1,1000);
-            //pivot.setPosition(0.5);
-            //pivot.setPosition(0.0);
-            //pivot.setPosition(1.0);
             while (true){
                 stop_robot(500);
                 telemetry.addData("blue", color.blue());

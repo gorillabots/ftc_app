@@ -33,6 +33,10 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
+
+/**
+ * Register Op Modes
+ */
 public class FtcOpModeRegister implements OpModeRegister {
 
   /**
@@ -50,18 +54,28 @@ public class FtcOpModeRegister implements OpModeRegister {
      *
      * If two or more op modes are registered with the same name, the app will display an error.
      */
+    manager.register("color test M", colorSensorTEst.class);
+    manager.register("left", left.class);
 
-    manager.register("SensorTest", SensorTest.class);
-    manager.register("Utica_Autonomous_Blue", Utica_Autonomous_Blue.class);
+    manager.register("Comp Red",Comp2Red.class);
+    manager.register("Comp Blue", CompBlue.class);
 
+    manager.register("BLUE AUTO TRAP", BlueAutoTrap.class);
+    manager.register("RED AUTO TRAP", RedAutoTrap .class);
 
+    manager.register("BLUE AUTO ", CoolerBlueAuto.class);
+    manager.register("RED AUTO ", CoolerRedAuto.class);
 
+    manager.register("colorTest ", colorsensor.class);
+    manager.register("15sec.test", fifteensecs.class);
+    manager.register("Robot self-test",Comp_Tst.class);
 
-    /*
-     * Uncomment any of the following lines if you want to register an op mode.
-     */
-    manager.register("CoolerBlueAuto", CoolerBlueAuto.class);
+    manager.register("encodeBALLLLLLLL",EncodeBall.class);
 
+    manager.register("balling",BALL.class);
+    manager.register("Swooper",ArmFInd.class);
 
+    manager.register("scranton",CompTeleScranton.class);
+    manager.register("hook",hook.class);
   }
 }

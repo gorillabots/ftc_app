@@ -1,30 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <Robot>
-    <LegacyModuleController name="Legacy Module 2" serialNumber="AL00VB9Q">
-        <ColorSensor name="color2" port="1" />
+    <MotorController name="Motor Controller 4" serialNumber="AL00YC5R">
+    </MotorController>
+    <LegacyModuleController name="Legacy Module 3" serialNumber="AL00VB9Q">
         <UltrasonicSensor name="distance" port="4" />
+        <UltrasonicSensor name="distance2" port="5" />
     </LegacyModuleController>
-    <MotorController name="Motor Controller 3" serialNumber="AL00YC5Z">
+    <MotorController name="Motor Controller 2" serialNumber="AL00YC5Z">
         <Motor name="motor3" port="1" />
         <Motor name="motor4" port="2" />
     </MotorController>
-    <MotorController name="Motor Controller 2" serialNumber="AL00YC5R">
-        <Motor name="motor5" port="1" />
-        <Motor name="motor6" port="2" />
-    </MotorController>
     <DeviceInterfaceModule name="Device Interface Module 1" serialNumber="AL00VCQT">
-        <Gyro name="gyro" port="4" />
-        <ColorSensor name="color" port="5" />
-        <OpticalDistanceSensor name="light" port="0" />
-        <TouchSensor name="limit" port="0" />
+        <AnalogInput name="A0" port="0" />
+        <AnalogInput name="A1" port="1" />
     </DeviceInterfaceModule>
+    <ServoController name="Servo Controller 1" serialNumber="AL00VUJS">
+        <Servo name="swoop" port="1" />
+        <Servo name="elbow" port="2" />
+    </ServoController>
     <MotorController name="Motor Controller 6" serialNumber="AL00VTH7">
         <Motor name="motor1" port="1" />
         <Motor name="motor2" port="2" />
     </MotorController>
     <ServoController name="Servo Controller 5" serialNumber="AL00VBC0">
-        <Servo name="swoop" port="1" />
-        <Servo name="wlboq" port="2" />
-
     </ServoController>
 </Robot>
