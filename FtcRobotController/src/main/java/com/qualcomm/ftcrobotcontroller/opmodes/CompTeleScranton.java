@@ -36,7 +36,7 @@ public class CompTeleScranton extends OpMode {
     Servo pivot;
     Servo swoop;
     Servo elbow;
-    Servo hook;
+
 
     //TouchSensor posOne;
     //TouchSensor posTwo;
@@ -111,6 +111,10 @@ public class CompTeleScranton extends OpMode {
         return currentPos;
 
     }
+    /*
+    The above method checks the states of both of the limit switches
+    It then interprets these states into positions.
+     */
 
     public void moveNet(double stager) {
 
@@ -129,6 +133,10 @@ public class CompTeleScranton extends OpMode {
         }
 
     }
+    /*
+    The above custom method compares the current position and the needed
+     position of the debris scoop to decide if the scoop needs to be rotated.
+     */
 
     public void init() {
         motor1 = hardwareMap.dcMotor.get("motor1");//motor1 on AL00VTH7
@@ -149,7 +157,7 @@ public class CompTeleScranton extends OpMode {
         posOne = hardwareMap.analogInput.get("A0");
         posTwo = hardwareMap.analogInput.get("A1");
         limit = hardwareMap.touchSensor.get("limit");
-        hook = hardwareMap.servo.get("hook");
+
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor2.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor3.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -172,14 +180,18 @@ public class CompTeleScranton extends OpMode {
         shiftHelp = new ElapsedTime();
         shiftHelp .startTime();
 
-        stager = 1;
-        elbow.setPosition(1);
+        stager = 2;
+        elbow.setPosition(.823);
         swoop.setPosition(0.502);
 
         timer = new ElapsedTime();
         timer.startTime();
 
-        hook.setPosition(1);
+
+        /*
+        Above we align all of our motors, servos, and sensors, to the config file and set all of the
+        timers and servos to their required starting positions.
+         */
     }
     @Override
     public void loop() {
@@ -209,19 +221,26 @@ public class CompTeleScranton extends OpMode {
             stager = 1;
         }
 
+        /*
+        Above is the stage shifter for the debris scoop. It prevents the need stage
+        value from exceeding it's range. There is also a timer that prevents the robot from
+        moving multiple stages when a button is pressed.
+
+         */
 
         if (gamepad2.y == true) {
 
-            elbow.setPosition(.5);
+            elbow.setPosition(.286);
 
-        } else if (gamepad2.x == true) {
-            elbow.setPosition(1);
+        } else if (gamepad2.x == true && currentPos == 2) {
+            elbow.setPosition(.823);
         }
 
         /*
-         above we run the init function from our parent class, this _init function is the same
-        function used across all of the competetition
-          */
+        Above is the controls for the servo that lifts and drops the debris scoop. However id the
+        scoop is not at position 2, the scoop will not be lifted into the robot. This prevents
+         damage to the scoop.
+         */
 
 
             telemetry.addData("drive is ", drive);
@@ -313,8 +332,9 @@ Also, above is the the shifter for the drive train that allows the drive train t
 
             if (gamepad2.left_bumper == true) {
                 screw.setPosition(0.0);
-            } else if (gamepad2.left_trigger >= .75) {
-                telemetry.addData("screw", "off");
+            }
+            else {
+
                 screw.setPosition(.5);
             }
 
@@ -337,17 +357,15 @@ Also, above is the the shifter for the drive train that allows the drive train t
             else{
                 rightGo.setPosition(.8);
             }
-
-        moveNet(stager);
-        /*
-            The above 13 lines contr0ols the two zip-line trippers.
+ /*
+            The abovelines controls the two zip-line trippers.
          */
 
+        moveNet(stager);
 
-            if (gamepad1.a == true) {
-                hook.setPosition(0);
-            } else {
-                hook.setPosition(1.0);
-            }
+        // Above we call for the position of the scoop to be checks and for needed
+        //actions be taken to fix it's position
+
+
         }
     }
