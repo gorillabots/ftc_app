@@ -1,0 +1,12 @@
+Connect the Robot Controller phone via USB.
+In a new window, open My Computer > phone > Internal Storage > downloads
+Copy the backup apk from this folder into the phone's downloads folder
+
+You can unplug the phone at this point,
+
+On the phone, open the File Explorer and run the new apk file from the downloads folder
+
+1 ) If a warning pops up about unsecured app installs press accept.
+2 ) If you get a message "app install failed", go to settings > apps, uninstall the Robot Controller app and try again
+
+The backup should now be installed

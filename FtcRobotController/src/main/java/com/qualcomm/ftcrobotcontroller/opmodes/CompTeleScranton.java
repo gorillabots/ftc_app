@@ -36,7 +36,7 @@ public class CompTeleScranton extends OpMode {
     Servo pivot;
     Servo swoop;
     Servo elbow;
-    Servo hook;
+
 
     //TouchSensor posOne;
     //TouchSensor posTwo;
@@ -111,10 +111,13 @@ public class CompTeleScranton extends OpMode {
         return currentPos;
 
     }
+    /*
+    The above method checks the states of both of the limit switches
+    It then interprets these states into positions.
+     */
 
     public void moveNet(double stager) {
 
-        updateState();
 
         currentPos = updateState();
 
@@ -125,11 +128,15 @@ public class CompTeleScranton extends OpMode {
 //
         //          swoop.setPosition(1);
         else if (stager == currentPos) {
-            swoop.setPosition(.50196078);
+            swoop.setPosition(.502);
 
         }
 
     }
+    /*
+    The above custom method compares the current position and the needed
+     position of the debris scoop to decide if the scoop needs to be rotated.
+     */
 
     public void init() {
         motor1 = hardwareMap.dcMotor.get("motor1");//motor1 on AL00VTH7
@@ -150,7 +157,7 @@ public class CompTeleScranton extends OpMode {
         posOne = hardwareMap.analogInput.get("A0");
         posTwo = hardwareMap.analogInput.get("A1");
         limit = hardwareMap.touchSensor.get("limit");
-        hook = hardwareMap.servo.get("hook");
+
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor2.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor3.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -160,10 +167,11 @@ public class CompTeleScranton extends OpMode {
         motor3.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motor4.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
-        pivot.setPosition(.77);
+        pivot.setPosition(.9);
         screw.setPosition(.5);
         leftGo.setPosition(0.0);
         rightGo.setPosition(.8);
+
         //  swoop.setPosition(.5);
         //   elbow.setPosition(1);
         drive = 1;
@@ -172,12 +180,18 @@ public class CompTeleScranton extends OpMode {
         shiftHelp = new ElapsedTime();
         shiftHelp .startTime();
 
-        stager = 1;
-        elbow.setPosition(1);
-        swoop.setPosition(0.50196078);
+        stager = 2;
+        elbow.setPosition(.823);
+        swoop.setPosition(0.502);
 
         timer = new ElapsedTime();
         timer.startTime();
+
+
+        /*
+        Above we align all of our motors, servos, and sensors, to the config file and set all of the
+        timers and servos to their required starting positions.
+         */
     }
     @Override
     public void loop() {
@@ -185,7 +199,6 @@ public class CompTeleScranton extends OpMode {
 
 
         updateState();
-        moveNet(stager);
         telemetry.addData("stager", stager);
         telemetry.addData("current", currentPos);
         telemetry.addData("timer", timer.toString());
@@ -208,19 +221,26 @@ public class CompTeleScranton extends OpMode {
             stager = 1;
         }
 
+        /*
+        Above is the stage shifter for the debris scoop. It prevents the need stage
+        value from exceeding it's range. There is also a timer that prevents the robot from
+        moving multiple stages when a button is pressed.
+
+         */
 
         if (gamepad2.y == true) {
 
-            elbow.setPosition(.5);
+            elbow.setPosition(.286);
 
-        } else if (gamepad2.x == true) {
-            elbow.setPosition(1);
+        } else if (gamepad2.x == true && currentPos == 2) {
+            elbow.setPosition(.823);
         }
 
         /*
-         above we run the init function from our parent class, this _init function is the same
-        function used across all of the competetition
-          */
+        Above is the controls for the servo that lifts and drops the debris scoop. However id the
+        scoop is not at position 2, the scoop will not be lifted into the robot. This prevents
+         damage to the scoop.
+         */
 
 
             telemetry.addData("drive is ", drive);
@@ -242,7 +262,7 @@ public class CompTeleScranton extends OpMode {
             motor4.setPower((gamepad1.left_stick_y* -1*drive*direction));
             motor3.setPower((gamepad1.left_stick_y* -1*drive*direction));
             motor2.setPower((gamepad1.right_stick_y*drive*direction));
-            motor1.setPower((gamepad1.left_stick_y*drive*direction ));
+            motor1.setPower((gamepad1.right_stick_y*drive*direction ));
 
 
             if (gamepad1.right_bumper == true && shiftHelp.time() >= 1) {
@@ -276,15 +296,16 @@ Also, above is the the shifter for the drive train that allows the drive train t
  with the default speed being 1. There is also a default direction toggle that controls which way the robot
   is moving when the y values of the joysticks on the first controller are positive.
  */
-            int armExtend = Math.round(gamepad2.right_stick_y);
-            float armRotate = gamepad2.left_stick_y;
+            int armExtend = Math.round(gamepad2.left_stick_y);
+            float armRotate = gamepad2.right_stick_y;
 
             if (limit.isPressed() == true) {
-                motor5.setPower((-1 * (Math.abs(gamepad2.right_stick_y))) / 2);
+                motor6.setPower((-1 *(Math.abs(gamepad2.right_stick_y))) / 2);
             } else {
-                motor5.setPower(armExtend);
+                motor6.setPower(armExtend);
             }
-            motor6.setPower(armRotate);
+
+            motor5.setPower(armRotate);
 
             if (armExtend >= .25) {
                 telemetry.addData("arm", "extending");
@@ -293,7 +314,7 @@ Also, above is the the shifter for the drive train that allows the drive train t
                 telemetry.addData("arm", "retracting");
             }
 
-        moveNet(stager);
+
 
         /*
             In the above 16 lines, we have telemetry data for the main arm.
@@ -312,8 +333,9 @@ Also, above is the the shifter for the drive train that allows the drive train t
 
             if (gamepad2.left_bumper == true) {
                 screw.setPosition(0.0);
-            } else if (gamepad2.left_trigger >= .75) {
-                telemetry.addData("screw", "off");
+            }
+            else {
+
                 screw.setPosition(.5);
             }
 
@@ -323,7 +345,7 @@ Also, above is the the shifter for the drive train that allows the drive train t
         */
 
             if (gamepad1.left_trigger >= .5) {
-                leftGo.setPosition((gamepad1.left_trigger * .62));
+                leftGo.setPosition((gamepad1.left_trigger * .82));
                 telemetry.addData("P1.LT Pressed", "true");
             } else {
                 telemetry.addData("P1.LT Pressed", "false");
@@ -331,25 +353,20 @@ Also, above is the the shifter for the drive train that allows the drive train t
             }
 
             if(gamepad1.right_trigger >= .5) {
-                rightGo.setPosition((gamepad1.right_trigger * -.7) + .8);
+                rightGo.setPosition((gamepad1.right_trigger * -.7) + .9);
             }
             else{
                 rightGo.setPosition(.8);
             }
-
-        moveNet(stager);
-        /*
-            The above 13 lines contr0ols the two zip-line trippers.
+ /*
+            The abovelines controls the two zip-line trippers.
          */
 
-
-            if (gamepad1.a == true) {
-                hook.setPosition(0.0);
-            } else {
-                hook.setPosition(1);
-            }
-
         moveNet(stager);
-        }
 
+        // Above we call for the position of the scoop to be checks and for needed
+        //actions be taken to fix it's position
+
+
+        }
     }

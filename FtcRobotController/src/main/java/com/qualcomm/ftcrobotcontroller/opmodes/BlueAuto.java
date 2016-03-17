@@ -7,22 +7,20 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorController.RunMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
-import com.qualcomm.robotcore.hardware.GyroSensor;
+
 /**
  * Created by emper on 12/11/2015.
  */
-public class HelloWorld extends LinearOpMode {
+public class BlueAuto extends LinearOpMode {
     ColorSensor color;
     UltrasonicSensor distance;
     UltrasonicSensor distance2;
-    UltrasonicSensor distance3;
     DcMotor motor1;
     DcMotor motor2;
     DcMotor motor3;
     DcMotor motor4;
     DcMotor motor5;
     DcMotor motor6;
-    GyroSensor gyro;
     Servo screw;
     Servo pivot;
     void turn_left(double power, long time) throws InterruptedException {
@@ -110,9 +108,9 @@ public class HelloWorld extends LinearOpMode {
         motor4 = hardwareMap.dcMotor.get("motor4");//motor4 on AL00YC5Z
         motor5 = hardwareMap.dcMotor.get("motor5");
         motor6 = hardwareMap.dcMotor.get("motor6");
+        color = hardwareMap.colorSensor.get("color");//beacon sensor
         screw = hardwareMap.servo.get("screw");
         pivot = hardwareMap.servo.get("pivot");
-        gyro = hardwareMap.gyroSensor.get("gyro");
         distance = hardwareMap.ultrasonicSensor.get("distance");
         distance2 = hardwareMap.ultrasonicSensor.get("distance2");
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -132,9 +130,19 @@ public class HelloWorld extends LinearOpMode {
         _init();
         waitForStart();
         while (opModeIsActive()) {
-            while(true) {
-                turn_right(0.2, 100);
-                telemetry.addData("rotation", gyro.getRotation());
+            backward(0.25, 1300);
+            stop_robot(500);
+            turn_right(0.3, 550);
+            stop_robot(500);
+            backward(0.25, 3400);
+            stop_robot(500);
+            turn_right(0.3, 625);
+            stop_robot(500);
+            backward(0.1,800);
+            while (true){
+                stop_robot(500);
+                telemetry.addData("blue", color.blue());
+                telemetry.addData("red", color.red());
             }
         }
     }

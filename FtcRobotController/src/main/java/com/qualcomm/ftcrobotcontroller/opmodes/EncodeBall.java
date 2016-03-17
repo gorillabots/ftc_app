@@ -44,6 +44,7 @@ public class EncodeBall extends LinearOpMode {
 
 
 
+
     public int updateState() {
 
         stateOneTest = posOne.getValue();
@@ -71,15 +72,16 @@ public class EncodeBall extends LinearOpMode {
 
     public void moveNet(double stager) throws  InterruptedException{
 
-        updateState();
+
 
         currentPos = updateState();
 
-        if (stager > currentPos)  {
+        if (stager != currentPos)  {
             swoop.setPosition(0);
 
         }
-        else  {
+        else if(currentPos == stager )  {
+            telemetry.addData("stopper",stopper);
             swoop.setPosition(stopper);
 
         }
@@ -102,8 +104,9 @@ public class EncodeBall extends LinearOpMode {
         motor3 = hardwareMap.dcMotor.get("motor3");
         motor4 = hardwareMap.dcMotor.get("motor4");
 
-        stopper = 0.50196078;
+        //stopper = 0.52;
 
+        stopper =.502;
         updateState();
 
         stager = 1;
@@ -121,8 +124,6 @@ public class EncodeBall extends LinearOpMode {
         _init();
         waitForStart();
         while (opModeIsActive()) {
-
-            updateState();
             moveNet(stager);
             telemetry.addData("stager", stager);
             telemetry.addData("current", currentPos);
@@ -134,9 +135,19 @@ public class EncodeBall extends LinearOpMode {
                 telemetry.addData("shifted", "up");
                 timer.reset();
             }
+            if (gamepad2.left_bumper && timer.time() >= 1) {
+                stager -= 1;
+                telemetry.addData("shifted", "down");
+                timer.reset();
+            }
             if (stager > 3) {
                 stager = 3;
             }
+
+        if(stager<1){
+
+            stager =1;
+        }
 
             if (gamepad2.y == true) {
                 elbow.setPosition(.5);
@@ -144,12 +155,19 @@ public class EncodeBall extends LinearOpMode {
                 elbow.setPosition(1);
             }
 
-            motor4.setPower((gamepad1.left_stick_y));
-            motor3.setPower((gamepad1.left_stick_y));
+            motor4.setPower((gamepad1.left_stick_y*-1));
+            motor3.setPower((gamepad1.left_stick_y*-1));
             motor2.setPower((gamepad1.right_stick_y));
             motor1.setPower((gamepad1.right_stick_y));
 
-            moveNet(stager);
+            if(gamepad2.dpad_up==true && timer.time() > 1 ){
+                stopper += .0001;
+                timer.reset();
+                    }
+            if(gamepad2.dpad_down==true && timer.time() > 1 ){
+                stopper -= .0001;
+                timer.reset();
+            }
 
         }
     }
