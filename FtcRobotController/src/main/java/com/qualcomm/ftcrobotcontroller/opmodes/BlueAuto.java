@@ -9,13 +9,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
 /**
- * Created by emper on 1/9/2016.
+ * Created by emper on 12/11/2015.
  */
-
-// Do this one
-public class BlueAuto extends LinearOpMode{
-    double d1;
-    double d2;
+public class BlueAuto extends LinearOpMode {
     ColorSensor color;
     UltrasonicSensor distance;
     UltrasonicSensor distance2;
@@ -25,13 +21,8 @@ public class BlueAuto extends LinearOpMode{
     DcMotor motor4;
     DcMotor motor5;
     DcMotor motor6;
-    Servo elbow;
-    /*Servo screw;
-    Servo leftGo;
+    Servo screw;
     Servo pivot;
-    Servo tape;
-    Servo rotate;
-    Servo tilt;*/
     void turn_left(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
         motor2.setPower(-power);
@@ -54,6 +45,7 @@ public class BlueAuto extends LinearOpMode{
         motor3.setPower(power);
         motor4.setPower(power);
     }
+
     void forward_with_time(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
         motor2.setPower(-power);
@@ -117,12 +109,10 @@ public class BlueAuto extends LinearOpMode{
         motor5 = hardwareMap.dcMotor.get("motor5");
         motor6 = hardwareMap.dcMotor.get("motor6");
         color = hardwareMap.colorSensor.get("color");//beacon sensor
-        //screw = hardwareMap.servo.get("screw");
-        //pivot = hardwareMap.servo.get("pivot");
-        //leftGo = hardwareMap.servo.get("backGo");
+        screw = hardwareMap.servo.get("screw");
+        pivot = hardwareMap.servo.get("pivot");
         distance = hardwareMap.ultrasonicSensor.get("distance");
         distance2 = hardwareMap.ultrasonicSensor.get("distance2");
-        elbow = hardwareMap.servo.get("elbow");
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor2.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor3.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -131,18 +121,8 @@ public class BlueAuto extends LinearOpMode{
         motor2.setChannelMode(RunMode.RUN_USING_ENCODERS);
         motor3.setChannelMode(RunMode.RUN_USING_ENCODERS);
         motor4.setChannelMode(RunMode.RUN_USING_ENCODERS);
-        /*tape = hardwareMap.servo.get("tape");
-        tilt = hardwareMap.servo.get("tilt");
-        rotate = hardwareMap.servo.get("rotate");
-
-        tape.setPosition(.5);
-        rotate.setPosition(.5);
-        tilt.setPosition(.5);
-        pivot.setPosition(.77);
+        pivot.setPosition(Servo.MAX_POSITION);
         screw.setPosition(.5);
-        leftGo.setPosition(0.0);
-*/
-        elbow.setPosition(.823);
     }
 
     @Override
@@ -151,37 +131,18 @@ public class BlueAuto extends LinearOpMode{
         waitForStart();
         while (opModeIsActive()) {
             backward(0.25, 1300);
-            stop_robot(1000);
-            while (true) {
-                stop_robot(30);
-                d1 = distance.getUltrasonicLevel();
-                d2 = distance2.getUltrasonicLevel();
-                telemetry.addData("distance", d1);
-                telemetry.addData("distance2", d2);
-                if (d2 == d1 && d1 != 0 && d2 != 0) {
-                    telemetry.addData("State", "About to finish aligning");
-                    break;
-                } else if (d2 < d1 && d1 != 0 && d2 != 0) {
-                    telemetry.addData("State", "About to turn left");
-                    turn_left(0.08, 100);
-                    stop_robot(10);
-                } else if (d1 < d2 && d1 != 0 && d2 != 0) {
-                    telemetry.addData("State", "About to turn right");
-                    turn_right(0.08, 100);
-                    stop_robot(10);
-                }
-            }
-            turn_right(0.3, 500);
             stop_robot(500);
-            backward(0.25, 2900);
+            turn_right(0.3, 550);
             stop_robot(500);
-            turn_right(0.3,450);
+            backward(0.25, 3400);
             stop_robot(500);
-            backward(0.1,900);
+            turn_right(0.3, 625);
+            stop_robot(500);
+            backward(0.1,800);
             while (true){
                 stop_robot(500);
-                telemetry.addData("Batman ", "was here");
-                // Made by Joshua Kartzman
+                telemetry.addData("blue", color.blue());
+                telemetry.addData("red", color.red());
             }
         }
     }

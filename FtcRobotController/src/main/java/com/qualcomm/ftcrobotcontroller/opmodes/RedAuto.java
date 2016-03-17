@@ -1,4 +1,5 @@
 
+
         package com.qualcomm.ftcrobotcontroller.opmodes;
         import com.qualcomm.robotcore.eventloop.opmode.OpMode;
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -15,7 +16,7 @@
  */
 
 // Do this one
-public class RedAuto extends LinearOpMode{
+public class RedAuto extends LinearOpMode {
     double d1;
     double d2;
     ColorSensor color;
@@ -73,6 +74,7 @@ public class RedAuto extends LinearOpMode{
         motor4.setPower(power);
         sleep(time);
     }
+
     void backward(double power, long time) throws InterruptedException {
         motor1.setPower(power);
         motor2.setPower(power);
@@ -97,25 +99,25 @@ public class RedAuto extends LinearOpMode{
         sleep(time);
     }
 
-    void startup() throws InterruptedException{
+    void startup() throws InterruptedException {
         backward(0.175, 1500);
         stop_robot(1000);
     }
 
-    void your_mom() throws InterruptedException{
-        while(distance.getUltrasonicLevel() > distance2.getUltrasonicLevel()){
+    void your_mom() throws InterruptedException {
+        while (distance.getUltrasonicLevel() > distance2.getUltrasonicLevel()) {
             motor1.setPower(-0.1);
             motor2.setPower(-0.1);
             motor3.setPower(-0.1);
             motor4.setPower(-0.1);
         }
-        while(distance.getUltrasonicLevel() < distance2.getUltrasonicLevel()){
+        while (distance.getUltrasonicLevel() < distance2.getUltrasonicLevel()) {
             motor1.setPower(0.1);
             motor2.setPower(0.1);
             motor3.setPower(0.1);
             motor4.setPower(0.1);
         }
-        if(distance.getUltrasonicLevel() == distance2.getUltrasonicLevel()){
+        if (distance.getUltrasonicLevel() == distance2.getUltrasonicLevel()) {
 
             stop_robot(5000000);
         }
@@ -165,6 +167,7 @@ public class RedAuto extends LinearOpMode{
 
         }
     }
+
     public void _init() {
         motor1 = hardwareMap.dcMotor.get("motor1");//motor1 on AL00VTH7
         motor2 = hardwareMap.dcMotor.get("motor2");//motor2 on AL00VTH7
@@ -190,7 +193,7 @@ public class RedAuto extends LinearOpMode{
 
         elbow.setPosition(.823);
 
-        stager=2;
+        stager = 2;
         updateState();
 
     }
@@ -200,12 +203,10 @@ public class RedAuto extends LinearOpMode{
         _init();
         waitForStart();
         while (opModeIsActive()) {
-           //putsleetHEREEEEEEE
+            //putsleetHEREEEEEEE
 
             elbow.setPosition(.286);
             moveNet(1);
-
-
 
 
             backward(0.25, 1300);
@@ -233,13 +234,13 @@ public class RedAuto extends LinearOpMode{
             stop_robot(500);
             backward(0.25, 2900);
             stop_robot(500);
-            turn_left(0.3,450);
+            turn_left(0.3, 450);
             stop_robot(500);
-            backward(0.1,900);
+            backward(0.1, 900);
             //pivot.setPosition(0.5);
             //pivot.setPosition(0.0);
             //pivot.setPosition(1.0);
-            while (true){
+            while (true) {
                 stop_robot(500);
                 telemetry.addData("Batman ", "was here");
                 //Made by Joshua Kartzman
