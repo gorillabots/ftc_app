@@ -296,15 +296,16 @@ Also, above is the the shifter for the drive train that allows the drive train t
  with the default speed being 1. There is also a default direction toggle that controls which way the robot
   is moving when the y values of the joysticks on the first controller are positive.
  */
-            int armExtend = Math.round(gamepad2.right_stick_y);
-            float armRotate = gamepad2.left_stick_y;
+            int armExtend = Math.round(gamepad2.left_stick_y);
+            float armRotate = gamepad2.right_stick_y;
 
             if (limit.isPressed() == true) {
-                motor5.setPower((-1 * (Math.abs(gamepad2.right_stick_y))) / 2);
+                motor6.setPower((-1 *(Math.abs(gamepad2.right_stick_y))) / 2);
             } else {
-                motor5.setPower(armExtend);
+                motor6.setPower(armExtend);
             }
-            motor6.setPower(armRotate);
+
+            motor5.setPower(armRotate);
 
             if (armExtend >= .25) {
                 telemetry.addData("arm", "extending");
@@ -344,7 +345,7 @@ Also, above is the the shifter for the drive train that allows the drive train t
         */
 
             if (gamepad1.left_trigger >= .5) {
-                leftGo.setPosition((gamepad1.left_trigger * .62));
+                leftGo.setPosition((gamepad1.left_trigger * .82));
                 telemetry.addData("P1.LT Pressed", "true");
             } else {
                 telemetry.addData("P1.LT Pressed", "false");
@@ -352,7 +353,7 @@ Also, above is the the shifter for the drive train that allows the drive train t
             }
 
             if(gamepad1.right_trigger >= .5) {
-                rightGo.setPosition((gamepad1.right_trigger * -.7) + .8);
+                rightGo.setPosition((gamepad1.right_trigger * -.7) + .9);
             }
             else{
                 rightGo.setPosition(.8);
