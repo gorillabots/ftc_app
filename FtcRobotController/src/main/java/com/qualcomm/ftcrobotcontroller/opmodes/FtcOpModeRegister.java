@@ -54,6 +54,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      *
      * If two or more op modes are registered with the same name, the app will display an error.
      */
+    /*
     manager.register("color test M", colorSensorTEst.class);
     manager.register("left", left.class);
 
@@ -74,8 +75,13 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("balling",BALL.class);
     manager.register("Swooper",ArmFInd.class);
-
+*/
     manager.register("scranton",CompTeleScranton.class);
-    manager.register("hook",hook.class);
+    manager.register("RedAuto",RedAuto.class);
+      manager.register("RedAutoSleep",RedAutoSleep.class);
+      manager.register("BLueAuto",BlueAuto.class);
+      manager.register("BlutAutoSleep",BlueAutoSleep.class);
+
+    //manager.register("hook",hook.class);
   }
 }
