@@ -36,6 +36,7 @@ public class CompTeleScranton extends OpMode {
     Servo pivot;
     Servo swoop;
     Servo elbow;
+    Servo extend;
 
 
     //TouchSensor posOne;

@@ -304,6 +304,8 @@ public class RedAuto extends LinearOpMode {
             turn_left(0.3, 450);
             stop_robot(500);
             backward(0.1, 900);
+
+            stop_robot(1000);
 /**
  * check color for floor--> if not white, don't do anything
  *

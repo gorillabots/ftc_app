@@ -42,9 +42,9 @@ public class colorsensor extends LinearOpMode {
         Floorcolor.enableLed(true);
         telemetry.addData("state","setup color sensors");
         leftarm = hardwareMap.servo.get("extend");
-        leftarm.setPosition(0);
+        leftarm.setPosition(.6);
         rightarm = hardwareMap.servo.get("swing");
-        rightarm.setPosition(1);
+        rightarm.setPosition(.55);
         telemetry.addData("sate","setup servos");
         motor1 = hardwareMap.dcMotor.get("motor1");
         motor2 = hardwareMap.dcMotor.get("motor2");
@@ -119,57 +119,6 @@ public class colorsensor extends LinearOpMode {
             whatColorIsFloor = getFloorcolor();
             telemetry.addData("Leftbeacon_color", whatColorIsLeft);
             telemetry.addData("Floor_color", whatColorIsFloor);
-            telemetry.addData("extend", leftarm.getPosition());
-            telemetry.addData("swing", rightarm.getPosition());
-
-            telemetry.addData("state", "both arms extended");
-            leftarm.setPosition(.6);
-            sleep(1000);
-            whatColorIs1Left = getBeaconcolor(Leftcolor);
-            leftarm.setPosition(.55);
-            sleep(1000);
-            whatColorIs2Left = getBeaconcolor(Leftcolor);
-            leftarm.setPosition(.6);
-            sleep(1000);
-
-
-            //rightarm.setPosition(1);
-
-            telemetry.addData("state", "moving foward");
-            motor1.setPower(.3);
-            motor2.setPower(.3);
-            motor3.setPower(-.3);
-            motor4.setPower(-.3);
-            sleep(100);
-            telemetry.addData("state", "stopped to check color");
-
-            motor1.setPower(0);
-            motor2.setPower(0);
-            motor3.setPower(0);
-            motor4.setPower(0);
-
-            whatColorIsLeft = getBeaconcolor(Leftcolor);
-            whatColorIsFloor = getFloorcolor();
-
-            if (whatColorIsLeft == teamcolor) {
-
-                telemetry.addData("state", "preparing left arm to hit team color");
-               rightarm.setPosition(1);
-
-
-
-            } else if (whatColorIsLeft == notteamcolor) {
-                telemetry.addData("state", "preparing right arm to hit team color");
-               leftarm.setPosition(0);
-
-
-            } else {
-                telemetry.addData("state", "stopped because no beacon found");
-            }
-            while(true){
-                sleep(100);
-            }
-            }
-    }
-
+        }
+}
 }

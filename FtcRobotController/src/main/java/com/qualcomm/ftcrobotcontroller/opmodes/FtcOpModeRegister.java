@@ -81,6 +81,8 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("RedAutoSleep",RedAutoSleep.class);
       manager.register("BLueAuto",BlueAuto.class);
       manager.register("BlutAutoSleep",BlueAutoSleep.class);
+      manager.register("colorsensor",BlueAutoSleep.class);
+
 
     //manager.register("hook",hook.class);
   }
