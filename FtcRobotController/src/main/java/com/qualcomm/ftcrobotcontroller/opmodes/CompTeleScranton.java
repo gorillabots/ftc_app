@@ -65,7 +65,7 @@ public class CompTeleScranton extends OpMode {
     int stateOneTest;
     int stateTwoTest;
 
-    Servo rightarm;
+    Servo extend;
 /*
     above we declare all of the variables, sensors, and motors, we are using
  */
@@ -159,7 +159,7 @@ public class CompTeleScranton extends OpMode {
         posOne = hardwareMap.analogInput.get("A0");
         posTwo = hardwareMap.analogInput.get("A1");
         limit = hardwareMap.touchSensor.get("limit");
-        rightarm = hardwareMap.servo.get("leftarm");
+        extend = hardwareMap.servo.get("swing");
 
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor2.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -173,8 +173,9 @@ public class CompTeleScranton extends OpMode {
         pivot.setPosition(.9);
         screw.setPosition(.5);
         leftGo.setPosition(0.0);
+        rightGo.setPosition(.8);
 
-        rightarm.setPosition(1);
+        extend.setPosition(1);
 
         //  swoop.setPosition(.5);
         //   elbow.setPosition(1);
