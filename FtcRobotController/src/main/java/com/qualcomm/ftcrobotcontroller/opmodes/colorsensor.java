@@ -162,7 +162,6 @@ public class colorsensor extends LinearOpMode {
                 telemetry.addData("state", "preparing right arm to hit team color");
                leftarm.setPosition(0);
 
-                
 
             } else {
                 telemetry.addData("state", "stopped because no beacon found");
