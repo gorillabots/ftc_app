@@ -16,12 +16,17 @@ public class colorsensor extends LinearOpMode {
     String notteamcolor = "blue";
     Servo leftarm;
     Servo rightarm;
+    //Servo screw;
     DcMotor motor1;
     DcMotor motor2;
     DcMotor motor3;
     DcMotor motor4;
     DcMotor motor5;
     DcMotor motor6;
+    String whatColorIsLeft;
+    String whatColorIs1Left;
+    String whatColorIs2Left;
+    String whatColorIsFloor;
 
     /**
      * team color is red for this program
@@ -35,10 +40,12 @@ public class colorsensor extends LinearOpMode {
         Floorcolor.setI2cAddress(62);
         Leftcolor.enableLed(false);
         Floorcolor.enableLed(true);
+        telemetry.addData("state","setup color sensors");
         leftarm = hardwareMap.servo.get("extend");
-        leftarm.setPosition(1);
+        leftarm.setPosition(0);
         rightarm = hardwareMap.servo.get("swing");
         rightarm.setPosition(1);
+        telemetry.addData("sate","setup servos");
         motor1 = hardwareMap.dcMotor.get("motor1");
         motor2 = hardwareMap.dcMotor.get("motor2");
         motor3 = hardwareMap.dcMotor.get("motor3");
@@ -57,17 +64,23 @@ public class colorsensor extends LinearOpMode {
     public String getFloorcolor() {
         String currentcolor = "none";
 
+        telemetry.addData("floorcolor-red",Floorcolor.red());
+        telemetry.addData("floorcolor-blue",Floorcolor.blue());
+        telemetry.addData("floorcolor-green",Floorcolor.green());
         if (Floorcolor.red() > Floorcolor.green() && Floorcolor.red() > Floorcolor.blue() && Floorcolor.green() >= Floorcolor.blue()) {
             currentcolor = "red";
         }
-
+        telemetry.addData("floorcolor-red",Floorcolor.red());
+        telemetry.addData("floorcolor-blue",Floorcolor.blue());
+        telemetry.addData("floorcolor-green",Floorcolor.green());
         if (Floorcolor.red() < Floorcolor.green() && Floorcolor.blue() < Floorcolor.green() && Floorcolor.red() == Floorcolor.blue()) {
             currentcolor = "blue";
         }
+        if (Floorcolor.blue() < Floorcolor.red() && Floorcolor.red() < Floorcolor.green() && Floorcolor.green() < Floorcolor.alpha()){
+            currentcolor = "alpha";
+        }
         return currentcolor;
-
     }
-
 
     /**
      * retruns red or blue or none depending on what color is read from the beacon sensor.
@@ -77,32 +90,51 @@ public class colorsensor extends LinearOpMode {
     public String getBeaconcolor(ColorSensor color) {
         String currentcolor = "none";
 
+        telemetry.addData("beconcolor-red",color.red());
+        telemetry.addData("beconcolor-blue",color.blue());
+        telemetry.addData("beconcolor-green",color.green());
         if (color.red() > color.blue() && color.red() > color.green() && color.green() == color.blue()) {
             currentcolor = "red";
         }
+        telemetry.addData("beaconcolor-red",color.red());
+        telemetry.addData("beconcolor-blue",color.blue());
+        telemetry.addData("beconcolor-green",color.green());
         if (color.red() < color.blue() && color.green() < color.blue() && color.blue() > 1) {
             currentcolor = "blue";
         }
+
         return currentcolor;
     }
 
     @Override
     public void runOpMode() throws InterruptedException {
+        telemetry.addData("state","going into init");
         _init();
         telemetry.addData("state", "setting up sensors");
+        waitForStart();
         while (opModeIsActive()) {
 
 
-            String whatColorIsLeft = getBeaconcolor(Leftcolor);
-            String whatColorIsFloor = getFloorcolor();
+            whatColorIsLeft = getBeaconcolor(Leftcolor);
+            whatColorIsFloor = getFloorcolor();
             telemetry.addData("Leftbeacon_color", whatColorIsLeft);
             telemetry.addData("Floor_color", whatColorIsFloor);
             telemetry.addData("extend", leftarm.getPosition());
             telemetry.addData("swing", rightarm.getPosition());
 
             telemetry.addData("state", "both arms extended");
-            leftarm.setPosition(.5);
-            rightarm.setPosition(.5);
+            leftarm.setPosition(.6);
+            sleep(1000);
+            whatColorIs1Left = getBeaconcolor(Leftcolor);
+            leftarm.setPosition(.55);
+            sleep(1000);
+            whatColorIs2Left = getBeaconcolor(Leftcolor);
+            leftarm.setPosition(.6);
+            sleep(1000);
+
+
+            //rightarm.setPosition(1);
+
             telemetry.addData("state", "moving foward");
             motor1.setPower(.3);
             motor2.setPower(.3);
@@ -122,23 +154,23 @@ public class colorsensor extends LinearOpMode {
             if (whatColorIsLeft == teamcolor) {
 
                 telemetry.addData("state", "preparing left arm to hit team color");
-                rightarm.setPosition(1);
+               rightarm.setPosition(1);
+
 
 
             } else if (whatColorIsLeft == notteamcolor) {
                 telemetry.addData("state", "preparing right arm to hit team color");
-                leftarm.setPosition(1);
+               leftarm.setPosition(0);
 
                 
 
             } else {
                 telemetry.addData("state", "stopped because no beacon found");
             }
-            while (true) {
-                sleep(1000);
-
+            while(true){
+                sleep(100);
             }
-        }
+            }
     }
 
 }
