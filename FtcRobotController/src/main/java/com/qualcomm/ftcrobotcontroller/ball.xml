@@ -11,10 +11,10 @@
         <Motor name="motor4" port="2" />
     </MotorController>
     <DeviceInterfaceModule name="Device Interface Module 1" serialNumber="AL00VCQT">
-        <AnalogInput name="A0" port="0" />
-        <AnalogInput name="A1" port="1" />
+
     </DeviceInterfaceModule>
-    <ServoController name="Servo Controller 1" serialNumber="AL00VUJS">
+    <Servo<AnalogInput name="A0" port="0" />
+    <AnalogInput name="A1" port="1" />Controller name="Servo Controller 1" serialNumber="AL00VUJS">
         <Servo name="swoop" port="1" />
         <Servo name="elbow" port="2" />
     </ServoController>

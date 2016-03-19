@@ -29,8 +29,13 @@ public class RedAuto extends LinearOpMode {
     DcMotor motor4;
     DcMotor motor5;
     DcMotor motor6;
+    Servo leftGo;
+    Servo rightGo;
+    Servo pivot;
     Servo swoop;
+    Servo screw;
     Servo elbow;
+
     boolean stateOne;
     boolean stateTwo;
     ColorSensor Leftcolor;
@@ -236,6 +241,10 @@ public class RedAuto extends LinearOpMode {
         distance2 = hardwareMap.ultrasonicSensor.get("distance2");
         swoop = hardwareMap.servo.get("swoop");
         elbow = hardwareMap.servo.get("elbow");
+        screw = hardwareMap.servo.get("screw");
+        pivot = hardwareMap.servo.get("pivot");
+        leftGo = hardwareMap.servo.get("backGo");
+        rightGo =hardwareMap.servo.get("frontGo");
         posOne = hardwareMap.analogInput.get("A0");
         posTwo = hardwareMap.analogInput.get("A1");
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -258,9 +267,13 @@ public class RedAuto extends LinearOpMode {
         rightarm = hardwareMap.servo.get("swing");
         rightarm.setPosition(1);
         telemetry.addData("sate", "setup servos");
-        elbow.setPosition(.823);
-
+        pivot.setPosition(.9);
+        screw.setPosition(.5);
+        leftGo.setPosition(0.0);
+        rightGo.setPosition(.8);
         stager = 2;
+        elbow.setPosition(.823);
+        swoop.setPosition(0.502);
         updateState();
 
     }

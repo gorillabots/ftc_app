@@ -30,13 +30,14 @@ public class CompTeleScranton extends OpMode {
 
     ColorSensor color;
 
-    Servo screw;
+
     Servo leftGo;
     Servo rightGo;
     Servo pivot;
     Servo swoop;
+    Servo screw;
     Servo elbow;
-    Servo extend;
+    //Servo extend;
 
 
     //TouchSensor posOne;

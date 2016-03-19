@@ -21,7 +21,7 @@ public class ServoFinder_V2 extends OpMode{
     public void loop(){
 
 
-            telemetry.addData("hook", hook.getPosition());
+            telemetry.addData("hooks", hook.getPosition());
 
             hook.setPosition(Math.abs(gamepad1.left_stick_y));
 

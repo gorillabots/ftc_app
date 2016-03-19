@@ -19,6 +19,8 @@ public class BlueAuto extends LinearOpMode{
     ColorSensor color;
     UltrasonicSensor distance;
     UltrasonicSensor distance2;
+
+    double stager;
     DcMotor motor1;
     DcMotor motor2;
     DcMotor motor3;
@@ -40,7 +42,15 @@ public class BlueAuto extends LinearOpMode{
     String whatColorIsLeft;
     String whatColorIs1Left;
     String whatColorIs2Left;
+    Servo leftGo;
+    Servo rightGo;
+    Servo pivot;
+    Servo swoop;
+    Servo screw;
+    Servo elbow;
     String whatColorIsFloor;
+
+
 
     void turn_left(double power, long time) throws InterruptedException {
         motor1.setPower(-power);
@@ -175,6 +185,12 @@ public class BlueAuto extends LinearOpMode{
         //leftGo = hardwareMap.servo.get("backGo");
         distance = hardwareMap.ultrasonicSensor.get("distance");
         distance2 = hardwareMap.ultrasonicSensor.get("distance2");
+        screw = hardwareMap.servo.get("screw");
+        pivot = hardwareMap.servo.get("pivot");
+        leftGo = hardwareMap.servo.get("backGo");
+        rightGo =hardwareMap.servo.get("frontGo");
+        swoop = hardwareMap.servo.get("swoop");
+        elbow = hardwareMap.servo.get("elbow");
         motor1.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor2.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor3.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -194,6 +210,10 @@ public class BlueAuto extends LinearOpMode{
         leftarm.setPosition(0);
         rightarm = hardwareMap.servo.get("swing");
         rightarm.setPosition(1);
+        pivot.setPosition(.9);
+        screw.setPosition(.5);
+        leftGo.setPosition(0.0);
+        rightGo.setPosition(.8);
         /*tape = hardwareMap.servo.get("tape");
         tilt = hardwareMap.servo.get("tilt");
         rotate = hardwareMap.servo.get("rotate");
@@ -204,7 +224,9 @@ public class BlueAuto extends LinearOpMode{
         pivot.setPosition(.77);
         screw.setPosition(.5);
         leftGo.setPosition(0.0);
-*/
+*/      stager = 2;
+        elbow.setPosition(.823);
+        swoop.setPosition(0.502);
     }
 
     @Override
