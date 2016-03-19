@@ -352,7 +352,7 @@ Also, above is the the shifter for the drive train that allows the drive train t
         */
 
             if (gamepad1.left_trigger >= .5) {
-                leftGo.setPosition((gamepad1.left_trigger * .82));
+                leftGo.setPosition((gamepad1.left_trigger * .9));
                 telemetry.addData("P1.LT Pressed", "true");
             } else {
                 telemetry.addData("P1.LT Pressed", "false");
